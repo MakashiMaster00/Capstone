@@ -34,10 +34,10 @@ CREATE TABLE properties (
 	city varchar(50) NOT NULL,
 	zip_code int NOT NULL,
 	price money NOT NUll,
-	date_available datetime NOT NULL,
+	date_available date NOT NULL,
 	available bit NOT NULL,
 	beds int NOT NULL,
-	baths decimal NOT NULL,
+	baths decimal(2,1) NOT NULL,
 	CONSTRAINT PK_property_id PRIMARY KEY (property_id),
 	CONSTRAINT FK_landlord_id FOREIGN KEY (landlord_id) REFERENCES users (user_id)
 )
@@ -48,5 +48,6 @@ INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg4
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
 
 --populate default data for properties
+INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'test', 'test adress', 'OH', 'test', '12345', 900, '08/02/2021', 1, 3, 2.5)
 
 GO
