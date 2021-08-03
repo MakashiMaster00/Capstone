@@ -6,7 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import Properties from '@/views/Properties.vue'
-
+import Card from '@/views/Card.vue'
 Vue.use(Router)
 
 /**
@@ -62,6 +62,12 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/property/:propertyId",
+      name: 'Card',
+      component: Card
+
+    }
   ]
 })
 

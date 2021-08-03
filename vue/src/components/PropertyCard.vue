@@ -2,12 +2,13 @@
     <div>
         <div>
             {{property.propertyId}}
+            
         </div>
     </div>
 </template>
 
 <script>
-import propertyService from "@/service/PropertyService.js";
+import propertyService from "@/services/PropertyService.js";
 
 
 export default {
