@@ -41,6 +41,14 @@ CREATE TABLE properties (
 	CONSTRAINT PK_property_id PRIMARY KEY (property_id),
 	CONSTRAINT FK_landlord_id FOREIGN KEY (landlord_id) REFERENCES users (user_id)
 )
+CREATE TABLE images (
+image_link varchar(50) NOT NULL,
+property_id int NOT NULL,
+image_id int NOT NULL,
+CONSTRAINT FK_property_id FOREIGN KEY (property_id) REFERENCES properties (property_id),
+CONSTRAINT PK_image_id PRIMARY KEY (image_id) 
+)
+
 --TODO Photo table links to property id
 
 --populate default data for users
