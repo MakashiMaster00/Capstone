@@ -9,5 +9,8 @@ namespace Capstone.DAO
         List<Property> GetProperties();
         Property GetProperty(int id);
         int AddProperty(Property property);
+        int UpdateProperty(Property property);
+        int DeleteProperty(int id);
     }
+
 }
