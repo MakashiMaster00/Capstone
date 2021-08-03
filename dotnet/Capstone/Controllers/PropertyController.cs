@@ -11,10 +11,12 @@ namespace Capstone.Controllers
     public class PropertyController : ControllerBase
     {
         private readonly IPropertyDao propertyDao;
+        private readonly IImageDao imageDao;
 
-        public PropertyController(IPropertyDao _propertyDao)
+        public PropertyController(IPropertyDao _propertyDao, IImageDao _imageDao)
         {
             propertyDao = _propertyDao;
+            imageDao = _imageDao;
         }
 
         [HttpGet]
@@ -101,7 +103,7 @@ namespace Capstone.Controllers
         [HttpGet("{id}/images")]
         public ActionResult<Property> GetImages(int id)
         {
-            List<Image> images = propertyDao.GetImages(id);
+            List<Image> images = imageDao.GetImages(id);
 
             if (images.Count != 0)
             {
@@ -113,11 +115,15 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult<int> AddImage(Image image)
+        [HttpPost("{id}/images")]
+        public ActionResult<int> AddImage(Image image, int id)
         {
-            int imageId = propertyDao.AddImages(image);
+            int imageId = 0;
 
+            if (id == image.PropertyId)
+            {
+                imageId = imageDao.AddImage(image);
+            }
             if (imageId != 0)
             {
                 return Ok(imageId);
@@ -128,14 +134,14 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPut("{id}/images")]
-        public IActionResult UpdateImage(Image image, int id)
+        [HttpPut("{id}/images/{imageId}")]
+        public IActionResult UpdateImage(Image image, int id, int imageId)
         {
             int successStatus = 0;
 
-            if (image.ImageId == id)
+            if (image.ImageId == imageId && id == image.PropertyId)
             {
-                successStatus = propertyDao.UpdateImages(image);
+                successStatus = imageDao.UpdateImage(image);
             }
             if (successStatus == 1)
             {
@@ -147,12 +153,12 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpDelete("{id}/images")]
-        public IActionResult DeleteImage(int id)
+        [HttpDelete("{id}/images/{imageId}")]
+        public IActionResult DeleteImage(int imageId)
         {
             int successStatus = 0;
 
-            successStatus = propertyDao.DeleteImages(id);
+            successStatus = imageDao.DeleteImage(imageId);
 
             if (successStatus == 1)
             {

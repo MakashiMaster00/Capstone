@@ -17,5 +17,6 @@ namespace Capstone.Models
         public bool Available { get; set; }
         public int Beds { get; set; }
         public double Baths { get; set; }
+        
     }
 }

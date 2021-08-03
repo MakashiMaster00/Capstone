@@ -7,8 +7,7 @@ namespace Capstone.Models
         public int ImageId { get; set; }
         public int PropertyId { get; set; }
         public string Link { get; set; }
-
-        public string Thumbnail { get; set; }
+        public bool Thumbnail { get; set; }
 
     }
 }

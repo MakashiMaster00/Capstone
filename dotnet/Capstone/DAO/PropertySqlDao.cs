@@ -197,8 +197,6 @@ namespace Capstone.DAO
         {
             // Used to count number of rows affected
             int success = 0;
-            Property property = null;
-            property = GetProperty(id);
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -218,6 +216,7 @@ namespace Capstone.DAO
 
             return success;
         }
+
         public Property GetPropertyFromReader(SqlDataReader reader)
         {
             Property p = new Property()
@@ -240,44 +239,5 @@ namespace Capstone.DAO
             return p;
         }
 
-        public List<Image> GetImages(int id)
-        {
-            List<Image> images = new List<Image>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string sql = "SELECT image_id, property_id, image_link " +
-                        "FROM images " +
-                        "WHERE property_id = @property_id";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@property_id", id);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        images.Add(GetImageFromReader(reader));
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-
-            return images;
-        }
-        public Image GetImageFromReader(SqlDataReader reader)
-        {
-            Image i = new Image()
-            {
-                ImageId = Convert.ToInt32(reader["image_id"]),
-                PropertyId = Convert.ToInt32(reader["property_id"]),
-                Link = Convert.ToString(reader["image_link"])
-            };
-         return i;
-        }
     }
 }
