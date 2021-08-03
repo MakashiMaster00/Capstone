@@ -44,7 +44,7 @@ CREATE TABLE properties (
 CREATE TABLE images (
 image_link varchar(50) NOT NULL,
 property_id int NOT NULL,
-image_id int NOT NULL,
+image_id int IDENTITY(1,1) NOT NULL,
 CONSTRAINT FK_property_id FOREIGN KEY (property_id) REFERENCES properties (property_id),
 CONSTRAINT PK_image_id PRIMARY KEY (image_id) 
 )
@@ -56,6 +56,10 @@ INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg4
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
 
 --populate default data for properties
-INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'test', 'test adress', 'OH', 'test', '12345', 900, '08/02/2021', 1, 3, 2.5)
+INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'test', 'test adress', 'OH', 'test', '12345', 900, '08/02/2021', 1, 3, 2.5);
+
+--populate default data for images
+INSERT INTO images (property_id, image_link) VALUES ('1', 'https://i.imgur.com/HiNohRo.jpeg');
+INSERT INTO images (property_id, image_link) VALUES ('1', 'https://i.imgur.com/fFdmrX4.jpeg');
 
 GO

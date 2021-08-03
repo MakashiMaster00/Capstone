@@ -103,25 +103,25 @@ namespace Capstone.DAO
                             "@description, @address_line_one, @city, @state_abbreviation, " +
                             "@zip_code, @price, @date_available, @available, @beds, @baths);";
                     }
-                        SqlCommand cmd = new SqlCommand(sql, conn);
+                    SqlCommand cmd = new SqlCommand(sql, conn);
 
-                        cmd.Parameters.AddWithValue("@landlord_id", property.LandlordId);
-                        cmd.Parameters.AddWithValue("@description", property.Description);
-                        cmd.Parameters.AddWithValue("@address_line_one", property.AddressLineOne);
+                    cmd.Parameters.AddWithValue("@landlord_id", property.LandlordId);
+                    cmd.Parameters.AddWithValue("@description", property.Description);
+                    cmd.Parameters.AddWithValue("@address_line_one", property.AddressLineOne);
                     if (property.AddressLineTwo != null)
                     {
                         cmd.Parameters.AddWithValue("@address_line_two", property.AddressLineTwo);
                     }
                     cmd.Parameters.AddWithValue("@city", property.City);
-                        cmd.Parameters.AddWithValue("@state_abbreviation", property.State);
-                        cmd.Parameters.AddWithValue("@zip_code", property.ZipCode);
-                        cmd.Parameters.AddWithValue("@price", property.Price);
-                        cmd.Parameters.AddWithValue("@date_available", property.DateAvailable);
-                        cmd.Parameters.AddWithValue("@available", property.Available);
-                        cmd.Parameters.AddWithValue("@beds", property.Beds);
-                        cmd.Parameters.AddWithValue("@baths", property.Baths);
+                    cmd.Parameters.AddWithValue("@state_abbreviation", property.State);
+                    cmd.Parameters.AddWithValue("@zip_code", property.ZipCode);
+                    cmd.Parameters.AddWithValue("@price", property.Price);
+                    cmd.Parameters.AddWithValue("@date_available", property.DateAvailable);
+                    cmd.Parameters.AddWithValue("@available", property.Available);
+                    cmd.Parameters.AddWithValue("@beds", property.Beds);
+                    cmd.Parameters.AddWithValue("@baths", property.Baths);
 
-                        propertyId = Convert.ToInt32(cmd.ExecuteScalar());
+                    propertyId = Convert.ToInt32(cmd.ExecuteScalar());
                     }
                 }
                 catch (SqlException)
@@ -240,5 +240,44 @@ namespace Capstone.DAO
             return p;
         }
 
+        public List<Image> GetImages(int id)
+        {
+            List<Image> images = new List<Image>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "SELECT image_id, property_id, image_link " +
+                        "FROM images " +
+                        "WHERE property_id = @property_id";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@property_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        images.Add(GetImageFromReader(reader));
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return images;
+        }
+        public Image GetImageFromReader(SqlDataReader reader)
+        {
+            Image i = new Image()
+            {
+                ImageId = Convert.ToInt32(reader["image_id"]),
+                PropertyId = Convert.ToInt32(reader["property_id"]),
+                Link = Convert.ToString(reader["image_link"])
+            };
+         return i;
+        }
     }
 }

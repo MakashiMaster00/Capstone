@@ -97,5 +97,20 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Property not successfully deleted." });
             }
         }
+
+        [HttpGet("{id}/images")]
+        public ActionResult<Property> GetImages(int id)
+        {
+            List<Image> images = propertyDao.GetImages(id);
+
+            if (images.Count != 0)
+            {
+                return Ok(images);
+            }
+            else
+            {
+                return BadRequest(new { message = "No images associated with that property id." });
+            }
+        }
     }
 }
