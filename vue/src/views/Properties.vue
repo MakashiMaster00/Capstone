@@ -1,10 +1,15 @@
 <template>
-  <div></div>
+  <div>
+      <properties />
+  </div>
 </template>
 
 <script>
+import properties from '@/components/PropertiesList.vue'
 export default {
-
+    components: {
+        properties
+    }
 }
 </script>
 

@@ -13,6 +13,7 @@ import propertyService from "@/services/PropertyService.js";
 
 export default {
     name: "property-detail",
+    props: ["prop"],
     methods: {
         retrieveProperty(){
             propertyService.getProperty(this.$route.params.propertyId)

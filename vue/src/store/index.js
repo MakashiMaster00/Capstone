@@ -20,7 +20,6 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    properties: [],
     property: {
       propertyId: 0,
       landlordId: 0,
@@ -35,7 +34,8 @@ export default new Vuex.Store({
       available: false,
       beds: 0,
       baths: 0
-    }
+    },
+    showForm: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

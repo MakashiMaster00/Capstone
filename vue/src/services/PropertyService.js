@@ -13,6 +13,10 @@ export default{
 
     getProperty(propertyId){
         return http.get(`/property/${propertyId}`);
+    },
+
+    addProperty(property) {
+        return http.post('/property', property)
     }
 
 }
