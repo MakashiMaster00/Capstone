@@ -62,5 +62,40 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateProperty(Property property, int id)
+        {
+            int successStatus = 0;
+
+            if (property.PropertyId == id)
+            {
+                successStatus = propertyDao.UpdateProperty(property);
+            }
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Property not successfully updated." });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProperty(int id)
+        {
+            int successStatus = 0;
+
+            successStatus = propertyDao.DeleteProperty(id);
+
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Property not successfully deleted." });
+            }
+        }
     }
 }

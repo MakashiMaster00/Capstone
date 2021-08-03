@@ -79,23 +79,100 @@ namespace Capstone.DAO
         {
             int propertyId = 0;
 
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                    string sql = "";
+
+                    if (property.AddressLineTwo != null)
+                    {
+                        sql = "INSERT INTO properties (landlord_id, description, address_line_one, " +
+                            "address_line_two, city, state_abbreviation, zip_code, price, date_available, " +
+                            "available, beds, baths) OUTPUT INSERTED.property_id VALUES (@landlord_id, " +
+                            "@description, @address_line_one, @address_line_two, @city, @state_abbreviation, " +
+                            "@zip_code, @price, @date_available, @available, @beds, @baths);";
+                    }
+                    else
+                    {
+                        sql = "INSERT INTO properties (landlord_id, description, address_line_one, " +
+                            "city, state_abbreviation, zip_code, price, date_available, " +
+                            "available, beds, baths) OUTPUT INSERTED.property_id VALUES (@landlord_id, " +
+                            "@description, @address_line_one, @city, @state_abbreviation, " +
+                            "@zip_code, @price, @date_available, @available, @beds, @baths);";
+                    }
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+
+                        cmd.Parameters.AddWithValue("@landlord_id", property.LandlordId);
+                        cmd.Parameters.AddWithValue("@description", property.Description);
+                        cmd.Parameters.AddWithValue("@address_line_one", property.AddressLineOne);
+                    if (property.AddressLineTwo != null)
+                    {
+                        cmd.Parameters.AddWithValue("@address_line_two", property.AddressLineTwo);
+                    }
+                    cmd.Parameters.AddWithValue("@city", property.City);
+                        cmd.Parameters.AddWithValue("@state_abbreviation", property.State);
+                        cmd.Parameters.AddWithValue("@zip_code", property.ZipCode);
+                        cmd.Parameters.AddWithValue("@price", property.Price);
+                        cmd.Parameters.AddWithValue("@date_available", property.DateAvailable);
+                        cmd.Parameters.AddWithValue("@available", property.Available);
+                        cmd.Parameters.AddWithValue("@beds", property.Beds);
+                        cmd.Parameters.AddWithValue("@baths", property.Baths);
+
+                        propertyId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+                catch (SqlException)
+                {
+                    throw;
+                }
+
+            return propertyId;
+        }
+
+        public int UpdateProperty(Property property)
+        {
+            // Will use to track the number of rows affected
+            int success = 0;
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "INSERT INTO properties (landlord_id, description, address_line_one, " +
-                        "address_line_two, city, state_abbreviation, zip_code, price, date_available, " +
-                        "available, beds, baths) OUTPUT INSERTED.property_id VALUES (@landlord_id, " +
-                        "@description, @address_line_one, @address_line_two, @city, @state_abbreviation, " +
-                        "@zip_code, @price, @date_available, @available, @beds, @baths);";
+
+                    string sql = "";
+
+                    if (property.AddressLineTwo != null)
+                    {
+                        sql = "UPDATE properties SET landlord_id = @landlord_id, " +
+                            "description = @description, address_line_one = @address_line_one, " +
+                            "address_line_two = @address_line_two, city = @city, " +
+                            "state_abbreviation = @state_abbreviation, zip_code = @zip_code, " +
+                            "price = @price, date_available = @date_available, available = @available, " +
+                            "beds = @beds, baths = @baths WHERE property_id = @property_id;";
+                    }
+                    else
+                    {
+                        sql = "UPDATE properties SET landlord_id = @landlord_id, " +
+                            "description = @description, address_line_one = @address_line_one, " +
+                            "address_line_two = NULL, city = @city, " +
+                            "state_abbreviation = @state_abbreviation, zip_code = @zip_code, " +
+                            "price = @price, date_available = @date_available, available = @available, " +
+                            "beds = @beds, baths = @baths WHERE property_id = @property_id;";
+                    }
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
+                    cmd.Parameters.AddWithValue("@property_id", property.PropertyId);
                     cmd.Parameters.AddWithValue("@landlord_id", property.LandlordId);
                     cmd.Parameters.AddWithValue("@description", property.Description);
                     cmd.Parameters.AddWithValue("@address_line_one", property.AddressLineOne);
-                    // TODO: Need to handle a null line two
-                    cmd.Parameters.AddWithValue("@address_line_two", property.AddressLineTwo);
+                    if (property.AddressLineTwo != null)
+                    {
+                        cmd.Parameters.AddWithValue("@address_line_two", property.AddressLineTwo);
+                    }
                     cmd.Parameters.AddWithValue("@city", property.City);
                     cmd.Parameters.AddWithValue("@state_abbreviation", property.State);
                     cmd.Parameters.AddWithValue("@zip_code", property.ZipCode);
@@ -105,7 +182,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@beds", property.Beds);
                     cmd.Parameters.AddWithValue("@baths", property.Baths);
 
-                    propertyId = Convert.ToInt32(cmd.ExecuteScalar());
+                    success = cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException)
@@ -113,9 +190,34 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return propertyId;
+            return success;
         }
 
+        public int DeleteProperty(int id)
+        {
+            // Used to count number of rows affected
+            int success = 0;
+            Property property = null;
+            property = GetProperty(id);
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "DELETE FROM properties " +
+                        "WHERE property_id = @property_id;";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@property_id", id);
+                    success = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return success;
+        }
         public Property GetPropertyFromReader(SqlDataReader reader)
         {
             Property p = new Property()
@@ -137,5 +239,6 @@ namespace Capstone.DAO
 
             return p;
         }
+
     }
 }
