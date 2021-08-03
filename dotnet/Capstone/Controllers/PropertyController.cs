@@ -112,5 +112,56 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "No images associated with that property id." });
             }
         }
+
+        [HttpPost]
+        public ActionResult<int> AddImage(Image image)
+        {
+            int imageId = propertyDao.AddImages(image);
+
+            if (imageId != 0)
+            {
+                return Ok(imageId);
+            }
+            else
+            {
+                return BadRequest(new { message = "Image not successfully created." });
+            }
+        }
+
+        [HttpPut("{id}/images")]
+        public IActionResult UpdateImage(Image image, int id)
+        {
+            int successStatus = 0;
+
+            if (image.ImageId == id)
+            {
+                successStatus = propertyDao.UpdateImages(image);
+            }
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Image not successfully updated." });
+            }
+        }
+
+        [HttpDelete("{id}/images")]
+        public IActionResult DeleteImage(int id)
+        {
+            int successStatus = 0;
+
+            successStatus = propertyDao.DeleteImages(id);
+
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Image not successfully deleted." });
+            }
+        }
     }
 }

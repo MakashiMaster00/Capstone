@@ -8,5 +8,7 @@ namespace Capstone.Models
         public int PropertyId { get; set; }
         public string Link { get; set; }
 
+        public string Thumbnail { get; set; }
+
     }
 }
