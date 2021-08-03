@@ -7,5 +7,7 @@ namespace Capstone.DAO
     public interface IPropertyDao
     {
         List<Property> GetProperties();
+        Property GetProperty(int id);
+        int AddProperty(Property property);
     }
 }

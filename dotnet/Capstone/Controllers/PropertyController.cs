@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
-    [Route("/properties")]
+    [Route("[controller]")]
     [ApiController]
     public class PropertyController : ControllerBase
     {
@@ -29,6 +29,36 @@ namespace Capstone.Controllers
             else
             {
                 return BadRequest(new { message = "No properties found" });
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Property> GetProperty(int id)
+        {
+            Property property = propertyDao.GetProperty(id);
+
+            if (property != null)
+            {
+                return Ok(property);
+            }
+            else
+            {
+                return BadRequest(new { message = "No property associated with that id." });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<int> AddProperty(Property property)
+        {
+            int propertyId = propertyDao.AddProperty(property);
+
+            if (propertyId != 0)
+            {
+                return Ok(propertyId);
+            }
+            else
+            {
+                return BadRequest(new { message = "Property not successfully created." });
             }
         }
 
