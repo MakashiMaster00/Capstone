@@ -11,6 +11,13 @@ namespace Capstone.DAO
         int AddProperty(Property property);
         int UpdateProperty(Property property);
         int DeleteProperty(int id);
+        List<Image> GetImages(int id);
+
+        int AddImages(Image image);
+
+        int UpdateImages(Image image);
+
+        int DeleteImages(int id);
     }
 
 }
