@@ -1,0 +1,22 @@
+import axios from 'axios';
+
+const http = axios.create({
+    baseURL: "https://localhost:44315"
+  });
+
+export default{
+
+    
+    getProperties(){
+        return http.get('/property');
+    },
+
+    getProperty(propertyId){
+        return http.get(`/property/${propertyId}`);
+    },
+
+    addProperty(property) {
+        return http.post('/property', property)
+    }
+
+}

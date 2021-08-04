@@ -5,7 +5,9 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-
+import Properties from '@/views/Properties.vue'
+import Card from '@/views/Card.vue'
+import AddProperty from '@/views/AddProperty.vue'
 Vue.use(Router)
 
 /**
@@ -53,6 +55,28 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/property",
+      name: "properties",
+      component: Properties,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/property/:propertyId",
+      name: 'Card',
+      component: Card,
+      meta: {
+        requiresAuth: false
+      }
+
+    },
+    {
+      path: "/addproperty",
+      name: 'addproperty',
+      component: AddProperty
+    }
   ]
 })
 

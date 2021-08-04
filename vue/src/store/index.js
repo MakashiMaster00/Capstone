@@ -12,14 +12,38 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 
-if(currentToken != null) {
+if (currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
 
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    property: {
+      propertyId: 0,
+      landlordId: 0,
+      description: "",
+      addressLineOne: "",
+      addressLineTwo: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      price: 0,
+      dateAvailable: "",
+      available: false,
+      beds: 0,
+      baths: 0,
+      thumbnail: "",
+      images: []
+    },
+    
+    image: {
+      imageId: 0,
+      propertyId: 0,
+      link: "",
+      thumbnail: 0
+    }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -29,7 +53,7 @@ export default new Vuex.Store({
     },
     SET_USER(state, user) {
       state.user = user;
-      localStorage.setItem('user',JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -37,6 +61,13 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
+    SET_PROPERTIES(state, data){
+      state.properties = data;
+    },
+    SET_PROPERTY(state, data){
+      state.property = data;
+    },
+    
   }
 })
