@@ -43,7 +43,7 @@ export default new Vuex.Store({
       imageId: 0,
       propertyId: 0,
       link: "",
-      thumbnail: 0
+      thumbnail: false
     }
   },
   mutations: {
@@ -69,5 +69,9 @@ export default new Vuex.Store({
     ADD_PROPERTIES_IMAGE(state, image){
       state.property.images.push(image);
     },
+    SET_THUMBNAIL(state, thumbnail){
+      state.property.thumbnail = thumbnail;
+      state.showButton = false;
+    }
   }
 })

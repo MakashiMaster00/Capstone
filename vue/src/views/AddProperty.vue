@@ -33,8 +33,8 @@
         <b-input type="date" v-model="property.dateAvailable"></b-input>
       </b-field>
       <span>
-        <b-button tag="router-link" :to="{ name: 'images' }" v-show="this.$store.state.showButton" type="is-primary" style="background-color:powderblue">Add Thumbnail</b-button>
-        <b-button tag="router-link" :to="{ name: 'images' }" v-show="!this.$store.state.showButton" type="is-primary" style="background-color:powderblue">Add Images</b-button>
+        <b-button tag="router-link" :to="{ name: 'images' }"  type="is-primary" style="background-color:powderblue">Add {{this.$store.state.showButton ? 'Thumbnail' : 'Image'}}</b-button>
+        
       </span>
         <b-field label="Description">
         <b-input maxlength ="200" type="textarea" v-model="property.description"></b-input>
@@ -66,12 +66,16 @@ export default {
         available: true,
         beds: 0,
         baths: 0,
-        images: []
+        images: [],
+        thumbnail: ""
       }
     };
   },
   methods: {
     addProperty(){
+      this.property.images = this.$store.state.property.images;
+      this.property.thumbnail = this.$store.state.property.thumbnail;
+      console.log(this.property.images[0]);
       propertyService.addProperty(this.property)
       .then(response => {
         if (response.status === 200) {
