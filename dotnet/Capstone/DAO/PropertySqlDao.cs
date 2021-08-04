@@ -24,9 +24,10 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "SELECT property_id, landlord_id, description, address_line_one, " +
-                        "address_line_two, city, state_abbreviation, zip_code, price, date_available, " +
-                        "available, beds, baths FROM properties";
+                    string sql = "SELECT p.property_id, p.landlord_id, p.description, p.address_line_one, " +
+                        "p.address_line_two, p.city, p.state_abbreviation, p.zip_code, p.price, p.date_available, " +
+                        "p.available, p.beds, p.baths, i.image_link FROM properties p " +
+                        "JOIN images i ON p.property_id = i.property_id WHERE i.thumbnail = 1;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -53,10 +54,11 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "SELECT property_id, landlord_id, description, address_line_one, " +
-                        "address_line_two, city, state_abbreviation, zip_code, price, date_available, " +
-                        "available, beds, baths FROM properties " +
-                        "WHERE property_id = @property_id;";
+                    string sql = "SELECT p.property_id, p.landlord_id, p.description, p.address_line_one, " +
+                        "p.address_line_two, p.city, p.state_abbreviation, p.zip_code, p.price, p.date_available, " +
+                        "p.available, p.beds, p.baths, i.image_link FROM properties p " +
+                        "JOIN images i ON p.property_id = i.property_id " +
+                        "WHERE p.property_id = @property_id AND i.thumbnail = 1;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@property_id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -233,7 +235,8 @@ namespace Capstone.DAO
                 DateAvailable = Convert.ToDateTime(reader["date_available"]).ToString("d"),
                 Available = Convert.ToBoolean(reader["available"]),
                 Beds = Convert.ToInt32(reader["beds"]),
-                Baths = Convert.ToDouble(reader["baths"])
+                Baths = Convert.ToDouble(reader["baths"]),
+                Thumbnail = Convert.ToString(reader["image_link"])
             };
 
             return p;
