@@ -1,18 +1,24 @@
 <template>
-  <div>
-      <div v-for="prop in properties" v-bind:key="prop.propertyId" >
+<div>
+    <div v-for="prop in properties" v-bind:key="prop.propertyId" >
           <router-link v-bind:to="{name: 'Card', params: {propertyId: prop.propertyId}}">
-              {{prop.addressLineOne}}
-              <div>
-
-              </div>
+        <div>
+            <div>
+                <img v-bind:src = "prop.thumbnail" alt="Property Thumbnail Image"> 
+            </div>
+            <h2>
+                {{prop.addressLineOne}}
+                {{prop.addressLineTwo}}
+                {{prop.city}}
+                {{prop.state}}
+                {{prop.zipCode}}
+            </h2>
               {{prop.description}}
-          </router-link>
-      </div>
+        </div>
 
-      
-          
-  </div>
+        </router-link>
+    </div> 
+</div>
 </template>
 
 <script>

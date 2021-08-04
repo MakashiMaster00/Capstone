@@ -2,31 +2,40 @@
     <div>
         <div>
             <h2>
-            {{property.addressLineOne}}
-            {{property.addressLineTwo}}
-            {{property.city}}
-            {{property.state}}
-            {{property.zipCode}}
+                {{property.addressLineOne}}
+                {{property.addressLineTwo}}
+                {{property.city}}
+                {{property.state}}
+                {{property.zipCode}}
             </h2>
             <h3>
-             {{property.propertyId}}
-            {{property.landlordId}}
+                Property Id Number:
+                {{property.propertyId}}
+                Landlord Id Number:
+                {{property.landlordId}}
             </h3>
            <p>
             {{property.description}}
            </p>
            <div>
-             {{property.beds}}
-            {{property.baths}}
-           </div>
-            {{property.price}}
-            {{property.dateAvailable}}
-            {{property.available}}
-            <div>
-                 {{property.thumbnail}}
+                Beds: 
+                {{property.beds}}
             </div>
-           
-           
+            <div>
+                Baths: 
+                {{property.baths}}
+           </div>
+           <div>
+                Cost per month: 
+                {{property.price}}
+            </div>
+            <div>
+                Date available: 
+                {{property.dateAvailable}}
+            </div>
+            <div v-for="image in property.images" v-bind:key="image.imageId">
+                <img v-bind:src = "image.link" alt="Property Image"> 
+            </div>           
         </div>
     </div>
 </template>
