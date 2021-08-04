@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <section>
+    <form>
       <b-field label="Street Address">
         <b-input v-model="property.addressLineOne"></b-input>
       </b-field>
@@ -36,13 +36,15 @@
         <b-input maxlength ="200" type="textarea" v-model="property.description"></b-input>
       </b-field>
       <div class="buttons">
-            <b-button style="background-color:powderblue" type="submit" expanded>Submit</b-button>
+            <b-button v-on:click.prevent="addProperty" style="background-color:powderblue" type="submit" expanded>Submit</b-button>
         </div>
-    </section>
+    </form>
   </div>
 </template>
 
 <script>
+import propertyService from '@/services/PropertyService.js'
+
 export default {
   data() {
     return {
@@ -60,9 +62,34 @@ export default {
         available: true,
         beds: 0,
         baths: 0,
+        thumbnail: ""
       },
+      image: {
+        imageId: 0,
+        propertyId: 0,
+        link: "",
+        thumbnail: 0
+      }
     };
   },
+  methods: {
+    addProperty(){
+      propertyService.addProperty(this.property)
+      .then(response => {
+        if (response.status === 201) {
+          alert("You successfully added a property!")
+          this.$router.push({name: 'login'})
+        }
+      }
+      )
+      .catch(error => {
+        if (error.response) {
+          alert("There was an issue adding your property")
+        }
+        
+      })
+    }
+  }
   
 };
 </script>
