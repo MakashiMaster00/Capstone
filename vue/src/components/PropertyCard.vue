@@ -1,8 +1,32 @@
 <template>
     <div>
         <div>
-            {{property.propertyId}}
-            
+            <h2>
+            {{property.addressLineOne}}
+            {{property.addressLineTwo}}
+            {{property.city}}
+            {{property.state}}
+            {{property.zipCode}}
+            </h2>
+            <h3>
+             {{property.propertyId}}
+            {{property.landlordId}}
+            </h3>
+           <p>
+            {{property.description}}
+           </p>
+           <div>
+             {{property.beds}}
+            {{property.baths}}
+           </div>
+            {{property.price}}
+            {{property.dateAvailable}}
+            {{property.available}}
+            <div>
+                 {{property.thumbnail}}
+            </div>
+           
+           
         </div>
     </div>
 </template>
