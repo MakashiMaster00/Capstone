@@ -14,24 +14,28 @@
         <b-input v-model="property.city"></b-input>
       </b-field>
       <b-field label="State">
-        <b-input v-model="property.state"></b-input>
+        <b-input maxlength = '2' v-model="property.state"></b-input>
       </b-field>
       <b-field label="Zip Code">
         <b-input maxlength = "5" v-model="property.zipCode"></b-input>
       </b-field>
       <b-field label="Beds">
-        <b-input v-model="property.beds"></b-input>
+        <b-input v-model.number="property.beds"></b-input>
       </b-field>
  
       <b-field label="Baths">
-        <b-input v-model="property.baths"> </b-input>
+        <b-input v-model.number="property.baths"> </b-input>
       </b-field>
       <b-field label="Price">
-        <b-input v-model="property.price"></b-input>
+        <b-input v-model.number="property.price"></b-input>
       </b-field>
       <b-field label="Date Available">
         <b-input type="date" v-model="property.dateAvailable"></b-input>
       </b-field>
+      <span>
+        <b-button tag="router-link" :to="{ name: 'images' }" v-show="this.$store.state.showButton" type="is-primary" style="background-color:powderblue">Add Thumbnail</b-button>
+        <b-button tag="router-link" :to="{ name: 'images' }" v-show="!this.$store.state.showButton" type="is-primary" style="background-color:powderblue">Add Images</b-button>
+      </span>
         <b-field label="Description">
         <b-input maxlength ="200" type="textarea" v-model="property.description"></b-input>
       </b-field>
@@ -50,7 +54,7 @@ export default {
     return {
       property: {
         propertyId: 0,
-        landlordId: 0,
+        landlordId: 1,
         description: "",
         addressLineOne: "",
         addressLineTwo: "",
@@ -62,13 +66,7 @@ export default {
         available: true,
         beds: 0,
         baths: 0,
-        thumbnail: ""
-      },
-      image: {
-        imageId: 0,
-        propertyId: 0,
-        link: "",
-        thumbnail: 0
+        images: []
       }
     };
   },
@@ -76,7 +74,7 @@ export default {
     addProperty(){
       propertyService.addProperty(this.property)
       .then(response => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           alert("You successfully added a property!")
           this.$router.push({name: 'login'})
         }

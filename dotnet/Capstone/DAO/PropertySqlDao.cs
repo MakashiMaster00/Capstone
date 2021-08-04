@@ -89,7 +89,7 @@ namespace Capstone.DAO
 
                     string sql = "";
 
-                    if (property.AddressLineTwo != null)
+                    if (property.AddressLineTwo != "")
                     {
                         sql = "INSERT INTO properties (landlord_id, description, address_line_one, " +
                             "address_line_two, city, state_abbreviation, zip_code, price, date_available, " +
@@ -110,7 +110,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@landlord_id", property.LandlordId);
                     cmd.Parameters.AddWithValue("@description", property.Description);
                     cmd.Parameters.AddWithValue("@address_line_one", property.AddressLineOne);
-                    if (property.AddressLineTwo != null)
+                    if (property.AddressLineTwo != "")
                     {
                         cmd.Parameters.AddWithValue("@address_line_two", property.AddressLineTwo);
                     }
@@ -126,8 +126,9 @@ namespace Capstone.DAO
                     propertyId = Convert.ToInt32(cmd.ExecuteScalar());
                     }
                 }
-                catch (SqlException)
+                catch (SqlException e)
                 {
+                    string error = e.Message;
                     throw;
                 }
 

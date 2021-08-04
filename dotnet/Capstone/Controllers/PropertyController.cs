@@ -38,6 +38,7 @@ namespace Capstone.Controllers
         public ActionResult<Property> GetProperty(int id)
         {
             Property property = propertyDao.GetProperty(id);
+            property.Images = imageDao.GetImages(id);
 
             if (property != null)
             {
@@ -54,6 +55,12 @@ namespace Capstone.Controllers
         {
             int propertyId = propertyDao.AddProperty(property);
 
+            foreach (Image image in property.Images)
+            {
+                image.PropertyId = propertyId;
+                imageDao.AddImage(image);
+            }
+
             if (propertyId != 0)
             {
                 return Ok(propertyId);
@@ -67,6 +74,9 @@ namespace Capstone.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateProperty(Property property, int id)
         {
+            //TODO: Possibly merge with image update and delete. Call getImages, check against property list,
+            // delete missing (or different ones), the call addImage to add the ones that are there.
+
             int successStatus = 0;
 
             if (property.PropertyId == id)
@@ -88,6 +98,12 @@ namespace Capstone.Controllers
         {
             int successStatus = 0;
 
+            List<Image> images = imageDao.GetImages(id);
+            foreach (Image image in images)
+            {
+                imageDao.DeleteImage(image.ImageId);
+            }
+
             successStatus = propertyDao.DeleteProperty(id);
 
             if (successStatus == 1)
@@ -97,40 +113,6 @@ namespace Capstone.Controllers
             else
             {
                 return BadRequest(new { message = "Property not successfully deleted." });
-            }
-        }
-
-        [HttpGet("{id}/images")]
-        public ActionResult<Property> GetImages(int id)
-        {
-            List<Image> images = imageDao.GetImages(id);
-
-            if (images.Count != 0)
-            {
-                return Ok(images);
-            }
-            else
-            {
-                return BadRequest(new { message = "No images associated with that property id." });
-            }
-        }
-
-        [HttpPost("{id}/images")]
-        public ActionResult<int> AddImage(Image image, int id)
-        {
-            int imageId = 0;
-
-            if (id == image.PropertyId)
-            {
-                imageId = imageDao.AddImage(image);
-            }
-            if (imageId != 0)
-            {
-                return Ok(imageId);
-            }
-            else
-            {
-                return BadRequest(new { message = "Image not successfully created." });
             }
         }
 

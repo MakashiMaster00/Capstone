@@ -8,6 +8,7 @@ import store from '../store/index'
 import Properties from '@/views/Properties.vue'
 import Card from '@/views/Card.vue'
 import AddProperty from '@/views/AddProperty.vue'
+import AddImages from '@/views/AddImages.vue'
 Vue.use(Router)
 
 /**
@@ -76,6 +77,11 @@ const router = new Router({
       path: "/addproperty",
       name: 'addproperty',
       component: AddProperty
+    },
+    {
+      path: "/images",
+      name: "images",
+      component: AddImages
     }
   ]
 })

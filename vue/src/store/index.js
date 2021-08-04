@@ -20,6 +20,7 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    showButton: true,
     property: {
       propertyId: 0,
       landlordId: 0,
@@ -34,7 +35,8 @@ export default new Vuex.Store({
       available: false,
       beds: 0,
       baths: 0,
-      thumbnail: ""
+      thumbnail: "",
+      images: []
     },
     
     image: {
@@ -61,12 +63,11 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    SET_PROPERTIES(state, data){
-      state.properties = data;
-    },
     SET_PROPERTY(state, data){
       state.property = data;
     },
-    
+    ADD_PROPERTIES_IMAGE(state, image){
+      state.property.images.push(image);
+    },
   }
 })

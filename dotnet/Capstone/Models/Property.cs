@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Capstone.Models
 {
@@ -18,6 +19,6 @@ namespace Capstone.Models
         public int Beds { get; set; }
         public double Baths { get; set; }
         public string Thumbnail { get; set; }
-
+        public List<Image> Images { get; set; } = new List<Image>();
     }
 }
