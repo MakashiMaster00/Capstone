@@ -32,6 +32,10 @@
       <b-field label="Date Available">
         <b-input type="date" v-model="property.dateAvailable"></b-input>
       </b-field>
+      <span>
+        <b-button tag="router-link" :to="{ name: 'images' }" v-show="this.$store.state.showButton" type="is-primary" style="background-color:powderblue">Add Thumbnail</b-button>
+        <b-button tag="router-link" :to="{ name: 'images' }" v-show="!this.$store.state.showButton" type="is-primary" style="background-color:powderblue">Add Images</b-button>
+      </span>
         <b-field label="Description">
         <b-input maxlength ="200" type="textarea" v-model="property.description"></b-input>
       </b-field>
@@ -62,20 +66,12 @@ export default {
         available: true,
         beds: 0,
         baths: 0,
-        //thumbnail: "",
-        //images: []
-      },
-      image: {
-        imageId: 0,
-        propertyId: 0,
-        link: "",
-        thumbnail: 0
+        images: []
       }
     };
   },
   methods: {
     addProperty(){
-      console.log(this.property);
       propertyService.addProperty(this.property)
       .then(response => {
         if (response.status === 200) {
