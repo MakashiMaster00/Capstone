@@ -6,10 +6,11 @@
         <div id="searchbar" class="container">
           <div class="searchimputs">
             <b-field class="inputs">
-              <b-input placeholder="City" rounded></b-input>
+              <b-input placeholder="City" v-model="filter.city" rounded></b-input>
             </b-field>
             <b-field class="inputs">
-              <b-select placeholder="State" rounded expanded>
+              <b-select v-model="filter.state" rounded expanded>
+                <option value="State">State</option>
                 <option value="AL">AL</option>
                 <option value="AK">AK</option>
                 <option value="AZ">AZ</option>
@@ -64,7 +65,7 @@
               </b-select>
             </b-field>
             <b-field class="inputs">
-              <b-input placeholder="Zip" rounded></b-input>
+              <b-input v-model="filter.zipCode" placeholder="Zip" rounded></b-input>
             </b-field>
           </div>
           <div class="checkboxes">
@@ -119,47 +120,32 @@
       </div>
       <div class="results">
         <div>
-        <h2>Search Properties by Location</h2>
-        <b-field label="Enter street address: ">
-            <b-input id="streetFilter" v-model="filter.addressLineOne"></b-input>
-        </b-field>
-        <b-field label="Enter city: ">
-            <b-input id="cityFilter" v-model="filter.city"></b-input>
-        </b-field>
-        <b-field label="Enter state (use abbreviation): ">
-            <b-input maxlength = '2' id="stateFilter" v-model="filter.state"></b-input>
-        </b-field>
-        <b-field label="Enter zip code: ">
-            <b-input id="zipCodeFilter" v-model="filter.zipCode"></b-input>
-        </b-field>
-    </div>
-    <div>
-        <h2>Search Properties by Specifications</h2>
-        <b-field label="Enter number of beds: ">
-            <b-input id="bedFilter" v-model="filter.beds"></b-input>
-        </b-field>
-        <b-field label="Enter number of baths: ">
-            <b-input id="bathFilter" v-model="filter.baths"></b-input>
-        </b-field>
-    </div>
-    <div v-for="prop in filteredProperties" v-bind:key="prop.propertyId" >
-          <router-link v-bind:to="{name: 'Card', params: {propertyId: prop.propertyId}}">
-        <div>
-          <div>
-            <img v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
-          </div>
-          <h2>
-            {{ prop.addressLineOne }}
-            {{ prop.addressLineTwo }}
-            {{ prop.city }}
-            {{ prop.state }}
-            {{ prop.zipCode }}
-          </h2>
-          {{ prop.description }}
+            <h2>Search Properties by Specifications</h2>
+            <b-field label="Enter number of beds: ">
+                <b-input id="bedFilter" v-model="filter.beds"></b-input>
+            </b-field>
+            <b-field label="Enter number of baths: ">
+                <b-input id="bathFilter" v-model="filter.baths"></b-input>
+            </b-field>
         </div>
-      </router-link>
-    </div>
-      </div>
+        <div v-for="prop in filteredProperties" v-bind:key="prop.propertyId" >
+            <router-link v-bind:to="{name: 'Card', params: {propertyId: prop.propertyId}}">
+            <div>
+            <div>
+                <img v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
+            </div>
+            <h2>
+                {{ prop.addressLineOne }}
+                {{ prop.addressLineTwo }}
+                {{ prop.city }}
+                {{ prop.state }}
+                {{ prop.zipCode }}
+            </h2>
+            {{ prop.description }}
+            </div>
+        </router-link>
+        </div>
+        </div>
     </div>
   </div>
 </template>
@@ -180,7 +166,7 @@ export default {
            filter: {
             addressLineOne: "",
             city: "",
-            state: "",
+            state: "State",
             zipCode: "",
             beds: "",
             baths: ""
@@ -218,7 +204,7 @@ export default {
                     prop.city.toLowerCase().includes(this.filter.city.toLowerCase())
                 );
             }
-            if (this.filter.state != "") {
+            if (this.filter.state != "State") {
                 filteredProperties = filteredProperties.filter((prop) =>
                     prop.state.toUpperCase().includes(this.filter.state.toUpperCase())
                 );
