@@ -42,7 +42,7 @@ CREATE TABLE properties (
 	CONSTRAINT FK_landlord_id FOREIGN KEY (landlord_id) REFERENCES users (user_id)
 )
 CREATE TABLE images (
-image_link varchar(50) NOT NULL,
+image_link varchar(1000) NOT NULL,
 property_id int NOT NULL,
 image_id int IDENTITY(1,1) NOT NULL,
 thumbnail bit NOT NULL,
