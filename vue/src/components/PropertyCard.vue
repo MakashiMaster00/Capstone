@@ -55,7 +55,7 @@ export default {
             })
             .catch(error =>{
                 if (error.response && error.response.status === 404) {
-                    alert("The property is not availalbe. It may have been deleted or you have entered an invalid Id.");
+                    alert("The property is not available. It may have been deleted or you have entered an invalid Id.");
                     this.$router.push("/");
                 }
             });
