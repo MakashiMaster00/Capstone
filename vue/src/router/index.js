@@ -9,6 +9,8 @@ import Properties from '@/views/Properties.vue'
 import Card from '@/views/Card.vue'
 import AddProperty from '@/views/AddProperty.vue'
 import AddImages from '@/views/AddImages.vue'
+import MyProperties from '@/views/MyProperties.vue'
+import LandlordProperty from '@/views/LandlordProperty.vue'
 Vue.use(Router)
 
 /**
@@ -76,12 +78,31 @@ const router = new Router({
     {
       path: "/addproperty",
       name: 'addproperty',
-      component: AddProperty
+      component: AddProperty,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: "/images",
       name: "images",
       component: AddImages
+    },
+    {
+      path: "/myProperties",
+      name: "myproperties",
+      component: MyProperties,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/myProperties/:propertyId",
+      name: 'landlordproperty',
+      component: LandlordProperty,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
