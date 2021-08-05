@@ -1,11 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div>
-    <div v-for="prop in properties" v-bind:key="prop.propertyId">
-      <router-link
-        v-bind:to="{ name: 'Card', params: { propertyId: prop.propertyId } }"
-      >
-=======
 <div>
     <div>
         <h2>Search Properties by Location</h2>
@@ -33,7 +26,6 @@
     </div>
     <div v-for="prop in filteredProperties" v-bind:key="prop.propertyId" >
           <router-link v-bind:to="{name: 'Card', params: {propertyId: prop.propertyId}}">
->>>>>>> 654ee1c6f73a3c13454b10a97f39b52054d9a4a5
         <div>
           <div>
             <img v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
@@ -57,40 +49,6 @@ import propertyService from "@/services/PropertyService.js";
 //import propertyCard from '@/components/PropertyCard.vue'
 
 export default {
-<<<<<<< HEAD
-  name: "properties-list",
-  // components: {
-  //   propertyCard
-
-  //},
-  data() {
-    return {
-      properties: [],
-    };
-  },
-
-  methods: {
-    retrieveProperties() {
-      propertyService
-        .getProperties()
-        .then((response) => {
-          this.properties = response.data;
-          console.log(this.properties);
-          
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 404) {
-            alert("Properties not found");
-          }
-          this.$router.push("/");
-        });
-    },
-  },
-  created() {
-    this.retrieveProperties();
-  },
-};
-=======
     
     name: "properties-list",
    // components: {
@@ -165,7 +123,6 @@ export default {
         this.retrieveProperties();
     }
 }
->>>>>>> 654ee1c6f73a3c13454b10a97f39b52054d9a4a5
 </script>
 
 <style>
