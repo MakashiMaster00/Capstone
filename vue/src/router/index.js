@@ -11,6 +11,7 @@ import AddProperty from '@/views/AddProperty.vue'
 import AddImages from '@/views/AddImages.vue'
 import MyProperties from '@/views/MyProperties.vue'
 import LandlordProperty from '@/views/LandlordProperty.vue'
+import EditProperty from '@/views/EditProperty.vue'
 Vue.use(Router)
 
 /**
@@ -103,6 +104,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/myProperties/:propertyId/edit",
+      name: 'editproperty',
+      component: EditProperty,
+      meta:{
+        requiresAuth: true
+      }
+
     }
   ]
 })

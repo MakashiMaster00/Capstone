@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-button tag="router-link" :to="{ name: 'addproperty' }" type="is-primary"
+<b-button tag="router-link" :to="{ name: 'editproperty' }" type="is-primary"
       >Edit Property</b-button>
       <b-button v-on:click="deleteProperty" type="is-primary"
       >Delete Property</b-button>
