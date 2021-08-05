@@ -1,8 +1,10 @@
 <template>
   <div>
+        <b-button tag="router-link" :to="{ name: 'addproperty' }" type="is-primary">Add a New Property</b-button>
     <div v-for="prop in properties" v-bind:key="prop.propertyId">
+
       <router-link
-        v-bind:to="{ name: 'Card', params: { propertyId: prop.propertyId } }"
+        v-bind:to="{ name: 'landlordproperty', params: { propertyId: prop.propertyId } }"
       >
         <div>
           <div>
@@ -40,11 +42,15 @@ export default {
 
   methods: {
     retrieveProperties() {
+        
       propertyService
         .getProperties()
         .then((response) => {
           this.properties = response.data;
-          console.log(this.properties);
+          
+          console.log(this.$store.state.user.userId)
+            this.properties = this.properties.filter(property => property.landlordId == this.$store.state.user.userId)
+            console.log(this.properties)
           
         })
         .catch((error) => {
