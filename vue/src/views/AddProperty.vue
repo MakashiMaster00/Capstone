@@ -33,7 +33,12 @@
         <b-input type="date" v-model="property.dateAvailable"></b-input>
       </b-field>
       <span>
-        <b-button tag="router-link" :to="{ name: 'images' }"  type="is-primary" style="background-color:powderblue">Add {{this.$store.state.showButton ? 'Thumbnail' : 'Image'}}</b-button>
+        <b-field  label="Add Thumbnail (Required)">
+        <b-input v-model="imageThumbnail.link"></b-input>
+      </b-field>
+      <b-field  label="Add Image (Optional)">
+        <b-input v-model="image.link"></b-input>
+      </b-field>
         
       </span>
         <b-field label="Description">
@@ -68,14 +73,30 @@ export default {
         baths: 0,
         images: [],
         thumbnail: ""
-      }
+      },
+      imageThumbnail: {
+        imageId: 0,
+        propertyId: 0,
+        link: "",
+        thumbnail: true
+      },
+      image: {
+        imageId: 0,
+        propertyId: 0,
+        link: "",
+        thumbnail: false
+      },
+    
     };
   },
   methods: {
     addProperty(){
-      this.property.images = this.$store.state.property.images;
-      this.property.thumbnail = this.$store.state.property.thumbnail;
-      console.log(this.property.images[0]);
+      this.property.thumbnail = this.imageThumbnail.link
+      this.property.images.push(this.imageThumbnail);
+      if (this.image.link != "") {
+        this.property.images.push(this.image);
+      }
+      
       propertyService.addProperty(this.property)
       .then(response => {
         if (response.status === 200) {
