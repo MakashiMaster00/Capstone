@@ -17,6 +17,9 @@ export default{
 
     addProperty(property) {
         return http.post('/property', property)
+    },
+    deleteProperty(propertyId){
+        return http.delete(`/property/${propertyId}`)
     }
 
 }
