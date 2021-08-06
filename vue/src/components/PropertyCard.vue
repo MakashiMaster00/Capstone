@@ -102,7 +102,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #card {
   padding-top: 50px;
   padding-left: 10px;
@@ -115,12 +115,16 @@ export default {
   gap: 0px 0px;
   grid-template-areas: "slideshow info";
 }
+.info {
+    grid-area: info;
+}
 .image {
     height: 900px;
     width: auto;
 }
 .slideshow {
     padding-right: 15px;
+    grid-area: slideshow;
 }
 .details {
   display: grid;
@@ -148,7 +152,7 @@ export default {
 #description {
   padding-top: 10px;
   padding-right: 25px;
-  color: #9dbebb;
+  color: #468189;
 }
 #beds {
   color: #468189;

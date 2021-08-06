@@ -331,18 +331,16 @@ export default {
   font-size: 2vw;
 }
 #description {
-  color: #9DBEBB;
+  color: #468189;
   font-size: 1vw;
+  padding-bottom: 15px;
 }
 #contact {
-  background-color: #9DBEBB;
+  background-color: #9dbebb91;
   color: #031926;
 }
 ::placeholder {
   color: black IM !important;
   opacity: 2 IM !important;
-}
-.checkboxes {
-
 }
 </style>
