@@ -25,7 +25,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     string sql = "SELECT t.task_id, t.employee_id, t.date_entered, t.date_scheduled, t.is_urgent, " +
-                        "t.task_description, t.property_id, t.task_status, p.landlord_id, t.task_id FROM tasks t " +
+                        "t.task_description, t.property_id, t.task_status, p.landlord_id FROM tasks t " +
                         "JOIN properties p ON t.property_id = p.property_id;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -154,15 +154,21 @@ namespace Capstone.DAO
             Task t = new Task()
             {
                 TaskId = Convert.ToInt32(reader["task_id"]),
-                EmployeeId = Convert.ToInt32(reader["employee_id"]),
                 PropertyId = Convert.ToInt32(reader["property_id"]),
                 IsUrgent = Convert.ToBoolean(reader["is_urgent"]),
                 TaskDescription = Convert.ToString(reader["task_description"]),
                 DateEntered = Convert.ToString(reader["date_entered"]),
-                DateScheduled = Convert.ToString(reader["date_scheduled"]),
                 TaskStatus = Convert.ToString(reader["task_status"]),
                 LandlordId = Convert.ToInt32(reader["landlord_id"])
             };
+            if (!reader.IsDBNull(1))
+            {
+                t.EmployeeId = Convert.ToInt32(reader["employee_id"]);
+            }
+            if (!reader.IsDBNull(3))
+            {
+                t.DateScheduled = Convert.ToString(reader["date_scheduled"]);
+            }
             return t;
         }
     }

@@ -57,8 +57,8 @@ task_id int  IDENTITY (1,1) NOT NULL,
 property_id int NOT NULL,
 is_urgent bit NOT NULL,
 task_description varchar(50) NOT NULL,
-date_entered date NOT NULL,
-date_scheduled date NOT NULL,
+date_entered date DEFAULT(GETDATE()),
+date_scheduled date NULL,
 task_status varchar(50) NOT NULL,
 CONSTRAINT PK_task_id PRIMARY KEY (task_id),
 CONSTRAINT FK_employee_id FOREIGN KEY (employee_id) REFERENCES users (user_id),
@@ -95,7 +95,8 @@ INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('4', 'https://i.imgur.com/HiNohRo.jpeg', 1);
 
 --populate default data for images
-INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_entered, date_scheduled, task_status)
-
+INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 0, 'test', 'Pending')
+INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (6, 2, 0, 'test', '08/9/2021', 'Scheduled')
+INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (7, 2, 0, 'test', '08/4/2021', 'Completed')
 
 GO
