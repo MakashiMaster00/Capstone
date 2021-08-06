@@ -12,5 +12,6 @@ namespace Capstone.Models
         public int TaskId { get; set; }
         public int PropertyId { get; set; }
         public bool IsUrgent { get; set; }
+        public int LandlordId { get; set; }
     }
 }

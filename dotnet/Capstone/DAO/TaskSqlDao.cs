@@ -24,7 +24,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     string sql = "SELECT employee_id,task_id,property_id,is_urgent " +
-                    "FROM tasks" +
+                    "FROM tasks " +
                     "WHERE employee_id = @employee_id";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@employee_id", id);
@@ -52,7 +52,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     string sql = "SELECT employee_id,task_id,property_id,is_urgent " +
-                    "FROM tasks" +
+                    "FROM tasks " +
                     "WHERE employee_id = @employee_id";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@employee_id", id);
@@ -153,6 +153,35 @@ namespace Capstone.DAO
                 throw;
             }
             return success;
+        }
+        public List<Task> GetTaskByLandlordId(int id)
+        {
+            List<Task> tasks = new List<Task>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "SELECT t.employee_id,t.date_entered,t.date_scheduled,t.is_urgent,t.task_description,t.property_id,t.task_status,p.landlord_id,t.task_id " +
+                                "FROM tasks t " +
+                                "JOIN properties p ON t.property_id = p.property_id " +
+                                "WHERE p.landlord_id = @landlord_id;";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@landlord_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        tasks.Add(GetTaskFromReader(reader));
+                    }
+                }
+
+            }
+            catch (SqlException)
+            {
+
+                throw;
+            }
+            return tasks;
         }
         public Task GetTaskFromReader(SqlDataReader reader)
         {
