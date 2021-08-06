@@ -74,7 +74,7 @@ namespace Capstone.DAO
             return imageId;
         }
 
-        public int UpdateImage(Image image)
+        public int UpdateThumbnail(int propertyId, int imageId)
         {
             int success = 0;
 
@@ -84,18 +84,16 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    string sql = "UPDATE images SET property_id = @property_id, " +
-                        "image_link = @image_link, thumbnail = @thumbnail " +
-                        "WHERE image_id = @image_id;";
+                    string sql = "UPDATE images SET thumbnail = 1 " +
+                        "WHERE image_id = @image_id; " +
+                        "UPDATE images SET thumbnail = 0 " +
+                        "WHERE property_id = @property_id AND image_id != @image_id;";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@image_id", image.ImageId);
-                    cmd.Parameters.AddWithValue("@property_id", image.PropertyId);
-                    cmd.Parameters.AddWithValue("@image_link", image.Link);
-                    cmd.Parameters.AddWithValue("@thumbnail", image.Thumbnail);
+                    cmd.Parameters.AddWithValue("@image_id", imageId);
+                    cmd.Parameters.AddWithValue("@property_id", propertyId);
 
                     success = cmd.ExecuteNonQuery();
-
                 }
             }
             catch (SqlException)

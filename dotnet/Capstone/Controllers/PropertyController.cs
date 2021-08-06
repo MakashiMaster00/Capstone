@@ -117,14 +117,12 @@ namespace Capstone.Controllers
         }
 
         [HttpPut("{id}/images/{imageId}")]
-        public IActionResult UpdateImage(Image image, int id, int imageId)
+        public IActionResult UpdateImage(int id, int imageId)
         {
             int successStatus = 0;
 
-            if (image.ImageId == imageId && id == image.PropertyId)
-            {
-                successStatus = imageDao.UpdateImage(image);
-            }
+            successStatus = imageDao.UpdateThumbnail(id, imageId);
+
             if (successStatus == 1)
             {
                 return Ok();
