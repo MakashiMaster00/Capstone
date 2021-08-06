@@ -281,14 +281,14 @@ export default {
 }
 #baths {
   background-color: white;
-  padding-top: 9px;
+  padding-top: 6px;
   height: 18%;
   width: 65%;
   border-radius: 25px;
 }
 #beds {
   background-color: white;
-  padding-top: 9px;
+  padding-top: 6px;
   height: 18%;
   width: 65%;
   border-radius: 25px;
@@ -341,5 +341,8 @@ export default {
 ::placeholder {
   color: black IM !important;
   opacity: 2 IM !important;
+}
+.checkboxes {
+
 }
 </style>
