@@ -15,26 +15,26 @@
           </router-link>
         </template>
         <template #start>
-          <b-navbar-item id="homepage" tag="router-link" :to="{ path: '/' }">
+          <b-navbar-item class="text" tag="router-link" :to="{ path: '/' }">
             Home
           </b-navbar-item>
-          <b-navbar-item tag="router-link" :to="{ name: 'addproperty' }">
+          <b-navbar-item class="text" tag="router-link" :to="{ name: 'addproperty' }">
             Add A Property
           </b-navbar-item>
-          <b-navbar-dropdown label="Info">
-            <b-navbar-item href="#"> About </b-navbar-item>
-            <b-navbar-item href="#"> Contact </b-navbar-item>
+          <b-navbar-dropdown class="text" label="Info">
+            <b-navbar-item class="text" href="#"> About </b-navbar-item>
+            <b-navbar-item class="text" href="#"> Contact </b-navbar-item>
           </b-navbar-dropdown>
           <b-navbar-item tag="div">
             <div class="buttons">
               <a v-if="$store.state.token == ''" class="button is-light">
-                <router-link :to="{ name: 'register' }"> Sign up </router-link>
+                <router-link class="text" :to="{ name: 'register' }"> Sign up </router-link>
               </a>
-              <a v-if="$store.state.token == ''" class="button is-light">
-                <router-link :to="{ name: 'login' }">Login</router-link>
+              <a  v-if="$store.state.token == ''" class="button is-light">
+                <router-link class="text" :to="{ name: 'login' }">Login</router-link>
               </a>
               <a v-if="$store.state.token != ''" class="button is-light">
-                <router-link :to="{ name: 'logout' }">Logout</router-link>
+                <router-link class="text" :to="{ name: 'logout' }">Logout</router-link>
               </a>
             </div>
           </b-navbar-item>
@@ -65,5 +65,11 @@ body {
 }
 #logo {
   width: 125px;
+}
+.text {
+  color: black;
+}
+#navbar :hover{
+  color: black;
 }
 </style>

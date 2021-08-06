@@ -19,7 +19,7 @@ export default{
         return http.post('/task', task)
     },
 
-    updateTask(task) {
+    updateTask(taskId, task) {
         return http.put(`/task/${taskId}`, task)
     },
 

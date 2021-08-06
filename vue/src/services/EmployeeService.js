@@ -7,7 +7,7 @@ const http = axios.create({
 export default{
 
     
-    getEmployees(){
+    getEmployees(landlordId){
         return http.get(`/employee/${landlordId}`);
     },
 

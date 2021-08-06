@@ -4,7 +4,7 @@
       <div class="search">
         <img id="logo" src="../assets/images/logo.jpg" alt="logo" />
         <div id="searchbar" class="container">
-          <div class="searchimputs">
+          <div class="searchinputs">
             <b-field class="inputs">
               <b-input placeholder="City" v-model="filter.city" rounded></b-input>
             </b-field>
@@ -143,7 +143,6 @@ import propertyService from "@/services/PropertyService.js";
 //import propertyCard from '@/components/PropertyCard.vue'
 
 export default {
-    
     name: "properties-list",
    // components: {
      //   propertyCard
@@ -300,7 +299,7 @@ export default {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
-  grid-template-areas: "searchimputs radiobuttons";
+  grid-template-areas: "searchinputs checkboxes";
   column-gap: 75px;
 }
 .biggrid {
@@ -336,7 +335,11 @@ export default {
   font-size: 1vw;
 }
 #contact {
-  background-color: #77ACA2;
+  background-color: #9DBEBB;
   color: #031926;
+}
+::placeholder {
+  color: black IM !important;
+  opacity: 2 IM !important;
 }
 </style>
