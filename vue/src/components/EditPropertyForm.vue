@@ -11,8 +11,8 @@
       <b-field label="City">
         <b-input v-model="property.city"></b-input>
       </b-field>
-      <b-field label="State">
-        <b-select placeholder="Select a state" icon="account">
+      <b-field  label="State">
+        <b-select v-model="property.state" placeholder="Select a state" icon="account">
           <optgroup>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
@@ -83,7 +83,7 @@
       <b-field label="Date Available">
         <b-input type="date" v-model="property.dateAvailable"></b-input>
       </b-field>
-      
+
       <b-field label="Description">
         <b-input
           maxlength="200"
@@ -105,6 +105,8 @@
 </template>
 
 <script>
+import propertyService from "@/services/PropertyService.js";
+
 export default {
   data() {
     return {
@@ -116,9 +118,9 @@ export default {
         addressLineTwo: "",
         city: "",
         state: "",
-        zipCode: "",
+        zipCode: "45040",
         price: 0,
-        dateAvailable: "",
+        dateAvailable: "2012-06-25",
         available: true,
         beds: 0,
         baths: 0,
@@ -127,6 +129,29 @@ export default {
       },
     };
   },
+  methods: {
+    retrieveProperty() {
+      propertyService
+        .getProperty(this.$route.params.propertyId)
+        .then((response) => {
+          this.$store.commit("SET_PROPERTY", response.data);
+          this.property = response.data
+          console.log(this.property)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "The property is not available. It may have been deleted or you have entered an invalid Id."
+            );
+            this.$router.push({name: 'landlordproperty'});
+          }
+        });
+        
+    },
+  },
+  created(){
+    this.retrieveProperty();
+  }
 };
 </script>
 

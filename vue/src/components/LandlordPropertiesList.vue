@@ -51,7 +51,7 @@ export default {
         .then((response) => {
           this.properties = response.data;
 
-          console.log(this.$store.state.user.userId);
+          
           this.properties = this.properties.filter(
             (property) => property.landlordId == this.$store.state.user.userId
           );

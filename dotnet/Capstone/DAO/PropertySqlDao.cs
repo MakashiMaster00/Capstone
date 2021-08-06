@@ -233,7 +233,7 @@ namespace Capstone.DAO
                 State = Convert.ToString(reader["state_abbreviation"]),
                 ZipCode = Convert.ToString(reader["zip_code"]),
                 Price = Convert.ToDecimal(reader["price"]),
-                DateAvailable = Convert.ToDateTime(reader["date_available"]).ToString("d"),
+                DateAvailable = Convert.ToDateTime(reader["date_available"]).ToString("yyyy-MM-dd"),
                 Available = Convert.ToBoolean(reader["available"]),
                 Beds = Convert.ToInt32(reader["beds"]),
                 Baths = Convert.ToDouble(reader["baths"]),
