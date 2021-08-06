@@ -69,11 +69,15 @@ CONSTRAINT FK_property_task FOREIGN KEY (property_id) REFERENCES properties (pro
 --TODO Photo table links to property id
 
 --populate default data for users (user1,2,3 all have password user)
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user1','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','landlord');
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user2','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','landlord');
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user3','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','landlord');
+INSERT INTO users (username, password_hash, salt, user_role) VALUES ('landlord1','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','landlord');
+INSERT INTO users (username, password_hash, salt, user_role) VALUES ('landlord2','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','landlord');
+INSERT INTO users (username, password_hash, salt, user_role) VALUES ('landlord3','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','landlord');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+INSERT INTO users (username, password_hash, salt, user_role) VALUES ('employee1','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','employee');
+INSERT INTO users (username, password_hash, salt, user_role) VALUES ('employee2','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','employee');
+INSERT INTO users (username, password_hash, salt, user_role) VALUES ('employee3','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','employee');
+
 
 --populate default data for properties
 INSERT INTO properties (landlord_id, description, address_line_one, address_line_two, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan vitae libero non congue. Donec non auctor urna. Cras gravida sed nisl semper dapibus. Quisque interdum sapien mi, et mattis velit semper eget. Pellentesque id tempus libero. Ut orci tortor, placerat congue ante at, auctor varius risus. Integer consectetur in lectus a pulvinar.', '1 test address', 'Apt E', 'OH', 'city1', '12345', 700, '08/02/2021', 1, 3, 2.5);
@@ -89,6 +93,9 @@ INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.imgur.com/HiNohRo.jpeg', 0);
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.imgur.com/HiNohRo.jpeg', 0);
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('4', 'https://i.imgur.com/HiNohRo.jpeg', 1);
+
+--populate default data for images
+INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_entered, date_scheduled, task_status)
 
 
 GO
