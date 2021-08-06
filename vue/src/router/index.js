@@ -10,6 +10,7 @@ import Card from '@/views/Card.vue'
 import AddProperty from '@/views/AddProperty.vue'
 import AddImages from '@/views/AddImages.vue'
 import MyProperties from '@/views/MyProperties.vue'
+import MyMaintenance from '@/views/MyMaintenance.vue'
 import LandlordProperty from '@/views/LandlordProperty.vue'
 import EditProperty from '@/views/EditProperty.vue'
 Vue.use(Router)
@@ -113,6 +114,14 @@ const router = new Router({
         requiresAuth: true
       }
 
+    },
+    {
+      path: "/myMaintenance",
+      name: "mymaintenance",
+      component: MyMaintenance,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })

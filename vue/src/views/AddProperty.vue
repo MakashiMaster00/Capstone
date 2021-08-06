@@ -13,8 +13,8 @@
       <b-field label="City">
         <b-input v-model="property.city"></b-input>
       </b-field>
-       <b-field label="State">
-            <b-select placeholder="Select a state" icon="account">
+       <b-field  label="State">
+            <b-select v-model="property.state" placeholder="Select a state" icon="account">
                 <optgroup >
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
@@ -145,6 +145,7 @@ export default {
   },
   methods: {
     addProperty(){
+      console.log(this.property.dateAvailable)
       this.property.landlordId = this.$store.state.user.userId
       this.property.thumbnail = this.imageThumbnail.link
       this.property.images.push(this.imageThumbnail);
