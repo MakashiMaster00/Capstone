@@ -72,19 +72,19 @@
             <div id="beds">
               <div class="block">
                 Beds
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bedGroup"
                     native-value="1">
                     1
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bedGroup"
                     native-value="2">
                     2
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bedGroup"
                     native-value="3">
                     3
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bedGroup"
                     native-value="4">
                     4+
                 </b-checkbox>
@@ -93,23 +93,23 @@
             <div id="baths">
               <div class="block">
                 Baths
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bathGroup"
                     native-value="1">
                     1
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bathGroup"
                     native-value="1.5">
                     1.5
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bathGroup"
                     native-value="2">
                     2
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bathGroup"
                     native-value="2.5">
                     2.5
                 </b-checkbox>
-                <b-checkbox type="is-black" v-model="checkboxGroup"
+                <b-checkbox type="is-black" v-model="bathGroup"
                     native-value="3">
                     3+
                 </b-checkbox>
@@ -119,29 +119,17 @@
         </div>
       </div>
       <div class="results">
-        <div>
-            <h2>Search Properties by Specifications</h2>
-            <b-field label="Enter number of beds: ">
-                <b-input id="bedFilter" v-model="filter.beds"></b-input>
-            </b-field>
-            <b-field label="Enter number of baths: ">
-                <b-input id="bathFilter" v-model="filter.baths"></b-input>
-            </b-field>
-        </div>
         <div v-for="prop in filteredProperties" v-bind:key="prop.propertyId" >
             <router-link v-bind:to="{name: 'Card', params: {propertyId: prop.propertyId}}">
-            <div>
-            <div>
-                <img v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
-            </div>
-            <h2>
-                {{ prop.addressLineOne }}
-                {{ prop.addressLineTwo }}
-                {{ prop.city }}
-                {{ prop.state }}
-                {{ prop.zipCode }}
-            </h2>
-            {{ prop.description }}
+            <div class="displaygrid">
+              <img class="thumbnail" v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
+              <div class="information">
+                <h1 id="address">{{ prop.addressLineOne }} {{ prop.addressLineTwo }}, {{ prop.city }}, {{ prop.state }} {{ prop.zipCode }}</h1>
+                <div id="description">
+                  {{ prop.description }}
+                </div>
+                <b-button id="contact" label="Email Property"  type="is-dark" size="is-medium" @click="prompt" />
+              </div>
             </div>
         </router-link>
         </div>
@@ -163,15 +151,17 @@ export default {
     //},
    data() {
        return {
-           filter: {
+          filter: {
             addressLineOne: "",
             city: "",
             state: "State",
             zipCode: "",
             beds: "",
             baths: ""
-        },
-           properties: [],
+          },
+          bathGroup: [],
+          bedGroup: [],
+          properties: [],
        }
    },
     
@@ -189,16 +179,41 @@ export default {
                 
             }
             )
-        }
+        },
+        prompt() {
+            this.$buefy.dialog.prompt({
+                message: `Message`,
+                inputAttrs: {
+                    placeholder: 'e.g. Hi, I am interested in this apartment for sale.',
+                    maxlength: 300
+                },
+                trapFocus: true,
+                onConfirm: () => this.$buefy.toast.open(`Your email has been sent. Thank You!`)
+            })
+        },
     },
     computed: {
         filteredProperties(){
             let filteredProperties = this.properties;
-            if (this.filter.addressLineOne != "") {
-                filteredProperties = filteredProperties.filter((prop) =>
-                    prop.addressLineOne.toLowerCase().includes(this.filter.addressLineOne.toLowerCase())
-                );
-            }
+            let bathCount = this.bathGroup.filter((num) => {
+              if(num != ""){
+                return num.toString();
+              }
+              else{
+                return "";
+              }
+            });
+            let finalBath = bathCount.toString();
+            let bedCount = this.bedGroup.filter((num) => {
+              if(num != ""){
+                return num.toString();
+              }
+              else{
+                return "";
+              }
+            });
+            let finalBed = bedCount.toString();
+            console.log(finalBath);
             if (this.filter.city != "") {
                 filteredProperties = filteredProperties.filter((prop) =>
                     prop.city.toLowerCase().includes(this.filter.city.toLowerCase())
@@ -211,16 +226,24 @@ export default {
             }
             if (this.filter.zipCode != "") {
                 filteredProperties = filteredProperties.filter((prop) =>
-                    prop.zipCode.toUpperCase().includes(this.filter.zipCode.toUpperCase())
+                    prop.zipCode.includes(this.filter.zipCode)
                 );
             }
-            if (this.filter.beds != "") {
+            if (finalBed != "" && finalBed != 4) {
                 filteredProperties = filteredProperties.filter((prop) =>
-                    prop.beds == this.filter.beds);
+                    prop.beds == finalBed);
             }
-            if (this.filter.baths != "") {
+             if (finalBed == 4) {
                 filteredProperties = filteredProperties.filter((prop) =>
-                    prop.baths == this.filter.baths);
+                    parseInt(prop.beds.toString()) >= parseInt(finalBed.toString()));
+            }
+            if (finalBath != "" &&  finalBath != 3) {
+                filteredProperties = filteredProperties.filter((prop) =>
+                    prop.baths == finalBath);
+            }
+            if (finalBath == 3) {
+                filteredProperties = filteredProperties.filter((prop) =>
+                    parseInt(prop.baths.toString()) >= parseInt(finalBath.toString()));
             }
             return filteredProperties;
         }
@@ -289,5 +312,31 @@ export default {
     "search" 
     "results";
   grid-row-gap: 50px;
+}
+.thumbnail {
+  width: 300px;
+  height: 250px;
+}
+.displaygrid {
+  display: grid;
+  grid-template-columns: .2fr .75fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "thumbnail information";
+  border-bottom: solid 3px #031926;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+#address {
+  color: #468189;
+  font-size: 2vw;
+}
+#description {
+  color: #9DBEBB;
+  font-size: 1vw;
+}
+#contact {
+  background-color: #77ACA2;
+  color: #031926;
 }
 </style>

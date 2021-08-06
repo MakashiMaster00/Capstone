@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="card">
         <div>
             <h2>
                 {{property.addressLineOne}}
@@ -73,5 +73,7 @@ export default {
 </script>
 
 <style>
-
+#card {
+    padding-top: 50px;
+}
 </style>

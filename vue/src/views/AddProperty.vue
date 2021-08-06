@@ -1,7 +1,7 @@
 
 
 <template>
-  <div>
+  <div id="page">
     <form>
       <b-field label="Street Address">
         <b-input v-model="property.addressLineOne"></b-input>
@@ -173,4 +173,7 @@ export default {
 </script>
 
 <style>
+  #page {
+    padding-top: 50px;
+  }
 </style>

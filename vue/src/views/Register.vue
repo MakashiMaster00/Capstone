@@ -90,4 +90,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  #register {
+    padding-top: 50px;
+  }
+</style>

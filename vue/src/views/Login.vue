@@ -74,3 +74,9 @@ export default {
   }
 };
 </script>
+
+<style>
+  #login {
+    padding-top: 50px;
+  }
+</style>
