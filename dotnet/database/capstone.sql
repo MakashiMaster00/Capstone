@@ -44,25 +44,33 @@ CREATE TABLE properties (
 	CONSTRAINT FK_landlord_id FOREIGN KEY (landlord_id) REFERENCES users (user_id)
 )
 CREATE TABLE images (
-image_link varchar(1000) NOT NULL,
-property_id int NOT NULL,
-image_id int IDENTITY(1,1) NOT NULL,
-thumbnail bit NOT NULL,
-CONSTRAINT FK_property_id FOREIGN KEY (property_id) REFERENCES properties (property_id),
-CONSTRAINT PK_image_id PRIMARY KEY (image_id) 
+	image_link varchar(1000) NOT NULL,
+	property_id int NOT NULL,
+	image_id int IDENTITY(1,1) NOT NULL,
+	thumbnail bit NOT NULL,
+	CONSTRAINT FK_property_id FOREIGN KEY (property_id) REFERENCES properties (property_id),
+	CONSTRAINT PK_image_id PRIMARY KEY (image_id) 
 )
 CREATE TABLE tasks(
-employee_id int  NULL,
-task_id int  IDENTITY (1,1) NOT NULL,
-property_id int NOT NULL,
-is_urgent bit NOT NULL,
-task_description varchar(50) NOT NULL,
-date_entered date DEFAULT(GETDATE()),
-date_scheduled date NULL,
-task_status varchar(50) NOT NULL,
-CONSTRAINT PK_task_id PRIMARY KEY (task_id),
-CONSTRAINT FK_employee_id FOREIGN KEY (employee_id) REFERENCES users (user_id),
-CONSTRAINT FK_property_task FOREIGN KEY (property_id) REFERENCES properties (property_id)
+	employee_id int  NULL,
+	task_id int  IDENTITY (1,1) NOT NULL,
+	property_id int NOT NULL,
+	is_urgent bit NOT NULL,
+	task_description varchar(50) NOT NULL,
+	date_entered date DEFAULT(GETDATE()),
+	date_scheduled date NULL,
+	task_status varchar(50) NOT NULL,
+	CONSTRAINT PK_task_id PRIMARY KEY (task_id),
+	CONSTRAINT FK_employee_id FOREIGN KEY (employee_id) REFERENCES users (user_id),
+	CONSTRAINT FK_property_task FOREIGN KEY (property_id) REFERENCES properties (property_id)
+)
+
+CREATE TABLE employees_landlords(
+	employee_id INT NOT NULL,
+    landlord_id INT NOT NULL,
+	CONSTRAINT PK_employee_landlord PRIMARY KEY (employee_id, landlord_id),
+    CONSTRAINT FK_employee FOREIGN KEY (employee_id) REFERENCES users (user_id),
+    CONSTRAINT FK_landlord FOREIGN KEY (landlord_id) REFERENCES users (user_id)
 )
 
 
@@ -98,5 +106,11 @@ INSERT INTO images (property_id, image_link, thumbnail) VALUES ('4', 'https://i.
 INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 0, 'test', 'Pending')
 INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (6, 2, 0, 'test', '08/9/2021', 'Scheduled')
 INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (7, 2, 0, 'test', '08/4/2021', 'Completed')
+
+--populate default data for images
+INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (6, 1);
+INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (7, 1);
+INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (6, 2);
+INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (8, 3);
 
 GO
