@@ -20,6 +20,9 @@ export default{
     },
     deleteProperty(propertyId){
         return http.delete(`/property/${propertyId}`)
+    },
+    updateProperty(propertyId, property){
+        return http.put(`/property/${propertyId}`, property)
     }
 
 }

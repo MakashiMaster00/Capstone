@@ -7,7 +7,7 @@
             params: { taskId: task.taskId },}">
             <h2>
                 {{ task.taskId }}
-                {{ task.status }}
+                {{ task.taskStatus }}
             </h2>
             </router-link>
           </div>
@@ -77,7 +77,7 @@ export default {
   },
   created() {
     this.retrieveTasks();
-    this.retrieveEmployees();
+    //this.retrieveEmployees();
   },
 }
 

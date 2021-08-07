@@ -281,14 +281,14 @@ export default {
 }
 #baths {
   background-color: white;
-  padding-top: 9px;
+  padding-top: 6px;
   height: 18%;
   width: 65%;
   border-radius: 25px;
 }
 #beds {
   background-color: white;
-  padding-top: 9px;
+  padding-top: 6px;
   height: 18%;
   width: 65%;
   border-radius: 25px;
@@ -331,11 +331,12 @@ export default {
   font-size: 2vw;
 }
 #description {
-  color: #9DBEBB;
+  color: #468189;
   font-size: 1vw;
+  padding-bottom: 15px;
 }
 #contact {
-  background-color: #9DBEBB;
+  background-color: #9dbebb91;
   color: #031926;
 }
 ::placeholder {

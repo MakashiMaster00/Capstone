@@ -1,11 +1,15 @@
 <template>
   <div id="card" class="container">
-    <div
-      class="slideshow"
-      v-for="image in property.images"
-      v-bind:key="image.imageId"
-    >
-      <img v-bind:src="image.link" alt="Property Image" />
+    <div class="slideshow" >
+      <b-carousel :autoplay="false" :indicator-inside="false">
+        <b-carousel-item v-for="image in property.images" :key="image.imageId">
+            <b-image class="image" :src="image.link"></b-image>
+        </b-carousel-item>
+        <!-- <template #indicators="props">
+            <b-image class="al image" :src="props.i" :title="props.i"></b-image>
+        </template> -->
+      </b-carousel>
+      <!-- <img v-bind:src="image.link" alt="Property Image" /> -->
     </div>
     <div class="info details">
       <h2 id="address" class="address">
@@ -35,13 +39,27 @@
         <p id="description">
           {{ property.description }}
         </p>
+        <form>
+            <h1 id="appheader" class="application">Application to Rent</h1>
+            <b-field class="application" label="Name">
+                <b-input></b-input>
+            </b-field>
+            <b-field class="application" label="Email Adress">
+                <b-input></b-input>
+            </b-field>
+            <b-field class="application" label="Number of Tenants">
+                <b-input></b-input>
+            </b-field>
+            <b-field class="application" label="Requested Move in Date">
+                <b-input></b-input>
+            </b-field>
+            <b-field class="application" label="Monthly Income">
+                <b-input></b-input>
+            </b-field>
+        </form>
       </div>
       <div class="contact">
         <img src="../assets/images/homepage.jpg"/>
-        <div id="contactinfo">
-            Contact:
-            {{ property.contact }}
-        </div>
       </div>
     </div>
   </div>
@@ -69,6 +87,9 @@ export default {
           }
         });
     },
+    getImg(value) {
+          return `https://picsum.photos/id/43${value}/1230/500`
+      }
   },
   created() {
     this.retrieveProperty();
@@ -81,7 +102,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #card {
   padding-top: 50px;
   padding-left: 10px;
@@ -93,6 +114,17 @@ export default {
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-template-areas: "slideshow info";
+}
+.info {
+    grid-area: info;
+}
+.image {
+    height: 900px;
+    width: auto;
+}
+.slideshow {
+    padding-right: 15px;
+    grid-area: slideshow;
 }
 .details {
   display: grid;
@@ -117,18 +149,10 @@ export default {
     height: 750px;
     background-size: cover;
 }
-#contactinfo {
-    transform: rotate(-35deg);
-    float: initial;
-    text-align: center;
-    position: absolute;
-    bottom: 58%;
-    left: 72%;
-}
 #description {
   padding-top: 10px;
   padding-right: 25px;
-  color: #9dbebb;
+  color: #468189;
 }
 #beds {
   color: #468189;
@@ -145,5 +169,23 @@ export default {
 #date {
   color: #468189;
   font-size: 1vw;
+}
+.application {
+    width: 75%;
+    color: #468189;
+}
+#appheader {
+    border-bottom: solid 1px #031926;
+    padding-top: 15px;
+    font-size: 1vw;
+}
+.application > .label {
+    color: #468189
+}
+.is-active .al img {
+    filter: grayscale(0%);
+}
+.al img {
+    filter: grayscale(100%);
 }
 </style>

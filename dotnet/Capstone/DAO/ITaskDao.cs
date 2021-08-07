@@ -7,11 +7,10 @@ namespace Capstone.DAO
 {
     public interface ITaskDao
     {
-        List<Task> GetTasks(int id);
+        List<Task> GetTasks();
         Task GetTask(int id);
         int AddTask(Task task);
         int UpdateTask(Task task);
         int DeleteTask(int id);
-       List<Task> GetTaskByLandlordId(int id);
     }
 }

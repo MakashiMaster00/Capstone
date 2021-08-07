@@ -93,11 +93,18 @@
       </b-field>
       <div class="buttons">
         <b-button
-          v-on:click.prevent="addProperty"
+          v-on:click.prevent="updateProperty"
           style="background-color: powderblue"
           type="submit"
           expanded
           >Submit</b-button
+        >
+        <b-button
+          tag="router-link" :to="{ name: 'landlordproperty'}"
+          style="background-color: powderblue"
+          type="submit"
+          expanded
+          >Cancel</b-button
         >
       </div>
     </form>
@@ -135,8 +142,8 @@ export default {
         .getProperty(this.$route.params.propertyId)
         .then((response) => {
           this.$store.commit("SET_PROPERTY", response.data);
-          this.property = response.data
-          console.log(this.property)
+          this.property = response.data;
+          
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -148,6 +155,23 @@ export default {
         });
         
     },
+    updateProperty(){
+      if (confirm("Are you sure you want to update?")) {
+        propertyService.updateProperty(this.$route.params.propertyId, this.property)
+        .then(response => {
+            if (response.status === 200) {
+              alert("Property successfully updated");
+              this.$router.push("/myProperties");
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              alert(`Error updating property. Response received was ${error.response.statusText}`)
+            }
+          });
+      }
+      
+    }
   },
   created(){
     this.retrieveProperty();
