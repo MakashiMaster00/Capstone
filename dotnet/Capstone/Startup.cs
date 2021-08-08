@@ -66,6 +66,7 @@ namespace Capstone
             services.AddTransient<IPropertyDao>(m => new PropertySqlDao(connectionString));
             services.AddTransient<IImageDao>(m => new ImageSqlDao(connectionString));
             services.AddTransient<ITaskDao>(m => new TaskSqlDao(connectionString));
+            services.AddTransient<IEmployeeDao>(m => new EmployeeSqlDao(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

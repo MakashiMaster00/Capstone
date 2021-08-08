@@ -12,10 +12,12 @@ namespace Capstone.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskDao taskDao;
+        private readonly IEmployeeDao employeeDao;
 
-        public TaskController(ITaskDao _taskDao)
+        public TaskController(ITaskDao _taskDao, IEmployeeDao _employeeDao)
         {
             taskDao = _taskDao;
+            employeeDao = _employeeDao;
         }
 
         [HttpGet]
@@ -98,6 +100,22 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Task not successfully deleted." });
             }
         }
+
+        [HttpGet("{id}/employees")]
+        public ActionResult<List<Task>> GetEmployees(int id)
+        {
+            List<Employee> employees = employeeDao.GetEmployeesByLandlordId(id);
+
+            if (employees.Count != 0)
+            {
+                return Ok(employees);
+            }
+            else
+            {
+                return BadRequest(new { message = "No employees found" });
+            }
+        }
+
     }
 }
 

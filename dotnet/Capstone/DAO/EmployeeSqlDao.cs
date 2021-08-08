@@ -1,48 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
-
+using System.Linq;
+using Capstone.Models;
 
 
 namespace Capstone.DAO
 {
-    public class EmployeeSqlDao : IEmployeeSqlDao
+    public class EmployeeSqlDao : IEmployeeDao
     {
         private readonly string connectionString;
         public EmployeeSqlDao(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
-        public List<Task> GetEmployeesByLandlordId(int id)
+        public List<Employee> GetEmployeesByLandlordId(int id)
         {
-            List<Task> tasks = new List<Task>();
+            List<Employee> employees = new List<Employee>();
             try
             {
                 using(SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "SELECT t.employee_id, t.task_id,t.property_id,t.task_description,t.date_entered,t.date_scheduled,t.task_status,p.landlord_id " +
-                                "FROM tasks t " +
-                                "JOIN properties p on t.property_id = p.property_id " +
-                                "WHERE p.landlord_id = @landlord_id; ";
+                    string sql = "SELECT u.user_id, u.username, u.email_address FROM users u " +
+                        "JOIN employees_landlords el ON el.employee_id = u.user_id WHERE el.landlord_id = @landlord_id;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@landlord_id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-
+                        employees.Add(GetEmployeeFromReader(reader));
                     }
                 }
             }
             catch (SqlException)
             {
-
                 throw;
             }
-            return tasks;
+            return employees;
         }
 
-    }
+        public Employee GetEmployeeFromReader(SqlDataReader reader)
+        {
+            Employee e = new Employee()
+            {
+                EmployeeId = Convert.ToInt32(reader["user_id"]),
+                Username = Convert.ToString(reader["username"]),
+                EmailAddress = Convert.ToString(reader["email_address"])
+            };
+
+            return e;
+        }
+    
+}
 }
