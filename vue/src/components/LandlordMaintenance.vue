@@ -45,8 +45,6 @@ export default {
         .getTasks()
         .then((response) => {
           this.tasks = response.data;
-
-          console.log(this.$store.state.user.userId);
           this.tasks = this.tasks.filter(
             (task) => task.landlordId == this.$store.state.user.userId
           );
@@ -60,7 +58,6 @@ export default {
         });
     },
     filterTasks() {
-      console.log(this.tasks);
       this.pendingTasks = this.tasks.filter(
             (task) => task.status == 'Pending'
           );
@@ -70,7 +67,6 @@ export default {
       this.completedTasks = this.tasks.filter(
             (task) => task.status == 'Completed'
           );
-      console.log(this.pendingTasks)
     },
     retrieveEmployees() {
       employeeService
