@@ -55,7 +55,9 @@ export default new Vuex.Store({
       dateEntered: "",
       dateScheduled: "",
       taskStatus: ""
-    }
+    },
+
+    tasks: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -87,6 +89,10 @@ export default new Vuex.Store({
     SET_THUMBNAIL(state, thumbnail){
       state.property.thumbnail = thumbnail;
       state.showButton = false;
+    },
+    SET_TASKS(state, data) {
+      state.tasks = data;
+      state.tasks = state.tasks.filter((task) => task.landlordId == state.user.userId);
     }
   }
 })

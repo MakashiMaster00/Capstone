@@ -12,11 +12,11 @@
             </router-link>
           </div>
       </div>
-      <div id="scheduled"> <!-- ID=2-->
+      <div id="scheduled">
         <h1 class="title">Scheduled</h1>
         <div></div>
       </div>
-      <div id="completed"> <!-- ID=3-->
+      <div id="completed">
         <h1 class="title">Completed</h1>
         <div></div>
       </div>
@@ -44,13 +44,11 @@ export default {
       taskService
         .getTasks()
         .then((response) => {
-          this.tasks = response.data;
-
-          console.log(this.$store.state.user.userId);
-          this.tasks = this.tasks.filter(
-            (task) => task.landlordId == this.$store.state.user.userId
-          );
-          //console.log(this.tasks);
+          this.$store.commit("SET_TASKS", response.data);
+          console.log(this.tasks);
+          // this.tasks = this.tasks.filter(
+          //   (task) => task.landlordId == this.$store.state.user.userId
+          //);
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -60,7 +58,7 @@ export default {
         });
     },
     filterTasks() {
-      console.log(this.tasks);
+      console.log(this.$store.state.tasks);
       this.pendingTasks = this.tasks.filter(
             (task) => task.status == 'Pending'
           );
@@ -70,7 +68,6 @@ export default {
       this.completedTasks = this.tasks.filter(
             (task) => task.status == 'Completed'
           );
-      console.log(this.pendingTasks)
     },
     retrieveEmployees() {
       employeeService
@@ -86,6 +83,11 @@ export default {
         });
     },
   },
+  computed: {
+    tasksArray() {
+      return this.$store.state.tasks;
+    }
+  },
   created() {
     this.retrieveTasks();
     this.filterTasks();
@@ -96,10 +98,8 @@ export default {
 </script>
 
 <style scoped>
-#maintenance {
-  padding-top: 50px;;
-}
 #landlord {
+  padding-top: 50px;
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr; 
   grid-template-rows: 1fr 1fr; 
