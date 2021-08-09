@@ -8,5 +8,6 @@ namespace Capstone.DAO
     public interface IEmployeeDao
     {
         List<Employee> GetEmployeesByLandlordId(int id);
+        
     }
 }
