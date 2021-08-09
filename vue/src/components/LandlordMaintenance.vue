@@ -77,7 +77,7 @@ export default {
   },
   created() {
     this.retrieveTasks();
-    //this.retrieveEmployees();
+    this.retrieveEmployees();
   },
 }
 

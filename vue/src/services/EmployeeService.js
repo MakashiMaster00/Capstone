@@ -8,7 +8,7 @@ export default{
 
     
     getEmployees(landlordId){
-        return http.get(`/employee/${landlordId}`);
+        return http.get(`/task/${landlordId}/employees`);
     },
 
 }
