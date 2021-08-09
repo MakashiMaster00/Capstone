@@ -44,7 +44,7 @@ export default {
       taskService
         .getTasks()
         .then((response) => {
-          this.filtedredTasks = response.data.filter((task) => task.landlordId == this.$store.state.user.userId)
+          this.filtedredTasks = response.data.filter((task) => task.landlordId == this.$store.state.user)
          this.$store.commit("SET_TASKS", this.filtedredTasks);
           console.log(this.$store.state.tasks);
           
