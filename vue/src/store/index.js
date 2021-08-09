@@ -44,6 +44,17 @@ export default new Vuex.Store({
       propertyId: 0,
       link: "",
       thumbnail: false
+    },
+
+    task: {
+      taskId: 0,
+      employeeId: 0,
+      propertyId: 0,
+      isUrgent: false,
+      taskDescription: "",
+      dateEntered: "",
+      dateScheduled: "",
+      taskStatus: ""
     }
   },
   mutations: {
@@ -66,6 +77,9 @@ export default new Vuex.Store({
     },
     SET_PROPERTY(state, data){
       state.property = data;
+    },
+    SET_TASK(state, data){
+      state.task = data;
     },
     ADD_PROPERTIES_IMAGE(state, image){
       state.property.images.push(image);

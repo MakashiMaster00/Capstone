@@ -50,10 +50,10 @@ namespace Capstone.DAO
                 using(SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "SELECT task_id, employee_id, date_entered, date_scheduled, is_urgent, " +
-                    "task_description, property_id, task_status, task_id " +
-                    "FROM tasks " +
-                    "WHERE task_id = @task_id";
+                    string sql = "SELECT t.task_id, t.employee_id, t.date_entered, t.date_scheduled, t.is_urgent, " +
+                        "t.task_description, t.property_id, t.task_status, p.landlord_id FROM tasks t " +
+                        "JOIN properties p ON t.property_id = p.property_id " +
+                        "WHERE task_id = @task_id";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@task_id", id);
                     SqlDataReader reader = cmd.ExecuteReader();

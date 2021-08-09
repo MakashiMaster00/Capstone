@@ -14,6 +14,32 @@ namespace Capstone.DAO
         {
             connectionString = dbConnectionString;
         }
+
+        public Employee GetEmployee(int id)
+        {
+            Employee employee = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "SELECT user_id, username, email_address FROM users u " +
+                        "WHERE user_id = @employee_id;";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@employee_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        employee = GetEmployeeFromReader(reader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return employee;
+        }
         public List<Employee> GetEmployeesByLandlordId(int id)
         {
             List<Employee> employees = new List<Employee>();
