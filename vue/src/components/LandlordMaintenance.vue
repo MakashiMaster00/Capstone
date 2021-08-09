@@ -2,23 +2,42 @@
   <div id="landlord">
       <div id="pending">
         <h1 class="title">Pending</h1>
-          <div v-for="task in tasks" v-bind:key="task.taskId">
-            <router-link v-bind:to="{name: 'landlord-task', 
-            params: { taskId: task.taskId }}">
-            <h2>
-                {{ task.taskId }}
-                {{ task.taskStatus }}
-            </h2>
-            </router-link>
+          <div v-for="task in pendingTasks" v-bind:key="task.taskId">
+            <div class="propID">
+              {{task.propertyId}}: 
+              {{task.dateEntered}}
+              {{task.isUrgent}}
+            </div>
+            <div class="desc">
+              {{task.taskDescription}}
+            </div>
           </div>
       </div>
-      <div id="scheduled"> <!-- ID=2-->
+      <div id="scheduled">
         <h1 class="title">Scheduled</h1>
-        <div></div>
+        <div v-for="task in scheduledTasks" v-bind:key="task.taskId">
+            <div class="propID">
+              {{task.propertyId}}: 
+              {{task.dateEntered}}
+              {{task.isUrgent}}
+            </div>
+            <div class="desc">
+              {{task.taskDescription}}
+            </div>
+          </div>
       </div>
-      <div id="completed"> <!-- ID=3-->
+      <div id="completed">
         <h1 class="title">Completed</h1>
-        <div></div>
+        <div v-for="task in completedTasks" v-bind:key="task.taskId">
+            <div class="propID">
+              {{task.propertyId}}: 
+              {{task.dateEntered}}
+              {{task.isUrgent}}
+            </div>
+            <div class="desc">
+              {{task.taskDescription}}
+            </div>
+          </div>
       </div>
   </div>
 </template>
@@ -31,7 +50,7 @@ export default {
     name: "maintance-landlord",
     data() {
       return {
-        tasks: [],
+        filtedredTasks: [],
         pendingTasks: [],
         scheduledTasks: [],
         completedTasks: [],
@@ -44,28 +63,26 @@ export default {
       taskService
         .getTasks()
         .then((response) => {
-          this.tasks = response.data;
-          this.tasks = this.tasks.filter(
-            (task) => task.landlordId == this.$store.state.user.userId
-          );
-          //console.log(this.tasks);
+          this.filtedredTasks = response.data.filter((task) => task.landlordId == this.$store.state.user.userId)
+          this.filterTasks(this.filtedredTasks);
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
             alert("Tasks not found");
           }
           this.$router.push("/");
-        });
+        })
     },
-    filterTasks() {
-      this.pendingTasks = this.tasks.filter(
-            (task) => task.status == 'Pending'
+    filterTasks(tasks) {
+      console.log(tasks)
+      this.pendingTasks = tasks.filter(
+            (task) => task.taskStatus == "Pending"
           );
-      this.scheduledTasks = this.tasks.filter(
-            (task) => task.status == 'Scheduled'
+      this.scheduledTasks = tasks.filter(
+            (task) => task.taskStatus == 'Scheduled'
           );
-      this.completedTasks = this.tasks.filter(
-            (task) => task.status == 'Completed'
+      this.completedTasks = tasks.filter(
+            (task) => task.taskStatus == 'Completed'
           );
     },
     retrieveEmployees() {
@@ -82,9 +99,14 @@ export default {
         });
     },
   },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks;
+    }
+  },
   created() {
     this.retrieveTasks();
-    this.filterTasks();
+    
     //this.retrieveEmployees();
   },
 }
@@ -92,17 +114,14 @@ export default {
 </script>
 
 <style scoped>
-#maintenance {
-  padding-top: 50px;;
-}
 #landlord {
+  padding-top: 50px;
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
+  grid-template-rows: 1fr; 
   gap: 0px 0px; 
   grid-template-areas: 
-    "pending scheduled completed"
-    ". . .";
+    "pending scheduled completed";
 }
 #pending {
   grid-area: pending;
@@ -120,5 +139,14 @@ export default {
   font-size: 2vw;
   text-align: center;
   text-decoration: underline #031926;
+}
+.propID {
+  font-size: 1.5vw;
+  color: #468189;
+  display: inline;
+}
+.desc {
+  font-size: 1.2vw;
+  color: #468189
 }
 </style>
