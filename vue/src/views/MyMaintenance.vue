@@ -1,5 +1,7 @@
 <template>
-  <landlord-maintenance/>
+  <div>
+    <landlord-maintenance/>
+  </div>
 </template>
 
 <script>
@@ -12,5 +14,7 @@ export default {
 </script>
 
 <style>
-
+html {
+  padding-top: 50px;
+}
 </style>

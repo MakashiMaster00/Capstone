@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <b-button tag="router-link" :to="{ name: 'addproperty' }" type="is-primary"
-      >Add a New Property</b-button
-    >
+  <div id="myprops">
     <div v-for="prop in properties" v-bind:key="prop.propertyId">
       <router-link
         v-bind:to="{
@@ -10,21 +7,20 @@
           params: { propertyId: prop.propertyId },
         }"
       >
-        <div>
-          <div>
-            <img v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
+        <div class="props">
+          <img class="img" v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
+          <div class="info">
+            <h1 id="address">{{ prop.addressLineOne }} {{ prop.addressLineTwo }}, {{ prop.city }}, {{ prop.state }} {{ prop.zipCode }}</h1>
+            <div id="description">
+              {{ prop.description }}
+            </div>
           </div>
-          <h2>
-            {{ prop.addressLineOne }}
-            {{ prop.addressLineTwo }}
-            {{ prop.city }}
-            {{ prop.state }}
-            {{ prop.zipCode }}
-          </h2>
-          {{ prop.description }}
         </div>
       </router-link>
     </div>
+    <b-button id="addpropbtn" tag="router-link" :to="{ name: 'addproperty' }" type="is-primary"
+      >Add a New Property</b-button
+    >
   </div>
 </template>
 
@@ -71,5 +67,39 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#myprops{
+  padding-top: 50px;
+  padding-left: 10px;
+}
+.props {
+  display: grid;
+  grid-template-columns: .3fr .7fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "img info";
+  border-bottom: solid 3px #031926;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.img {
+  grid-area: img;
+}
+.info {
+  grid-area: info;
+}
+#address {
+  color: #468189;
+  font-size: 3vw;
+}
+#description {
+  color: #468189;
+  font-size: 1.5vw;
+  padding-bottom: 15px;
+}
+#addpropbtn {
+   background-color: #9dbebb91;
+  color: #031926;
+}
 </style>
+

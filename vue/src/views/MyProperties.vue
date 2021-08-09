@@ -1,5 +1,7 @@
 <template>
-  <landlord-properties-list/>
+  <div>
+    <landlord-properties-list/>
+  </div>
 </template>
 
 <script>
@@ -12,5 +14,4 @@ export default {
 </script>
 
 <style>
-
 </style>

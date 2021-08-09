@@ -1,9 +1,9 @@
 <template>
   <div id="card" class="container">
-    <div class="slideshow" >
+    <div class="slideshow">
       <b-carousel :autoplay="false" :indicator-inside="false">
         <b-carousel-item v-for="image in property.images" :key="image.imageId">
-            <b-image class="image" :src="image.link"></b-image>
+          <b-image class="image" :src="image.link"></b-image>
         </b-carousel-item>
         <!-- <template #indicators="props">
             <b-image class="al image" :src="props.i" :title="props.i"></b-image>
@@ -39,27 +39,50 @@
         <p id="description">
           {{ property.description }}
         </p>
-        <form>
-            <h1 id="appheader" class="application">Application to Rent</h1>
-            <b-field class="application" label="Name">
-                <b-input></b-input>
-            </b-field>
-            <b-field class="application" label="Email Adress">
-                <b-input></b-input>
-            </b-field>
-            <b-field class="application" label="Number of Tenants">
-                <b-input></b-input>
-            </b-field>
-            <b-field class="application" label="Requested Move in Date">
-                <b-input></b-input>
-            </b-field>
-            <b-field class="application" label="Monthly Income">
-                <b-input></b-input>
-            </b-field>
+        <form v-if="$store.state.user.role == 'user'">
+          <h1 id="appheader" class="application">Application to Rent</h1>
+          <b-field class="application" label="Name">
+            <b-input></b-input>
+          </b-field>
+          <b-field class="application" label="Email Adress">
+            <b-input></b-input>
+          </b-field>
+          <b-field class="application" label="Number of Tenants">
+            <b-input></b-input>
+          </b-field>
+          <b-field class="application" label="Requested Move in Date">
+            <b-input></b-input>
+          </b-field>
+          <b-field class="application" label="Monthly Income">
+            <b-input></b-input>
+          </b-field>
         </form>
+        <div>
+          <b-button
+            tag="router-link"
+            :to="{ name: 'myproperties' }"
+            type="is-primary"
+            >Back</b-button
+          >
+          <b-button
+            tag="router-link"
+            :to="{ name: 'editproperty' }"
+            type="is-primary"
+            >Edit Property</b-button
+          >
+          <b-button v-on:click="deleteProperty" type="is-primary"
+            >Delete Property</b-button
+          >
+          <b-button
+            tag="router-link"
+            :to="{ name: 'editimages' }"
+            type="is-primary"
+            >Edit/Remove Images</b-button
+          >
+        </div>
       </div>
       <div class="contact">
-        <img src="../assets/images/homepage.jpg"/>
+        <img src="../assets/images/homepage.jpg" />
       </div>
     </div>
   </div>
@@ -87,7 +110,6 @@ export default {
           }
         });
     },
-    
   },
   created() {
     this.retrieveProperty();
@@ -114,20 +136,19 @@ export default {
   grid-template-areas: "slideshow info";
 }
 .info {
-    grid-area: info;
+  grid-area: info;
 }
 .image {
-    height: 900px;
-    width: auto;
+  width: auto;
 }
 .slideshow {
-    padding-right: 15px;
-    grid-area: slideshow;
+  padding-right: 15px;
+  grid-area: slideshow;
 }
 .details {
   display: grid;
-  grid-template-columns: .4fr .6fr;
-  grid-template-rows: .1fr .9fr;
+  grid-template-columns: 0.4fr 0.6fr;
+  grid-template-rows: 0.1fr 0.9fr;
   grid-template-areas:
     "address address"
     "specifics contact";
@@ -140,12 +161,12 @@ export default {
   margin-bottom: 15px;
 }
 .specifics {
-    grid-area: specifics;
+  grid-area: specifics;
 }
 .contact {
-    grid-area: contact;
-    height: 750px;
-    background-size: cover;
+  grid-area: contact;
+  height: 750px;
+  background-size: cover;
 }
 #description {
   padding-top: 10px;
@@ -169,21 +190,21 @@ export default {
   font-size: 1vw;
 }
 .application {
-    width: 75%;
-    color: #468189;
+  width: 75%;
+  color: #468189;
 }
 #appheader {
-    border-bottom: solid 1px #031926;
-    padding-top: 15px;
-    font-size: 1vw;
+  border-bottom: solid 1px #031926;
+  padding-top: 15px;
+  font-size: 1vw;
 }
 .application > .label {
-    color: #468189
+  color: #468189;
 }
 .is-active .al img {
-    filter: grayscale(0%);
+  filter: grayscale(0%);
 }
 .al img {
-    filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 </style>

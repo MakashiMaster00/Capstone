@@ -9,7 +9,7 @@
           <img
             id="logo"
             src="../src/assets/images/logosingular.jpg"
-            alt="Plant With Logo"
+            alt="Logo"
             
           />
           </router-link>
@@ -18,12 +18,20 @@
           <b-navbar-item class="text" tag="router-link" :to="{ path: '/' }">
             Home
           </b-navbar-item>
-          <b-navbar-item class="text" tag="router-link" :to="{ name: 'addproperty' }">
-            Add A Property
-          </b-navbar-item>
           <b-navbar-dropdown class="text" label="Info">
             <b-navbar-item class="text" href="#"> About </b-navbar-item>
             <b-navbar-item class="text" href="#"> Contact </b-navbar-item>
+          </b-navbar-dropdown>
+          <b-navbar-dropdown v-if="$store.state.user.role == 'landlord'" class="text" label="Landlord">
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'myproperties' }">My Properties</b-navbar-item>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'addproperty' }">Add A Property</b-navbar-item>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
+          </b-navbar-dropdown>
+          <b-navbar-dropdown v-if="$store.state.user.role == 'user'" class="text" label="User">
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
+          </b-navbar-dropdown>
+          <b-navbar-dropdown v-if="$store.state.user.role == 'employee'" class="text" label="Employee">
+           
           </b-navbar-dropdown>
           <b-navbar-item tag="div">
             <div class="buttons">

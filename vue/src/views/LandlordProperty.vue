@@ -1,17 +1,5 @@
 <template>
   <div>
-    <b-button tag="router-link" :to="{ name: 'myproperties' }" type="is-primary"
-      >Back</b-button
-    >
-    <b-button tag="router-link" :to="{ name: 'editproperty' }" type="is-primary"
-      >Edit Property</b-button
-    >
-    <b-button v-on:click="deleteProperty" type="is-primary"
-      >Delete Property</b-button
-    >
-    <b-button tag="router-link" :to="{ name:'editimages'}" type="is-primary"
-      >Edit/Remove Images</b-button
-    >
     <property-card />
   </div>
 </template>
