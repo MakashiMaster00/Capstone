@@ -31,7 +31,7 @@ export default {
     name: "maintance-landlord",
     data() {
       return {
-        tasks: [],
+        filtedredTasks: [],
         pendingTasks: [],
         scheduledTasks: [],
         completedTasks: [],
@@ -44,11 +44,10 @@ export default {
       taskService
         .getTasks()
         .then((response) => {
-          this.$store.commit("SET_TASKS", response.data);
-          console.log(this.tasks);
-          // this.tasks = this.tasks.filter(
-          //   (task) => task.landlordId == this.$store.state.user.userId
-          //);
+          this.filtedredTasks = response.data.filter((task) => task.landlordId == this.$store.state.user.userId)
+         this.$store.commit("SET_TASKS", this.filtedredTasks);
+          console.log(this.$store.state.tasks);
+          
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -56,9 +55,10 @@ export default {
           }
           this.$router.push("/");
         });
+       console.log(this.filtedredTasks)
     },
     filterTasks() {
-      console.log(this.$store.state.tasks);
+      
       this.pendingTasks = this.tasks.filter(
             (task) => task.status == 'Pending'
           );
@@ -84,7 +84,7 @@ export default {
     },
   },
   computed: {
-    tasksArray() {
+    tasks() {
       return this.$store.state.tasks;
     }
   },
