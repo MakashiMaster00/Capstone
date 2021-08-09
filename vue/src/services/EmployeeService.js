@@ -8,7 +8,10 @@ export default{
 
     
     getEmployees(landlordId){
-        return http.get(`/employee/${landlordId}`);
+        return http.get(`/task/${landlordId}/employees`);
     },
+    getEmployee(landlordId, employeeId){
+        return http.get(`/task/${landlordId}/employee/${employeeId}`);
+    }
 
 }

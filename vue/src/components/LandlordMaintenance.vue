@@ -1,11 +1,16 @@
 <template>
-  <div id="maintenance">
-    <div id="landlord">
-      <div id="pending"> <!-- ID=1-->
+  <div id="landlord">
+      <div id="pending">
         <h1 class="title">Pending</h1>
-        <div v-for="task in pendingTasks" v-bind:key="task.taskId">
-          <h1>{{task.description}}</h1>
-        </div>
+          <div v-for="task in tasks" v-bind:key="task.taskId">
+            <router-link v-bind:to="{name: 'landlord-task', 
+            params: { taskId: task.taskId }}">
+            <h2>
+                {{ task.taskId }}
+                {{ task.taskStatus }}
+            </h2>
+            </router-link>
+          </div>
       </div>
       <div id="scheduled"> <!-- ID=2-->
         <h1 class="title">Scheduled</h1>
@@ -15,7 +20,6 @@
         <h1 class="title">Completed</h1>
         <div></div>
       </div>
-    </div>
   </div>
 </template>
 
