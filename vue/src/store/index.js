@@ -92,7 +92,6 @@ export default new Vuex.Store({
     },
     SET_TASKS(state, data) {
       state.tasks = data;
-      //state.tasks = state.tasks.filter((task) => task.landlordId == state.user.userId);
     },
 
     
