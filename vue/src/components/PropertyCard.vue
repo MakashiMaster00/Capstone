@@ -87,9 +87,7 @@ export default {
           }
         });
     },
-    getImg(value) {
-          return `https://picsum.photos/id/43${value}/1230/500`
-      }
+    
   },
   created() {
     this.retrieveProperty();

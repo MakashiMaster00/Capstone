@@ -115,15 +115,29 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Property not successfully deleted." });
             }
         }
+        [HttpGet("{id}/images")]
+        public ActionResult<List<Image>> GetImages(int id)
+        {
+            List<Image> images = imageDao.GetImages(id);
+            
 
+            if (images.Count != 0)
+            {
+                return Ok(images);
+            }
+            else
+            {
+                return BadRequest(new { message = "No images found." });
+            }
+        }
         [HttpPut("{id}/images/{imageId}")]
-        public IActionResult UpdateImage(int id, int imageId)
+        public IActionResult UpdateImage(int id, int imageId, Image image)
         {
             int successStatus = 0;
 
             successStatus = imageDao.UpdateThumbnail(id, imageId);
 
-            if (successStatus == 1)
+            if (successStatus != 0)
             {
                 return Ok();
             }
@@ -132,7 +146,24 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Image not successfully updated." });
             }
         }
+        [HttpPost("{id}/images")]
+        public IActionResult AddImage(Image image)
+        {
+            
+            
+            int propertyId = imageDao.AddImage(image);
 
+            
+
+            if (propertyId != 0)
+            {
+                return Ok(propertyId);
+            }
+            else
+            {
+                return BadRequest(new { message = "Property not successfully created." });
+            }
+        }
         [HttpDelete("{id}/images/{imageId}")]
         public IActionResult DeleteImage(int imageId)
         {
@@ -150,4 +181,7 @@ namespace Capstone.Controllers
             }
         }
     }
+
+        
+    
 }

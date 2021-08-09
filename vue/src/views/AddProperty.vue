@@ -157,7 +157,7 @@ export default {
       .then(response => {
         if (response.status === 200) {
           alert("You successfully added a property!")
-          this.$router.push({name: 'login'})
+          this.$router.push({name: 'home'})
         }
       }
       )
