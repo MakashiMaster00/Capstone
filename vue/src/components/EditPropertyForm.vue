@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="editform">
     <form>
       <b-field label="Street Address">
         <b-input v-model="property.addressLineOne"></b-input>
@@ -179,5 +179,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#editform {
+  padding-top: 50px;
+}
 </style>
