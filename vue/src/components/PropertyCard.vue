@@ -57,28 +57,19 @@
             <b-input></b-input>
           </b-field>
         </form>
-        <div>
-          <b-button
-            tag="router-link"
-            :to="{ name: 'myproperties' }"
-            type="is-primary"
-            >Back</b-button
-          >
-          <b-button
-            tag="router-link"
-            :to="{ name: 'editproperty' }"
-            type="is-primary"
-            >Edit Property</b-button
-          >
-          <b-button v-on:click="deleteProperty" type="is-primary"
-            >Delete Property</b-button
-          >
-          <b-button
-            tag="router-link"
-            :to="{ name: 'editimages' }"
-            type="is-primary"
-            >Edit/Remove Images</b-button
-          >
+        <div v-if="$store.state.user.role == 'landlord'" id="options">
+          <b-button tag="router-link" id="back" :to="{ name: 'myproperties' }" type="is-primary">Back</b-button>
+          <b-dropdown id="drpdwn" aria-role="list">
+            <template #trigger="{ active }">
+                <b-button id="actions"
+                    label="Property Actions"
+                    type="is-primary"
+                    :icon-right="active ? 'menu-up' : 'menu-down'" />
+            </template>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'editproperty' }">Edit Property</b-navbar-item>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'deleteProperty' }">Delete Property</b-navbar-item>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'editimages' }">Edit/Remove Images</b-navbar-item>
+          </b-dropdown>
         </div>
       </div>
       <div class="contact">
@@ -206,5 +197,20 @@ export default {
 }
 .al img {
   filter: grayscale(100%);
+}
+#actions {
+  background-color: #9dbebb91;
+  color: #031926;
+}
+#options {
+  padding-top: 25px;
+}
+#drpdwn :hover{
+  color: black;
+}
+#back {
+  background-color: #9dbebb91;
+  color: #031926;
+  margin-right: 5px;
 }
 </style>

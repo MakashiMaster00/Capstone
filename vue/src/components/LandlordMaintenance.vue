@@ -1,30 +1,21 @@
 <template>
-  <div>
-      Hi there!
-      <div id="serviceRequests">
-          <div v-for="task in tasks" v-bind:key="task.taskId">
-            <router-link v-bind:to="{name: 'landlordTask', 
-            params: { taskId: task.taskId },}">
-            <h2>
-                {{ task.taskId }}
-                {{ task.taskStatus }}
-            </h2>
-            </router-link>
-          </div>
+  <div id="maintenance">
+    <div id="landlord">
+      <div id="pending"> <!-- ID=1-->
+        <h1 class="title">Pending</h1>
+        <div v-for="task in pendingTasks" v-bind:key="task.taskId">
+          <h1>{{task.description}}</h1>
+        </div>
       </div>
-      <div id=Employees>
-            <b-button tag="router-link" :to="{ name: 'addemployee' }" type="is-primary">
-                Add a New Employee
-            </b-button>
-            <b-button tag="router-link" :to="{ name: 'removeemployee' }" type="is-primary">
-                Remove an Employee
-            </b-button>
-          <div v-for="employee in employees" v-bind:key="employee.userId">
-            <h2>
-                {{ employee.username }}
-            </h2>
-          </div>
+      <div id="scheduled"> <!-- ID=2-->
+        <h1 class="title">Scheduled</h1>
+        <div></div>
       </div>
+      <div id="completed"> <!-- ID=3-->
+        <h1 class="title">Completed</h1>
+        <div></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,11 +25,14 @@ import employeeService from "@/services/EmployeeService.js";
 
 export default {
     name: "maintance-landlord",
-      data() {
-    return {
-      tasks: [],
-      employees: []
-    };
+    data() {
+      return {
+        tasks: [],
+        pendingTasks: [],
+        scheduledTasks: [],
+        completedTasks: [],
+        employees: []
+      };
   },
 
   methods: {
@@ -52,7 +46,7 @@ export default {
           this.tasks = this.tasks.filter(
             (task) => task.landlordId == this.$store.state.user.userId
           );
-          console.log(this.tasks);
+          //console.log(this.tasks);
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -60,6 +54,19 @@ export default {
           }
           this.$router.push("/");
         });
+    },
+    filterTasks() {
+      console.log(this.tasks);
+      this.pendingTasks = this.tasks.filter(
+            (task) => task.status == 'Pending'
+          );
+      this.scheduledTasks = this.tasks.filter(
+            (task) => task.status == 'Scheduled'
+          );
+      this.completedTasks = this.tasks.filter(
+            (task) => task.status == 'Completed'
+          );
+      console.log(this.pendingTasks)
     },
     retrieveEmployees() {
       employeeService
@@ -77,12 +84,41 @@ export default {
   },
   created() {
     this.retrieveTasks();
+    this.filterTasks();
     //this.retrieveEmployees();
   },
 }
 
 </script>
 
-<style>
-
+<style scoped>
+#maintenance {
+  padding-top: 50px;;
+}
+#landlord {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "pending scheduled completed"
+    ". . .";
+}
+#pending {
+  grid-area: pending;
+  border-right: solid 1px #031926;
+}
+#scheduled {
+  grid-area: scheduled;
+  border-right: solid 1px #031926;
+}
+#completed {
+  grid-area: completed;
+}
+.title {
+  color: #468189;
+  font-size: 2vw;
+  text-align: center;
+  text-decoration: underline #031926;
+}
 </style>
