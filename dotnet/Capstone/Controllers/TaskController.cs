@@ -102,7 +102,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{id}/employees")]
-        public ActionResult<List<Task>> GetEmployees(int id)
+        public ActionResult<List<Employee>> GetEmployees(int id)
         {
             List<Employee> employees = employeeDao.GetEmployeesByLandlordId(id);
 
@@ -113,6 +113,21 @@ namespace Capstone.Controllers
             else
             {
                 return BadRequest(new { message = "No employees found" });
+            }
+        }
+
+        [HttpGet("{id}/employee/{employeeId}")]
+        public ActionResult<Employee> GetEmployee(int employeeId)
+        {
+            Employee employee = employeeDao.GetEmployee(employeeId);
+
+            if (employee != null)
+            {
+                return Ok(employee);
+            }
+            else
+            {
+                return BadRequest(new { message = "Employee not found" });
             }
         }
 

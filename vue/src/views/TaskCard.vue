@@ -1,15 +1,15 @@
 <template>
   <div>
-      <property-card />   
+      <maintenance-card />   
   </div>
 </template>
 
 <script>
-import propertyCard from '@/components/PropertyCard.vue'
+import maintenanceCard from '@/components/MaintenanceCard.vue'
 
 export default {
     components: {
-        propertyCard
+        maintenanceCard
     }
 }
 </script>

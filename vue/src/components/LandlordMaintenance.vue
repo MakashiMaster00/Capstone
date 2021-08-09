@@ -1,10 +1,9 @@
 <template>
   <div>
-      Hi there!
       <div id="serviceRequests">
           <div v-for="task in tasks" v-bind:key="task.taskId">
-            <router-link v-bind:to="{name: 'landlordTask', 
-            params: { taskId: task.taskId },}">
+            <router-link v-bind:to="{name: 'landlord-task', 
+            params: { taskId: task.taskId }}">
             <h2>
                 {{ task.taskId }}
                 {{ task.taskStatus }}

@@ -14,6 +14,7 @@ import MyMaintenance from '@/views/MyMaintenance.vue'
 import LandlordProperty from '@/views/LandlordProperty.vue'
 import EditProperty from '@/views/EditProperty.vue'
 import EditImages from '@/views/EditRemoveImages.vue'
+import MaintenanceCard from '@/views/TaskCard.vue'
 Vue.use(Router)
 
 /**
@@ -123,6 +124,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/myMaintenance/:taskId",
+      name: 'landlord-task',
+      component: MaintenanceCard,
+      meta: {
+        requiresAuth: true
+      }
+
     },
     {
       path: "/myProperties/:propertyId/editImages",
