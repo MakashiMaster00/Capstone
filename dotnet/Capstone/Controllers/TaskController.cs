@@ -83,6 +83,24 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Task not successfully updated." });
             }
         }
+        [HttpPut("{id}/status")]
+        public IActionResult UpdateTaskStatus(Task task, int id)
+        {
+            int successStatus = 0;
+
+            if (task.TaskId == id)
+            {
+                successStatus = taskDao.UpdateTaskStatus(task);
+            }
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Task not successfully updated." });
+            }
+        }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteTask(int id)

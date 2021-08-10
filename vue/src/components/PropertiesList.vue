@@ -1,9 +1,9 @@
 <template>
 <div>
     <div class="biggrid">
-      <div class="search">
+      <div class="container" id="search">
         <img id="logo" src="../assets/images/logo.jpg" alt="logo" />
-        <div id="searchbar" class="container">
+        <div id="searchbar">
           <div class="searchinputs">
             <b-field class="inputs">
               <b-input placeholder="City" v-model="filter.city" rounded></b-input>
@@ -258,23 +258,23 @@ export default {
   height: auto;
   width: 100%;
 }
-.search {
+#search {
   text-align: center;
-  width: 100%;
   height: auto;
-  background-image: url("../assets/images/background.jpg");
-  background-size: 100% 100%;
+  max-width: 100%;
+  width: 100%;
 }
 #searchbar {
+  grid-area: search;
   padding-top: 50px;
   padding-left: 50px;
-  max-width: 100%;
+  max-width: 65%;
 }
 #logo {
-  padding-top: 5%;
-  height: 50%;
+  grid-area: img;
+  height: 80%;
   width: auto;
-  align-items: center;
+  padding-left: 100px;
 }
 .inputs {
   padding-bottom: 25px;
@@ -282,6 +282,7 @@ export default {
 #baths {
   background-color: white;
   padding-top: 6px;
+  margin-bottom: 37px;
   height: 18%;
   width: 65%;
   border-radius: 25px;
@@ -295,12 +296,16 @@ export default {
   margin-bottom: 37px;
 }
 .container {
+  align-items: center;
   display: grid;
+  max-width: 100%;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
-  grid-template-areas: "searchinputs checkboxes";
+  grid-template-areas: "img search";
   column-gap: 75px;
+  background-image: url("../assets/images/background.jpg");
+  background-size: 100%;
 }
 .biggrid {
  display: grid; 

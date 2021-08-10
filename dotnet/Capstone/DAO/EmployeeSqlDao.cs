@@ -74,8 +74,8 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "INSERT INTO employees_landlords(landlord_id, employee_id)" + 
-                                    "OUTPUT INSERTED.employee_id " + 
+                    string sql = "INSERT INTO employees_landlords(landlord_id, employee_id)" +
+                                    "OUTPUT INSERTED.employee_id " +
                                     "VALUES(@landlord_id, @employee_id);";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@landlord_id", employee.LandlordIds);
