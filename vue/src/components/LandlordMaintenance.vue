@@ -4,13 +4,13 @@
         <h1 class="title">Pending</h1>
           <div v-for="task in pendingTasks" v-bind:key="task.taskId">
             <router-link v-bind:to="{name: 'landlord-task', params: {taskId: task.taskId}}">
-              <div class="propID">
-                {{task.propertyId}}: 
-                {{task.dateEntered}}
-                {{task.isUrgent}}
+                <div class="propID">
+                <p>Property Id: {{task.propertyId}}</p>
+                <p>Date Entered: {{task.dateEntered}}</p>
+                <p>Urgent: {{task.isUrgent}}</p>
               </div>
               <div class="desc">
-                {{task.taskDescription}}
+                Notes: {{task.taskDescription}}
               </div>
             </router-link>
           </div>
@@ -25,7 +25,7 @@
                 <p>Urgent: {{task.isUrgent}}</p>
               </div>
               <div class="desc">
-                {{task.taskDescription}}
+                Notes: {{task.taskDescription}}
               </div>
             </router-link>
           </div>
@@ -34,13 +34,13 @@
         <h1 class="title">Completed</h1>
         <div v-for="task in completedTasks" v-bind:key="task.taskId">
             <router-link v-bind:to="{name: 'landlord-task', params: {taskId: task.taskId}}">
-              <div class="propID">
-                {{task.propertyId}}: 
-                {{task.dateEntered}}
-                {{task.isUrgent}}
+                <div class="propID">
+                <p>Property Id: {{task.propertyId}}</p>
+                <p>Date Entered: {{task.dateEntered}}</p>
+                <p>Urgent: {{task.isUrgent}}</p>
               </div>
               <div class="desc">
-                {{task.taskDescription}}
+                Notes: {{task.taskDescription}}
               </div>
             </router-link>
           </div>
