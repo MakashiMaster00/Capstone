@@ -13,9 +13,9 @@ export default{
         return http.post('/application', app)
     },
     approveApplication(app) {
-        return http.put(`/application/${appId}/approve`, app)
+        return http.put(`/application/${app.appId}/approve`, app)
     },
-    rejectApplication() {
+    rejectApplication(appId) {
         return http.put(`/application/${appId}/reject`)
     }
 }
