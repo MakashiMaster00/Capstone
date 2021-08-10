@@ -54,7 +54,6 @@ namespace Capstone.Controllers
         {
             List<Task> tasks = taskDao.GetTaskByRenterId(renterId);
 
-<<<<<<< HEAD
             if (tasks.Count != 0)
             {
                 return Ok(tasks);
@@ -64,10 +63,8 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "No tasks associated with that id." });
             }
         }
+
         [HttpPost("/add")]
-=======
-        [HttpPost("{id}/tasks")]
->>>>>>> 9ce49f4f53c3345e01dc75d97b71bb81aea3b182
         public ActionResult<int> AddTask(Task task)
         {
             int taskId = taskDao.AddTask(task);
@@ -133,72 +130,6 @@ namespace Capstone.Controllers
             else
             {
                 return BadRequest(new { message = "Task not successfully deleted." });
-            }
-        }
-
-        [HttpGet("{id}/employees")]
-        public ActionResult<List<Employee>> GetEmployees(int id)
-        {
-            List<Employee> employees = employeeDao.GetEmployeesByLandlordId(id);
-
-            if (employees.Count != 0)
-            {
-                return Ok(employees);
-            }
-            else
-            {
-                return BadRequest(new { message = "No employees found" });
-            }
-        }
-
-        [HttpGet("{id}/employee/{employeeId}")]
-        public ActionResult<Employee> GetEmployee(int employeeId)
-        {
-            Employee employee = employeeDao.GetEmployee(employeeId);
-
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-            else
-            {
-                return BadRequest(new { message = "Employee not found" });
-            }
-        }
-<<<<<<< HEAD
-        
-        [HttpPost]
-        public ActionResult<int> AddEmployee(Employee employee)
-=======
-        [HttpPost("{id}/employees")]
-        public ActionResult<int> AddEmployee(int id, Employee employee)
->>>>>>> 9ce49f4f53c3345e01dc75d97b71bb81aea3b182
-        {
-            int successStatus = employeeDao.AddEmployee(id, employee);
-
-            if (successStatus == 1)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest(new { message = "Employee not successfully added." });
-            }
-        }
-        [HttpDelete("{id}/employee/{employeeId}")]
-        public IActionResult DeleteEmployee(int id, int employeeId)
-        {
-            int successStatus = 0;
-
-            successStatus = employeeDao.DeleteEmployee(id, employeeId);
-
-            if (successStatus == 1)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest(new { message = "Employee not successfully deleted." });
             }
         }
     }
