@@ -54,7 +54,7 @@ namespace Capstone.Controllers
         {
             List<Task> tasks = taskDao.GetTaskByRenterId(renterId);
 
-<<<<<<< HEAD
+
             if (tasks.Count != 0)
             {
                 return Ok(tasks);
@@ -65,9 +65,9 @@ namespace Capstone.Controllers
             }
         }
         [HttpPost("/add")]
-=======
+
         [HttpPost("{id}/tasks")]
->>>>>>> 9ce49f4f53c3345e01dc75d97b71bb81aea3b182
+
         public ActionResult<int> AddTask(Task task)
         {
             int taskId = taskDao.AddTask(task);
@@ -165,14 +165,14 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Employee not found" });
             }
         }
-<<<<<<< HEAD
+
         
         [HttpPost]
         public ActionResult<int> AddEmployee(Employee employee)
-=======
+
         [HttpPost("{id}/employees")]
         public ActionResult<int> AddEmployee(int id, Employee employee)
->>>>>>> 9ce49f4f53c3345e01dc75d97b71bb81aea3b182
+
         {
             int successStatus = employeeDao.AddEmployee(id, employee);
 

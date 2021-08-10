@@ -8,16 +8,16 @@ export default{
 
     
     getEmployees(landlordId){
-        return http.get(`/task/${landlordId}/employees`);
+        return http.get(`/employee/${landlordId}/employees`);
     },
     getEmployee(landlordId, employeeId){
-        return http.get(`/task/${landlordId}/employee/${employeeId}`);
+        return http.get(`/employee/${landlordId}/employee/${employeeId}`);
     },
     addEmployee(landlordId,employee){
-        return http.post(`/task/${landlordId}/newemployee`, employee)
+        return http.post(`/employee/${landlordId}/newemployee`, employee)
     },
     deleteEmployee(landlordId,employeeId){
-        return http.delete(`/task/${landlordId}/employee/${employeeId}`)
+        return http.delete(`/employee/${landlordId}/employee/${employeeId}`)
     }
     
 
