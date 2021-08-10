@@ -11,8 +11,14 @@
       <p>Date Scheduled: {{ task.dateScheduled }}</p>
       <p>Task Status: {{ task.taskStatus }}</p>
 
-      <b-button tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
+      <b-button v-if="this.$store.state.user.role == 'landlord' && task.taskStatus != 'Completed'" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
             Edit Request
+        </b-button>
+        <b-button v-if="this.$store.state.user.role == 'employee' && task.taskStatus == 'Scheduled'" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
+            Move Task to Completed
+        </b-button>
+         <b-button  tag="router-link" :to="{ name: 'mymaintenance' }" type="is-primary">
+            Back
         </b-button>
   </div>
 </template>
@@ -59,6 +65,7 @@ export default {
           }
         });
     },
+   
 },
 // computed: {
 //     task() {
