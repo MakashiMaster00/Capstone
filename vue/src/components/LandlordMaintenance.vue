@@ -20,9 +20,9 @@
         <div v-for="task in scheduledTasks" v-bind:key="task.taskId">
             <router-link v-bind:to="{name: 'landlord-task', params: {taskId: task.taskId}}">
               <div class="propID">
-                {{task.propertyId}}: 
-                {{task.dateEntered}}
-                {{task.isUrgent}}
+                <p>Property Id: {{task.propertyId}}</p>
+                <p>Date Entered: {{task.dateEntered}}</p>
+                <p>Urgent: {{task.isUrgent}}</p>
               </div>
               <div class="desc">
                 {{task.taskDescription}}

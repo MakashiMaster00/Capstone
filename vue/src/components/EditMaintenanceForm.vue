@@ -2,7 +2,7 @@
   <div id="editform">
     <form>
       <b-field  label="Employee">
-        <b-select v-model="task.employeeId" placeholder="Select an employee" required>
+        <b-select placeholder="Select an employee" v-model="task.employeeId">
           <optgroup>
             <option v-for="employee in employees" v-bind:key="employee.employeeId" 
             v-bind:value="employee.employeeId"> 
