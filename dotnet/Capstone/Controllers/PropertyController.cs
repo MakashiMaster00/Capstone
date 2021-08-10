@@ -161,7 +161,7 @@ namespace Capstone.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Property not successfully created." });
+                return BadRequest(new { message = "Image not successfully created." });
             }
         }
         [HttpDelete("{id}/images/{imageId}")]
