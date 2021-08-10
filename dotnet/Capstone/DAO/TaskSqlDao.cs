@@ -107,9 +107,11 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     string sql = "UPDATE tasks SET employee_id = @employee_id, date_scheduled = @date_scheduled, " +
-                        "task_description = @task_description, task_status = @task_status;";
+                        "task_description = @task_description, task_status = @task_status " +
+                        "WHERE task_id = @task_id;";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@task_id", task.TaskId);
                     cmd.Parameters.AddWithValue("@employee_id", task.EmployeeId);
                     cmd.Parameters.AddWithValue("@date_scheduled", task.DateScheduled);
                     cmd.Parameters.AddWithValue("@task_description", task.TaskDescription);
@@ -125,6 +127,30 @@ namespace Capstone.DAO
             return success;
         }
 
+        public int UpdateTaskStatus(Task task)
+        {
+            int success = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "UPDATE tasks SET task_status = @task_status " +
+                        "WHERE task_id = @task_id;";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@task_id", task.TaskId);
+                    cmd.Parameters.AddWithValue("@task_status", task.TaskStatus);
+
+                    success = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return success;
+        }
         public int DeleteTask(int id)
         {
             int success = 0;
@@ -156,7 +182,7 @@ namespace Capstone.DAO
                 PropertyId = Convert.ToInt32(reader["property_id"]),
                 IsUrgent = Convert.ToBoolean(reader["is_urgent"]),
                 TaskDescription = Convert.ToString(reader["task_description"]),
-                DateEntered = Convert.ToString(reader["date_entered"]),
+                DateEntered = Convert.ToDateTime(reader["date_entered"]).ToString("yyyy-MM-dd"),
                 TaskStatus = Convert.ToString(reader["task_status"]),
                 LandlordId = Convert.ToInt32(reader["landlord_id"])
             };
@@ -166,7 +192,7 @@ namespace Capstone.DAO
             }
             if (!reader.IsDBNull(3))
             {
-                t.DateScheduled = Convert.ToString(reader["date_scheduled"]);
+                t.DateScheduled = Convert.ToDateTime(reader["date_scheduled"]).ToString("yyyy-MM-dd");
             }
             return t;
         }

@@ -31,7 +31,7 @@
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
           </b-navbar-dropdown>
           <b-navbar-dropdown v-if="$store.state.user.role == 'employee'" class="text" label="Employee">
-           
+           <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
           </b-navbar-dropdown>
           <b-navbar-item tag="div">
             <div class="buttons">

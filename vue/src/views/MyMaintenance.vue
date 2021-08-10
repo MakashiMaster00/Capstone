@@ -1,14 +1,17 @@
 <template>
   <div>
-    <landlord-maintenance/>
+    <landlord-maintenance v-if="$store.state.user.role == 'landlord'"/>
+    <employee-maintenance v-if="$store.state.user.role == 'employee'"/>
   </div>
 </template>
 
 <script>
+import EmployeeMaintenance from '../components/EmployeeMaintenance.vue'
 import LandlordMaintenance from '../components/LandlordMaintenance.vue'
 export default {
     components: {
-        LandlordMaintenance
+        LandlordMaintenance,
+        EmployeeMaintenance
     }
 }
 </script>
