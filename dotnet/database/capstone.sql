@@ -130,7 +130,7 @@ INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('4', 'https://i.imgur.com/HiNohRo.jpeg', 1);
 
 --populate default data for tasks
-INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 0, 'test', 'Pending')
+INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 1, 'test', 'Pending')
 INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (6, 2, 0, 'test', '08/9/2021', 'Scheduled')
 INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (7, 2, 0, 'test', '08/4/2021', 'Completed')
 

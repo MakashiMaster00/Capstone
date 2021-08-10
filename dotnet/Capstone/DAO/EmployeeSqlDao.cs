@@ -66,34 +66,32 @@ namespace Capstone.DAO
             return employees;
         }
 
-        public int AddEmployee(Employee employee)
+        public int AddEmployee(int id, Employee employee)
         {
-            int employeeNumber = 0;
+            int success = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "INSERT INTO employees_landlords(landlord_id, employee_id)" +
-                                    "OUTPUT INSERTED.employee_id " +
+                    string sql = "INSERT INTO employees_landlords(landlord_id, employee_id) " +
                                     "VALUES(@landlord_id, @employee_id);";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@landlord_id", employee.LandlordIds);
+                    cmd.Parameters.AddWithValue("@landlord_id", id);
                     cmd.Parameters.AddWithValue("@employee_id", employee.EmployeeId);
 
-                    employeeNumber = Convert.ToInt32(cmd.ExecuteScalar());
+                    success = cmd.ExecuteNonQuery();
                 }
 
             }
             catch (SqlException)
             {
-
                 throw;
             }
-            return employeeNumber;
+            return success;
         }
 
-        public int DeleteEmployee(int id)
+        public int DeleteEmployee(int landlordId, int employeeId)
         {
             int success = 0;
             try
@@ -102,20 +100,20 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     string sql = "DELETE FROM employees_landlords " +
-                                    "WHERE employee_id = @employee_id;";
+                                    "WHERE employee_id = @employee_id AND " +
+                                    "landlord_id = @landlord_id;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@employee_id", id);
+                    cmd.Parameters.AddWithValue("@employee_id", employeeId);
+                    cmd.Parameters.AddWithValue("@landlord_id", landlordId);
                     success = cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException)
             {
-
                 throw;
             }
             return success;
         }
-
 
         public Employee GetEmployeeFromReader(SqlDataReader reader)
         {

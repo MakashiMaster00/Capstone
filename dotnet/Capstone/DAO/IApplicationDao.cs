@@ -9,7 +9,8 @@ namespace Capstone.DAO
     public interface IApplicationDao
     {
         List<Application> GetApplications(int landlordId);
-
         int AddApplication(Application app);
+        int ApproveApplication(Application app);
+        int RejectApplication(int id);
     }
 }

@@ -1,23 +1,22 @@
 <template>
   <div id="task">
-      <h2>
-      Task Id: {{ task.taskId }}
-      </h2>
-      <p>Employee Name: {{ employee.username }}</p>
-      <p>Property Id: {{ task.propertyId }}</p>
-      <p>Is Urgent: {{ task.isUrgent }}</p>
-      <p>Task Description: {{ task.taskDescription }}</p>
-      <p>Date Entered: {{ task.dateEntered }}</p>
-      <p>Date Scheduled: {{ task.dateScheduled }}</p>
-      <p>Task Status: {{ task.taskStatus }}</p>
-
-      <b-button v-if="this.$store.state.user.role == 'landlord' && task.taskStatus != 'Completed'" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
+    <div id="info">
+      <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
+      <p><a class="pointer">Task Id:</a> {{ task.taskId }}</p>
+      <p><a class="pointer">Employee Name:</a> {{ employee.username }}</p>
+      <p><a class="pointer">Property Id:</a> {{ task.propertyId }}</p>
+      <p><a class="pointer">Task Description:</a> {{ task.taskDescription }}</p>
+      <p><a class="pointer">Date Entered:</a> {{ task.dateEntered }}</p>
+      <p><a class="pointer">Date Scheduled:</a> {{ task.dateScheduled }}</p>
+      <p><a class="pointer">Task Status:</a> {{ task.taskStatus }}</p>
+    </div>
+      <b-button class="btn" v-if="this.$store.state.user.role == 'landlord' && task.taskStatus != 'Completed'" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
             Edit Request
         </b-button>
-        <b-button v-on:click="updateTask" v-if="this.$store.state.user.role == 'employee' && task.taskStatus == 'Scheduled'"  type="is-primary">
+        <b-button class="btn" v-on:click="updateTask" v-if="this.$store.state.user.role == 'employee' && task.taskStatus == 'Scheduled'"  type="is-primary">
             Move Task to Completed
         </b-button>
-         <b-button  tag="router-link" :to="{ name: 'mymaintenance' }" type="is-primary">
+         <b-button  class="btn" tag="router-link" :to="{ name: 'mymaintenance' }" type="is-primary">
             Back
         </b-button>
   </div>
@@ -104,8 +103,28 @@ created() {
   padding-top: 50px;
   padding-left: 10px;
 }
-#btn {
+#task > .btn {
   background-color: #9dbebb91;
   color: #031926;
+  margin-right: 15px;
+  width: 20%;
+  font-size: 1vw;
+}
+#info {
+  font-size: 1vw;
+  color: #468189;
+  margin-bottom: 15px;
+}
+.pointer {
+  font-size: 1.2vw;
+  color: #2f565c;
+  font-style: italic;
+}
+.urgent {
+  font-size: 1.2vw;
+  color: #2f565c;
+  font-style: italic;
+  font-weight: bolder;
+  text-decoration: underline #031926;
 }
 </style>

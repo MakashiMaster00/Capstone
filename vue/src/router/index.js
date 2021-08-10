@@ -142,7 +142,7 @@ const router = new Router({
     meta:{
       requiresAuth: true
     }
-  },
+    },
     {
       path: "/myProperties/:propertyId/editImages",
       name: 'editimages',

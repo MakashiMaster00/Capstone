@@ -91,6 +91,60 @@ namespace Capstone.DAO
             return appId;
         }
 
+        public int ApproveApplication(Application app)
+        {
+            int success = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "UPDATE applications SET status = 'Approved' " +
+                        "WHERE application_id = @application_id; " +
+                        "UPDATE properties SET available = 0 " +
+                        "WHERE property_id = @property_id; " +
+                        "INSERT INTO renters_properties (renter_id, property_id) " +
+                        "VALUES (@renter_id, @property_id)";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@application_id", app.ApplicationId);
+                    cmd.Parameters.AddWithValue("@renter_id", app.RenterId);
+                    cmd.Parameters.AddWithValue("@property_id", app.PropertyId);
+
+                    success = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return success;
+        }
+
+        public int RejectApplication(int id)
+        {
+            int success = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "UPDATE applications SET status = 'Rejected' " +
+                        "WHERE application_id = @application_id;";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@application_id", id);
+
+                    success = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return success;
+        }
+
         public Application GetAppFromReader(SqlDataReader reader)
         {
             Application app = new Application()

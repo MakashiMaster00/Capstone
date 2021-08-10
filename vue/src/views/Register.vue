@@ -5,6 +5,17 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
+      <label for="role" class="sr-only">Role</label>
+      <select
+        id="role"
+        class="form-control"
+        placeholder="Role"
+        v-model="user.role"
+        required
+        autofocus>
+        <option value="" selected disabled>Choose</option>
+        <option v-for="role in roles" v-bind:value="role" v-bind:key="role">{{ role }}</option>
+      </select>
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -51,10 +62,11 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
-        role: 'user',
+        role: '',
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
+      roles: ['Renter', 'Landlord', 'Employee']
     };
   },
   methods: {
