@@ -90,6 +90,7 @@ export default {
       propertyService
         .getProperty(this.$route.params.propertyId)
         .then((response) => {
+          
           this.$store.commit("SET_PROPERTY", response.data);
         })
         .catch((error) => {

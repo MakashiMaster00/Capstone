@@ -55,7 +55,9 @@ export default new Vuex.Store({
       dateEntered: "",
       dateScheduled: "",
       taskStatus: ""
-    }
+    },
+
+    tasks: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -66,7 +68,6 @@ export default new Vuex.Store({
     SET_USER(state, user) {
       state.user = user;
       localStorage.setItem('user', JSON.stringify(user));
-      
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -87,6 +88,11 @@ export default new Vuex.Store({
     SET_THUMBNAIL(state, thumbnail){
       state.property.thumbnail = thumbnail;
       state.showButton = false;
-    }
+    },
+    SET_TASKS(state, data) {
+      state.tasks = data;
+    },
+
+    
   }
 })

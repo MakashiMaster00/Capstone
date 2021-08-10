@@ -106,13 +106,13 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "UPDATE tasks SET employee_id = @employee_id, " +
-                        "is_urgent = @is_urgent, date_scheduled = @date_scheduled, task_status = @task_status;";
+                    string sql = "UPDATE tasks SET employee_id = @employee_id, date_scheduled = @date_scheduled, " +
+                        "task_description = @task_description, task_status = @task_status;";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@employee_id", task.EmployeeId);
-                    cmd.Parameters.AddWithValue("@is_urgent", task.IsUrgent);
                     cmd.Parameters.AddWithValue("@date_scheduled", task.DateScheduled);
+                    cmd.Parameters.AddWithValue("@task_description", task.TaskDescription);
                     cmd.Parameters.AddWithValue("@task_status", task.TaskStatus);
 
                     success = cmd.ExecuteNonQuery();

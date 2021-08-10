@@ -25,6 +25,7 @@ export default {
   name: "landlord-task",
   data() {
     return {
+      task: {},
       employee: {}
     }
   },
@@ -34,6 +35,8 @@ export default {
         .getTask(this.$route.params.taskId)
         .then((response) => {
           this.$store.commit("SET_TASK", response.data);
+          this.task = this.$store.state.task;
+          this.retrieveEmployee();
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -57,14 +60,14 @@ export default {
         });
     },
 },
-computed: {
-    task() {
-      return this.$store.state.task;
-    }
-},
+// computed: {
+//     task() {
+//       return this.$store.state.task;
+//     }
+// },
 created() {
     this.retrieveTask();
-    this.retrieveEmployee();
+    //this.retrieveEmployee();
 },
 }
 </script>
