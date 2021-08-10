@@ -2,10 +2,10 @@
   <div id="editform">
     <form>
       <b-field  label="Employee">
-        <b-select v-model="task.employeeId" placeholder="Select an employee">
+        <b-select v-model="task.employeeId" placeholder="Select an employee" required>
           <optgroup>
             <option v-for="employee in employees" v-bind:key="employee.employeeId" 
-            value="employee.employeeId"> 
+            v-bind:value="employee.employeeId"> 
                 {{ employee.username }}
             </option>
           </optgroup>
@@ -33,7 +33,7 @@
           >Submit</b-button
         >
         <b-button
-          tag="router-link" :to="{ name: ''}"
+          tag="router-link" :to="{ name: 'landlord-task', params: {taskId: task.taskId}}"
           style="background-color: powderblue"
           type="submit"
           expanded
@@ -77,7 +77,7 @@ export default {
             alert(
               "The task is not available. It may have been deleted or you have entered an invalid Id."
             );
-            this.$router.push("/myMaintenance");
+            this.$router.push({ name: 'landlord-task', params: {taskId: this.task.taskId}});
           }
         }); 
     },

@@ -22,7 +22,9 @@ export default{
     updateTask(task) {
         return http.put(`/task/${task.taskId}`, task)
     },
-
+    updateTaskStatus(task) {
+        return http.put(`/task/${task.taskId}/status`, task)
+    },
     deleteTask(taskId){
         return http.delete(`/task/${taskId}`)
     }
