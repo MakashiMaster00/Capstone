@@ -98,8 +98,8 @@
         <b-field label="Description">
         <b-input maxlength ="200" type="textarea" v-model="property.description"></b-input>
       </b-field>
-      <div class="buttons">
-            <b-button v-on:click.prevent="addProperty" style="background-color:powderblue" type="submit" expanded>Submit</b-button>
+      <div >
+            <b-button id="button" v-on:click.prevent="addProperty" type="submit" expanded>Submit</b-button>
         </div>
     </form>
   </div>
@@ -176,5 +176,9 @@ export default {
 <style>
   #page {
     padding-top: 50px;
+  }
+  #button {
+    background-color: #9dbebb91;
+    color: #031926;
   }
 </style>

@@ -24,17 +24,15 @@
         ></b-input>
       </b-field>
 
-      <div class="buttons">
-        <b-button
+      <div id="buttons">
+        <b-button class="btn"
           v-on:click.prevent="updateTask"
-          style="background-color: powderblue"
           type="submit"
           expanded
           >Submit</b-button
         >
-        <b-button
+        <b-button class="btn"
           tag="router-link" :to="{ name: 'landlord-task', params: {taskId: task.taskId}}"
-          style="background-color: powderblue"
           type="submit"
           expanded
           >Cancel</b-button
@@ -125,5 +123,9 @@ export default {
 <style scoped>
 #editform {
   padding-top: 50px;
+}
+#buttons > .btn {
+  background-color: #9dbebb91;
+  color: #031926;
 }
 </style>

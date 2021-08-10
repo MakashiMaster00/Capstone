@@ -10,18 +10,18 @@ namespace Capstone.Controllers
     [ApiController]
     public class ApplicationController : ControllerBase
     {
-        private readonly IApplicationDao appdao;
-        public ApplicationController(IApplicationDao _appdao)
+        private readonly IApplicationDao appDao;
+        public ApplicationController(IApplicationDao _appDao)
         {
-            appdao = _appdao;
+            appDao = _appDao;
         }
 
         [HttpGet("{id}")]
         public ActionResult<List<Application>> GetApplications(int id)
         {
-            List<Application> app = appdao.GetApplications(id);
+            List<Application> app = appDao.GetApplications(id);
 
-            if (app != null)
+            if (app.Count != 0)
             {
                 return Ok(app);
             }
@@ -34,7 +34,7 @@ namespace Capstone.Controllers
         [HttpPost]
         public ActionResult<int> AddApplication(Application app)
         {
-            int appId = appdao.AddApplication(app);
+            int appId = appDao.AddApplication(app);
 
             if (appId != 0)
             {
@@ -46,5 +46,40 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpPut("{id}/approve")]
+        public ActionResult ApproveApplication(Application app, int id)
+        {
+            int successStatus = 0;
+
+            if (app.ApplicationId == id)
+            {
+                successStatus = appDao.ApproveApplication(app);
+            }
+            if (successStatus == 3)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Application not successfully updated." });
+            }
+        }
+
+        [HttpPut("{id}/reject")]
+        public ActionResult RejectApplication(int id)
+        {
+            int successStatus = 0;
+
+            successStatus = appDao.RejectApplication(id);
+
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Application not successfully updated." });
+            }
+        }
     }
 }
