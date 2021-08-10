@@ -14,7 +14,7 @@
       <b-button v-if="this.$store.state.user.role == 'landlord' && task.taskStatus != 'Completed'" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
             Edit Request
         </b-button>
-        <b-button v-if="this.$store.state.user.role == 'employee' && task.taskStatus == 'Scheduled'" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
+        <b-button v-on:click="updateTask" v-if="this.$store.state.user.role == 'employee' && task.taskStatus == 'Scheduled'"  type="is-primary">
             Move Task to Completed
         </b-button>
          <b-button  tag="router-link" :to="{ name: 'mymaintenance' }" type="is-primary">
@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       task: {},
-      employee: {}
+      employee: {},
+
     }
   },
   methods: {
@@ -65,6 +66,25 @@ export default {
           }
         });
     },
+    updateTask(){
+      console.log(this.task)  
+      if (confirm("Are you sure you want to update?")) {
+        this.task.taskStatus = 'Completed';
+        taskService.updateTask(this.task)
+        .then(response => {
+            if (response.status === 200) {
+              alert("Property successfully updated");
+              this.$router.push("/myMaintenance");
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              alert(`Error updating task. Response received was ${error.response.statusText}`)
+            }
+          });
+      }
+      
+    }
    
 },
 // computed: {
