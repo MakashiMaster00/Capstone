@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="task">
       <h2>
       Task Id: {{ task.taskId }}
       </h2>
@@ -11,7 +11,7 @@
       <p>Date Scheduled: {{ task.dateScheduled }}</p>
       <p>Task Status: {{ task.taskStatus }}</p>
 
-      <b-button tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
+      <b-button id="btn" tag="router-link" :to="{ name: 'editrequest' }" type="is-primary">
             Edit Request
         </b-button>
   </div>
@@ -72,6 +72,13 @@ created() {
 }
 </script>
 
-<style>
-
+<style scoped>
+#task {
+  padding-top: 50px;
+  padding-left: 10px;
+}
+#btn {
+  background-color: #9dbebb91;
+  color: #031926;
+}
 </style>

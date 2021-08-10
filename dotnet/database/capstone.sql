@@ -73,6 +73,23 @@ CREATE TABLE employees_landlords(
     CONSTRAINT FK_landlord FOREIGN KEY (landlord_id) REFERENCES users (user_id)
 )
 
+CREATE TABLE applications(
+	application_id INT IDENTITY(1,1) NOT NULL,
+	renter_id INT NOT NULL,
+	landlord_id INT NOT NULL,
+	property_id INT NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	tenants INT NOT NULL,
+	move_in_date date NOT NULL,
+	income MONEY NOT NULL,
+	status varchar(50) NULL,
+	CONSTRAINT PK_app_id PRIMARY KEY (application_id),
+	CONSTRAINT FK_renter_id FOREIGN KEY (renter_id) REFERENCES users (user_id),
+	CONSTRAINT FK_lanlord_id FOREIGN KEY (landlord_id) REFERENCES users (user_id),
+	CONSTRAINT FK_property FOREIGN KEY (property_id) REFERENCES properties (property_id),
+)
+
 
 --TODO Photo table links to property id
 
@@ -102,15 +119,19 @@ INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.imgur.com/HiNohRo.jpeg', 0);
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('4', 'https://i.imgur.com/HiNohRo.jpeg', 1);
 
---populate default data for images
+--populate default data for tasks
 INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 0, 'test', 'Pending')
 INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (6, 2, 0, 'test', '08/9/2021', 'Scheduled')
 INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (7, 2, 0, 'test', '08/4/2021', 'Completed')
 
---populate default data for images
+--populate default data for employees_landlords
 INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (6, 1);
 INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (7, 1);
 INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (6, 2);
 INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (8, 3);
+
+--populate default data for applications
+INSERT INTO applications (renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status) VALUES (4, 1, 1, 'Amber', 'test@email.com', 2, '08/23/2021', 60000, 'Pending')
+INSERT INTO applications (renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status) VALUES (4, 1, 2, 'Amber', 'test@email.com', 2, '08/23/2021', 60000, 'Pending')
 
 GO

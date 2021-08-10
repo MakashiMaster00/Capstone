@@ -3,40 +3,46 @@
       <div id="pending">
         <h1 class="title">Pending</h1>
           <div v-for="task in pendingTasks" v-bind:key="task.taskId">
-            <div class="propID">
-              {{task.propertyId}}: 
-              {{task.dateEntered}}
-              {{task.isUrgent}}
-            </div>
-            <div class="desc">
-              {{task.taskDescription}}
-            </div>
+            <router-link v-bind:to="{name: 'landlord-task', params: {taskId: task.taskId}}">
+              <div class="propID">
+                {{task.propertyId}}: 
+                {{task.dateEntered}}
+                {{task.isUrgent}}
+              </div>
+              <div class="desc">
+                {{task.taskDescription}}
+              </div>
+            </router-link>
           </div>
       </div>
       <div id="scheduled">
         <h1 class="title">Scheduled</h1>
         <div v-for="task in scheduledTasks" v-bind:key="task.taskId">
-            <div class="propID">
-              {{task.propertyId}}: 
-              {{task.dateEntered}}
-              {{task.isUrgent}}
-            </div>
-            <div class="desc">
-              {{task.taskDescription}}
-            </div>
+            <router-link v-bind:to="{name: 'landlord-task', params: {taskId: task.taskId}}">
+              <div class="propID">
+                {{task.propertyId}}: 
+                {{task.dateEntered}}
+                {{task.isUrgent}}
+              </div>
+              <div class="desc">
+                {{task.taskDescription}}
+              </div>
+            </router-link>
           </div>
       </div>
       <div id="completed">
         <h1 class="title">Completed</h1>
         <div v-for="task in completedTasks" v-bind:key="task.taskId">
-            <div class="propID">
-              {{task.propertyId}}: 
-              {{task.dateEntered}}
-              {{task.isUrgent}}
-            </div>
-            <div class="desc">
-              {{task.taskDescription}}
-            </div>
+            <router-link v-bind:to="{name: 'landlord-task', params: {taskId: task.taskId}}">
+              <div class="propID">
+                {{task.propertyId}}: 
+                {{task.dateEntered}}
+                {{task.isUrgent}}
+              </div>
+              <div class="desc">
+                {{task.taskDescription}}
+              </div>
+            </router-link>
           </div>
       </div>
   </div>
