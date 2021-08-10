@@ -11,5 +11,6 @@ namespace Capstone.DAO
         int AddEmployee(Employee employee);
         int DeleteEmployee(int id);
         Employee GetEmployee(int id);
+
     }
 }
