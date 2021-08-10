@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="task">
       <h2>
       Task Id: {{ task.taskId }}
       </h2>
@@ -79,6 +79,13 @@ created() {
 }
 </script>
 
-<style>
-
+<style scoped>
+#task {
+  padding-top: 50px;
+  padding-left: 10px;
+}
+#btn {
+  background-color: #9dbebb91;
+  color: #031926;
+}
 </style>

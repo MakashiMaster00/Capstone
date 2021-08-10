@@ -83,6 +83,24 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Task not successfully updated." });
             }
         }
+        [HttpPut("{id}/status")]
+        public IActionResult UpdateTaskStatus(Task task, int id)
+        {
+            int successStatus = 0;
+
+            if (task.TaskId == id)
+            {
+                successStatus = taskDao.UpdateTaskStatus(task);
+            }
+            if (successStatus == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Task not successfully updated." });
+            }
+        }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteTask(int id)
@@ -130,35 +148,35 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Employee not found" });
             }
         }
-        [HttpPost]
-        public ActionResult<int> AddEmployee(Employee employee)
-        {
-            int employeeId = employeeDao.AddEmployee(employee);
-            if (employeeId != 0)
-            {
-                return Ok(employeeId);
-            }
-            else
-            {
-                return BadRequest(new { message = "Employee not successfully created." });
-            }
-        }
-        [HttpDelete("{id}")]
-        public IActionResult DeleteEmployee(int id)
-        {
-            int successStatus = 0;
+        //[HttpPost]
+        //public ActionResult<int> AddEmployee(Employee employee)
+        //{
+        //    int employeeId = employeeDao.AddEmployee(employee);
+        //    if (employeeId != 0)
+        //    {
+        //        return Ok(employeeId);
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(new { message = "Employee not successfully created." });
+        //    }
+        //}
+        //[HttpDelete("{id}")]
+        //public IActionResult DeleteEmployee(int id)
+        //{
+        //    int successStatus = 0;
 
-            successStatus = employeeDao.DeleteEmployee(id);
+        //    successStatus = employeeDao.DeleteEmployee(id);
 
-            if (successStatus == 1)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest(new { message = "Task not successfully deleted." });
-            }
-        }
+        //    if (successStatus == 1)
+        //    {
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(new { message = "Task not successfully deleted." });
+        //    }
+        //}
     }
 }
 
