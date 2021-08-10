@@ -12,6 +12,10 @@ export default{
     },
     getEmployee(landlordId, employeeId){
         return http.get(`/task/${landlordId}/employee/${employeeId}`);
+    },
+    addEmployee(employee){
+        return http.post(`/task/newemployee`, employee)
     }
+    
 
 }
