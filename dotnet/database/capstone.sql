@@ -95,7 +95,7 @@ CREATE TABLE applications(
 	CONSTRAINT PK_app_id PRIMARY KEY (application_id),
 	CONSTRAINT FK_renter_id FOREIGN KEY (renter_id) REFERENCES users (user_id),
 	CONSTRAINT FK_lanlord_id FOREIGN KEY (landlord_id) REFERENCES users (user_id),
-	CONSTRAINT FK_property FOREIGN KEY (property_id) REFERENCES properties (property_id),
+	CONSTRAINT FK_property_app FOREIGN KEY (property_id) REFERENCES properties (property_id),
 )
 
 

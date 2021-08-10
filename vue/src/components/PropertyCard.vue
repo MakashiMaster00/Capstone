@@ -42,20 +42,21 @@
         <form v-if="$store.state.user.role == 'user'">
           <h1 id="appheader" class="application">Application to Rent</h1>
           <b-field class="application" label="Name">
-            <b-input></b-input>
+            <b-input v-model="application.name"></b-input>
           </b-field>
           <b-field class="application" label="Email Adress">
-            <b-input></b-input>
+            <b-input v-model="application.email"></b-input>
           </b-field>
           <b-field class="application" label="Number of Tenants">
-            <b-input></b-input>
+            <b-input v-model.number="application.tenants"></b-input>
           </b-field>
           <b-field class="application" label="Requested Move in Date">
-            <b-input></b-input>
+            <b-input v-model="application.moveInDate"></b-input>
           </b-field>
           <b-field class="application" label="Monthly Income">
-            <b-input></b-input>
+            <b-input v-model.number="application.income"></b-input>
           </b-field>
+          <b-button class="submit" v-on:click.prevent="addApp" style="background-color:powderblue" type="submit" expanded>Submit</b-button>
         </form>
         <div v-if="$store.state.user.role == 'landlord'" id="options">
           <b-button tag="router-link" id="back" :to="{ name: 'myproperties' }" type="is-primary">Back</b-button>
@@ -81,10 +82,27 @@
 
 <script>
 import propertyService from "@/services/PropertyService.js";
+import appService from "@/services/AppService.js";
 
 export default {
   name: "property-detail",
   props: ["prop"],
+  data() {
+    return {
+       application: {
+        applicationId: 0,
+        renterId: 0,
+        landlordId: 0,
+        propertyId: 0,
+        name: "",
+        email: "",
+        tenants: 0,
+        moveInDate: "",
+        income: 0,
+        status: "Pending",
+      }
+    }
+  },
   methods: {
     retrieveProperty() {
       propertyService
@@ -102,6 +120,24 @@ export default {
           }
         });
     },
+    addApp(){
+      this.application.renterId = this.$store.state.user.userId;
+      this.application.propertyId = this.$store.state.property.propertyId;
+      appService.addApplication(this.application)
+      .then(response => {
+        if (response.status === 200) {
+          alert("You successfully applied!")
+          this.$router.push({name: 'home'})
+        }
+      }
+      )
+      .catch(error => {
+        if (error.response) {
+          alert("There was an issue with your application.")
+        }
+        
+      })
+    }
   },
   created() {
     this.retrieveProperty();
@@ -213,5 +249,9 @@ export default {
   background-color: #9dbebb91;
   color: #031926;
   margin-right: 5px;
+}
+.submit {
+  max-width: 50%;
+  margin-bottom: 50px;
 }
 </style>
