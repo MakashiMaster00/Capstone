@@ -50,7 +50,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("{id}/tasks")]
         public ActionResult<int> AddTask(Task task)
         {
             int taskId = taskDao.AddTask(task);
@@ -130,7 +130,7 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Employee not found" });
             }
         }
-        [HttpPost]
+        [HttpPost("{id}/employees")]
         public ActionResult<int> AddEmployee(Employee employee)
         {
             int employeeId = employeeDao.AddEmployee(employee);
@@ -143,7 +143,7 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Employee not successfully created." });
             }
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/employee/{employeeId}")]
         public IActionResult DeleteEmployee(int id)
         {
             int successStatus = 0;
@@ -156,7 +156,7 @@ namespace Capstone.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Task not successfully deleted." });
+                return BadRequest(new { message = "Employee not successfully deleted." });
             }
         }
     }
