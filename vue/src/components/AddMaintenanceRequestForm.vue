@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="maintenance">
     <b-field label="Is the request urgent?">
       <b-checkbox v-on:click="this.task.isUrgent = !this.task.isUrgent"></b-checkbox>
     </b-field>
@@ -14,9 +14,8 @@
         v-model="task.taskDescription"
       ></b-input>
     </b-field>
-    <b-button
+    <b-button class="btn"
       v-on:click.prevent="addTask"
-      style="background-color: powderblue"
       type="submit"
       expanded
       >Submit</b-button
@@ -81,5 +80,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#maintenance  {
+  padding-top: 50px;
+  padding-left: 10px;
+}
+#maintenance > .btn {
+  background-color: #9dbebb91;
+  color: #031926;
+}
 </style>
