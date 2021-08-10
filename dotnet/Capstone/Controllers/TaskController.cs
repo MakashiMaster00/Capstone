@@ -149,24 +149,25 @@ namespace Capstone.Controllers
             }
         }
         [HttpPost("{id}/employees")]
-        public ActionResult<int> AddEmployee(Employee employee)
+        public ActionResult<int> AddEmployee(int id, Employee employee)
         {
-            int employeeId = employeeDao.AddEmployee(employee);
-            if (employeeId != 0)
+            int successStatus = employeeDao.AddEmployee(id, employee);
+
+            if (successStatus == 1)
             {
-                return Ok(employeeId);
+                return Ok();
             }
             else
             {
-                return BadRequest(new { message = "Employee not successfully created." });
+                return BadRequest(new { message = "Employee not successfully added." });
             }
         }
         [HttpDelete("{id}/employee/{employeeId}")]
-        public IActionResult DeleteEmployee(int id)
+        public IActionResult DeleteEmployee(int id, int employeeId)
         {
             int successStatus = 0;
 
-            successStatus = employeeDao.DeleteEmployee(id);
+            successStatus = employeeDao.DeleteEmployee(id, employeeId);
 
             if (successStatus == 1)
             {
