@@ -2,16 +2,21 @@
   <div>
     <landlord-maintenance v-if="$store.state.user.role == 'landlord'"/>
     <employee-maintenance v-if="$store.state.user.role == 'employee'"/>
+    <renter-maintenance v-if="$store.state.user.role == 'user'" />
   </div>
 </template>
 
 <script>
+import RenterMaintenance from '@/components/RenterMaintenance.vue'
 import EmployeeMaintenance from '../components/EmployeeMaintenance.vue'
 import LandlordMaintenance from '../components/LandlordMaintenance.vue'
+
 export default {
     components: {
         LandlordMaintenance,
-        EmployeeMaintenance
+        EmployeeMaintenance,
+        RenterMaintenance,
+        
     }
 }
 </script>

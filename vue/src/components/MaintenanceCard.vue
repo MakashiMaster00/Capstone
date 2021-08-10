@@ -70,7 +70,7 @@ export default {
       console.log(this.task)  
       if (confirm("Are you sure you want to update?")) {
         this.task.taskStatus = 'Completed';
-        taskService.updateTask(this.task)
+        taskService.updateTaskStatus(this.task)
         .then(response => {
             if (response.status === 200) {
               alert("Property successfully updated");
