@@ -41,7 +41,38 @@ namespace Capstone.DAO
             }
             return tasks;
         }
+        public List<Task> GetTaskByRenterId(int id)
+        {
+            
+            List<Task> tasks = new List<Task>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "SELECT t.task_id, t.employee_id, t.date_entered, t.date_scheduled, t.is_urgent, t.task_description, t.property_id, t.task_status, p.landlord_id " +
+                                 "FROM tasks t " +
+                                 "JOIN renters_properties r ON r.property_id = t.property_id " +
+                                 "JOIN properties p ON p.property_id = t.property_id " +
+                                 "WHERE r.renter_id = @renter_id;";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@renter_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        tasks.Add(GetTaskFromReader(reader));
+                    }
+
+                }
+            }
+            catch (SqlException)
+            {
+
+                throw;
+            }
+            return tasks;
+        }
         public Task GetTask(int id)
         {
             Task task = null;

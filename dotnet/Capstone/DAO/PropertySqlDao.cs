@@ -134,7 +134,40 @@ namespace Capstone.DAO
 
             return propertyId;
         }
+        public Property GetPropertyByRenterId(int id)
+        {
+            Property property = null;
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = "SELECT p.property_id, p.landlord_id, p.description, p.address_line_one, p.address_line_two, p.city, " +
+                                 "p.state_abbreviation, p.zip_code, p.price, p.date_available, p.available, " +
+                                 "p.beds, p.baths, i.image_link " +
+                                 "FROM properties p " +
+                                 "JOIN images i ON p.property_id = i.property_id " +
+                                 "JOIN renters_properties r ON r.property_id = p.property_id " +
+                                 "WHERE r.renter_id = @renter_id AND i.thumbnail = 1";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@renter_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        property = GetPropertyFromReader(reader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return property;
+        }
+    
         public int UpdateProperty(Property property)
         {
             // Will use to track the number of rows affected

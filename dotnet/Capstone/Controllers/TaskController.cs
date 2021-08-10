@@ -49,8 +49,21 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "No task associated with that id." });
             }
         }
+        [HttpGet("renter/{renterId}")]
+        public ActionResult<Task> GetTaskByRenterId(int renterId)
+        {
+            List<Task> tasks = taskDao.GetTaskByRenterId(renterId);
 
-        [HttpPost]
+            if (tasks.Count != 0)
+            {
+                return Ok(tasks);
+            }
+            else
+            {
+                return BadRequest(new { message = "No tasks associated with that id." });
+            }
+        }
+        [HttpPost("/add")]
         public ActionResult<int> AddTask(Task task)
         {
             int taskId = taskDao.AddTask(task);
@@ -148,6 +161,7 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Employee not found" });
             }
         }
+        
         [HttpPost]
         public ActionResult<int> AddEmployee(Employee employee)
         {
