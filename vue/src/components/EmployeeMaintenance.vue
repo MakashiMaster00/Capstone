@@ -137,7 +137,7 @@ export default {
 }
 .desc {
   font-size: 1vw;
-  color: #468189
+  color: #468189;
 }
 .pointer {
   font-size: 1.2vw;
