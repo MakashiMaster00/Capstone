@@ -14,7 +14,6 @@
                 </div>
              </router-link>
           </div>
-         
       </div>
       <div id="scheduled">
         <h1 class="title">Scheduled</h1>

@@ -1,25 +1,17 @@
 <template>
   <div id="employees">
-    <div
-      id="info"
-      v-for="employee in employees"
-      v-bind:key="employee.employeeId"
-    >
-      <div>
+    <div id="info">
+      <div id="emp" v-for="employee in employees" v-bind:key="employee.employeeId">
         <p><a class="pointer">Employee Id:</a> {{ employee.employeeId }}</p>
         <p><a class="pointer">Employee Name:</a> {{ employee.username }}</p>
-        <b-button
-          class="btn"
-          v-on:click="removeEmployee(employee.employeeId)"
-          type="is-primary"
-        >
+        <b-button class="btn" v-on:click="removeEmployee(employee.employeeId)" type="is-primary">
           Remove
         </b-button>
       </div>
     </div>
     <div id="form">
       <form>
-        Add Employee
+        <a class="addemp">Add Employee</a>
         <b-field label="Employee Id">
           <b-input v-model.number="employee.employeeId"></b-input>
         </b-field>
@@ -114,6 +106,7 @@ export default {
   padding-top: 50px;
   padding-left: 15px;
   display: grid;
+  max-width: 100%;
   grid-template-columns: 0.6fr 0.4fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
@@ -124,18 +117,20 @@ export default {
   color: #2f565c;
   font-style: italic;
 }
+.addemp {
+  font-size: 1.2vw;
+  color: #2f565c;
+  font-style: italic;
+  text-decoration: underline #031926;
+}
 #info {
-  font-size: 1vw;
-  color: #468189;
-  margin-bottom: 15px;
-  border-bottom: solid 2px #031926;
-  width: 75%;
   grid-area: info;
 }
 #form {
   grid-area: form;
+  margin-right: 10px;
 }
-#info > .btn {
+#info > #emp > .btn {
   background-color: #9dbebb91;
   color: #031926;
   width: 20%;
@@ -149,7 +144,11 @@ export default {
   width: 20%;
   font-size: 1vw;
 }
-.emp {
-  grid-area: emp;
+#emp {
+  font-size: 1vw;
+  color: #468189;
+  margin-bottom: 15px;
+  border-bottom: solid 2px #031926;
+  width: 95%;
 }
 </style>
