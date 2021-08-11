@@ -13,6 +13,12 @@
           <div><b-button class="btn" v-on:click="setThumbnail(image.thumbnail, image.propertyId, image.imageId, image.link)">Set as Thumbnail</b-button></div>
         </div>
       </div>
+      <b-button class="btn"
+          tag="router-link" :to="{ name: 'landlordproperty'}"
+          type="submit"
+          expanded
+          >Cancel</b-button
+        >
     </div>
   </div>
 </template>

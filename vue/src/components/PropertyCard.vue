@@ -39,7 +39,7 @@
         <p id="description">
           {{ property.description }}
         </p>
-        <form v-if="$store.state.user.role == 'user'">
+        <form v-if="$store.state.user.role == 'renter'">
           <h1 id="appheader" class="application">Application to Rent</h1>
           <b-field class="application" label="Name">
             <b-input v-model="application.name"></b-input>
@@ -56,7 +56,10 @@
           <b-field class="application" label="Monthly Income">
             <b-input v-model.number="application.income"></b-input>
           </b-field>
-          <b-button class="submit" v-on:click.prevent="addApp" style="background-color:powderblue" type="submit" expanded>Submit</b-button>
+          <div>
+            <b-button id="submit" v-on:click.prevent="addApp" type="submit" expanded>Submit</b-button>
+            <b-button tag="router-link" id="bk" :to="{ name: 'home' }" type="is-primary" expanded>Back</b-button>
+          </div>
         </form>
         <div v-if="$store.state.user.role == 'landlord'" id="options">
           <b-button tag="router-link" id="back" :to="{ name: 'myproperties' }" type="is-primary">Back</b-button>
@@ -267,10 +270,18 @@ export default {
 #back {
   background-color: #9dbebb91;
   color: #031926;
-  margin-right: 5px;
+  max-width: 35%;
+  margin-right: 10px;
 }
-.submit {
+#bk{
+  background-color: #9dbebb91;
+  color: #031926;
   max-width: 50%;
-  margin-bottom: 50px;
+}
+#submit {
+  background-color: #9dbebb91;
+  color: #031926;
+  max-width: 50%;
+  margin-bottom: 10px;
 }
 </style>

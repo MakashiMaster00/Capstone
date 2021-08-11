@@ -1,21 +1,5 @@
 <template>
   <div id="employee">
-      <div id="pending">
-        <h1 class="title">Pending</h1>
-          <div class="info" v-for="task in pendingTasks" v-bind:key="task.taskId">
-            <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
-            <div class="desc">
-              <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
-                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
-                </div>
-                <div class="desc">
-                  <a class="pointer">Notes:</a> {{task.taskDescription}}
-                </div>
-             </router-link>
-          </div>
-         
-      </div>
       <div id="scheduled">
         <h1 class="title">Scheduled</h1>
         <div class="info" v-for="task in scheduledTasks" v-bind:key="task.taskId">
@@ -23,7 +7,7 @@
             <div class="desc">
               <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
                 <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                <p><a class="pointer">Date Scheduled:</a> {{task.dateScheduled}}</p>
                 </div>
                 <div class="desc">
                   <a class="pointer">Notes:</a> {{task.taskDescription}}
@@ -38,7 +22,6 @@
             <div class="desc">
               <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
                 <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
                 </div>
                 <div class="desc">
                   <a class="pointer">Notes:</a> {{task.taskDescription}}
@@ -112,15 +95,11 @@ export default {
 #employee {
   padding-top: 50px;
   display: grid; 
-  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-columns: 1fr 1fr; 
   grid-template-rows: 1fr; 
   gap: 0px 0px; 
   grid-template-areas: 
-    "pending scheduled completed";
-}
-#pending {
-  grid-area: pending;
-  border-right: solid 4px #031926;
+    "scheduled completed";
 }
 #scheduled {
   grid-area: scheduled;

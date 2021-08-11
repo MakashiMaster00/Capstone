@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #info{
     display: grid; 
     text-align: center;

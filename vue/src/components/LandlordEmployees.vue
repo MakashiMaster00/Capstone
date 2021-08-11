@@ -110,7 +110,7 @@ export default {
   grid-template-columns: 0.6fr 0.4fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
-  grid-template-areas: " info form";
+  grid-template-areas: "info form";
 }
 .pointer {
   font-size: 1.2vw;

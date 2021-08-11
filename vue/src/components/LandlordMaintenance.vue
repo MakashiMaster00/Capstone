@@ -22,7 +22,7 @@
               <div class="desc">
                 <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
                 <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                <p><a class="pointer">Date Scheduled:</a> {{task.dateScheduled}}</p>
                 </div>
                 <div class="desc">
                   <a class="pointer">Notes:</a> {{task.taskDescription}}
@@ -37,7 +37,6 @@
                 <div class="desc">
                 <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
                 <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
                 </div>
                 <div class="desc">
                   <a class="pointer">Notes:</a> {{task.taskDescription}}
