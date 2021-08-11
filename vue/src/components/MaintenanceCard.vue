@@ -65,10 +65,6 @@ export default {
           }
         });
     },
-    addEmployee(){
-      this.task.employeeId = this.$store.state.task.employeeId;
-    },
-    deleteEmployee(){},
     updateTask(){
       console.log(this.task)  
       if (confirm("Are you sure you want to update?")) {

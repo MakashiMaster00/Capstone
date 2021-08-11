@@ -18,6 +18,7 @@ import MaintenanceCard from '@/views/TaskCard.vue'
 import EditTask from '@/views/EditTask.vue'
 import AddMaintenanceRequest from '@/views/AddMaintenanceRequest.vue'
 import PropertyApplications from '@/views/PropertyApplications.vue'
+import MyEmployeees from '@/views/MyEmployees.vue'
 
 Vue.use(Router)
 
@@ -168,7 +169,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    },
+    {
+      path: "/myEmployees",
+      name: 'employees',
+      component: MyEmployeees,
+      meta: {
+        requiresAuth: true
+      }
+    },
     
   ]
 })

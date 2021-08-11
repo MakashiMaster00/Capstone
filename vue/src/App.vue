@@ -27,6 +27,7 @@
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'addproperty' }">Add A Property</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'applications' }">Applications</b-navbar-item>
+             <b-navbar-item class="text" tag="router-link" :to="{ name: 'employees' }">Employees</b-navbar-item>
           </b-navbar-dropdown>
           <b-navbar-dropdown v-if="$store.state.user.role == 'renter'" class="text" label="Tenant">
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance Requests</b-navbar-item>

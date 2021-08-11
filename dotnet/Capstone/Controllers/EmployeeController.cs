@@ -46,7 +46,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPost("{id}/employees")]
+        [HttpPost("{id}/newemployee")]
         public ActionResult<int> AddEmployee(int id, Employee employee)
         {
             int successStatus = employeeDao.AddEmployee(id, employee);
