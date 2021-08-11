@@ -2,7 +2,7 @@
   <div>
     <landlord-maintenance v-if="$store.state.user.role == 'landlord'"/>
     <employee-maintenance v-if="$store.state.user.role == 'employee'"/>
-    <renter-maintenance v-if="$store.state.user.role == 'user'" />
+    <renter-maintenance v-if="$store.state.user.role == 'renter'" />
   </div>
 </template>
 

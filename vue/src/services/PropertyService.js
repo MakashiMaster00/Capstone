@@ -23,6 +23,10 @@ export default{
     },
     updateProperty(propertyId, property){
         return http.put(`/property/${propertyId}`, property)
+    },
+
+    getPropertyByRenterId(renterId){
+        return http.get(`/property/renter/${renterId}`)
     }
 
 }

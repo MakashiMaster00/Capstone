@@ -13,5 +13,6 @@ namespace Capstone.DAO
         int UpdateTask(Task task);
         int UpdateTaskStatus(Task task);
         int DeleteTask(int id);
+        List<Task> GetTaskByRenterId(int id);
     }
 }

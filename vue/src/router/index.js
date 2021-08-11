@@ -16,6 +16,9 @@ import EditProperty from '@/views/EditProperty.vue'
 import EditImages from '@/views/EditRemoveImages.vue'
 import MaintenanceCard from '@/views/TaskCard.vue'
 import EditTask from '@/views/EditTask.vue'
+import AddMaintenanceRequest from '@/views/AddMaintenanceRequest.vue'
+import PropertyApplications from '@/views/PropertyApplications.vue'
+
 Vue.use(Router)
 
 /**
@@ -150,6 +153,22 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: "/myMaintenance/addTask",
+      name: 'addrequest',
+      component: AddMaintenanceRequest,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/myApplications",
+      name: 'applications',
+      component: PropertyApplications,
+      meta: {
+        requiresAuth: true
+      }
+    }
     
   ]
 })

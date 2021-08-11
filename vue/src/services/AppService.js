@@ -6,16 +6,16 @@ const http = axios.create({
 
 export default{
 
-    getApplications(appId){
-        return http.get(`/application/${appId}`);
+    getApplications(id){
+        return http.get(`/application/${id}`);
     },
     addApplication(app) {
         return http.post('/application', app)
     },
     approveApplication(app) {
-        return http.put(`/application/${appId}/approve`, app)
+        return http.put(`/application/${app.applicationId}/approve`, app)
     },
-    rejectApplication() {
+    rejectApplication(appId) {
         return http.put(`/application/${appId}/reject`)
     }
 }

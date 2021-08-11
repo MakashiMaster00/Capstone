@@ -16,7 +16,7 @@ export default{
     },
 
     addTask(task) {
-        return http.post('/task', task)
+        return http.post('/task/add', task)
     },
 
     updateTask(task) {
@@ -27,6 +27,8 @@ export default{
     },
     deleteTask(taskId){
         return http.delete(`/task/${taskId}`)
+    },
+    getTasksByRenterId(renterId){
+        return http.get(`/task/renter/${renterId}`)
     }
-
 }

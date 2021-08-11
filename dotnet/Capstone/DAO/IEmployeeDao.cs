@@ -8,9 +8,13 @@ namespace Capstone.DAO
     public interface IEmployeeDao
     {
         List<Employee> GetEmployeesByLandlordId(int id);
-        int AddEmployee(int id, Employee employee);
-        int DeleteEmployee(int landlordId, int employeeId);
+
         Employee GetEmployee(int id);
+
+        int AddEmployee(int id, Employee employee);
+
+        int DeleteEmployee(int landlordId, int employeeId);
+
 
     }
 }

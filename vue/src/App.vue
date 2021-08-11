@@ -26,9 +26,11 @@
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'myproperties' }">My Properties</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'addproperty' }">Add A Property</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'applications' }">Applications</b-navbar-item>
           </b-navbar-dropdown>
-          <b-navbar-dropdown v-if="$store.state.user.role == 'user'" class="text" label="User">
-            <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>
+          <b-navbar-dropdown v-if="$store.state.user.role == 'renter'" class="text" label="Tenant">
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance Requests</b-navbar-item>
+            <b-navbar-item class="text" tag="router-link" :to="{ name: 'addrequest' }">Add Maintenence Request</b-navbar-item>
           </b-navbar-dropdown>
           <b-navbar-dropdown v-if="$store.state.user.role == 'employee'" class="text" label="Employee">
            <b-navbar-item class="text" tag="router-link" :to="{ name: 'mymaintenance' }">Maintenance</b-navbar-item>

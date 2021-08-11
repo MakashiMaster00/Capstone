@@ -180,6 +180,21 @@ namespace Capstone.Controllers
                 return BadRequest(new { message = "Image not successfully deleted." });
             }
         }
+        [HttpGet("renter/{renterId}")]
+        public ActionResult<Property> GetPropertyByRenterId(int renterId)
+        {
+            Property property = propertyDao.GetPropertyByRenterId(renterId);
+            
+
+            if (property != null)
+            {
+                return Ok(property);
+            }
+            else
+            {
+                return BadRequest(new { message = "No property associated with that id." });
+            }
+        }
     }
 
         
