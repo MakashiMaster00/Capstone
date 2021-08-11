@@ -6,8 +6,8 @@ const http = axios.create({
 
 export default{
 
-    getApplications(appId){
-        return http.get(`/application/${appId}`);
+    getApplications(id){
+        return http.get(`/application/${id}`);
     },
     addApplication(app) {
         return http.post('/application', app)

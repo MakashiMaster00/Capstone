@@ -57,7 +57,7 @@ export default {
     name: "maintance-landlord",
     data() {
       return {
-        filtedredTasks: [],
+        filteredTasks: [],
         pendingTasks: [],
         scheduledTasks: [],
         completedTasks: [],
@@ -70,8 +70,8 @@ export default {
       taskService
         .getTasks()
         .then((response) => {
-          this.filtedredTasks = response.data.filter((task) => task.employeeId == this.$store.state.user.userId)
-          this.filterTasks(this.filtedredTasks);
+          this.filteredTasks = response.data.filter((task) => task.employeeId == this.$store.state.user.userId)
+          this.filterTasks(this.filteredTasks);
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
