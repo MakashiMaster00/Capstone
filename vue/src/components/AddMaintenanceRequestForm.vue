@@ -1,11 +1,11 @@
 <template>
   <div id="maintenance">
     <b-field label="Is the request urgent?">
-      <b-checkbox v-on:click="this.task.isUrgent = !this.task.isUrgent"></b-checkbox>
+      <b-checkbox v-model="task.isUrgent"></b-checkbox>
     </b-field>
-    <b-field label="Date Scheduled">
+    <!-- <b-field label="Date Scheduled">
       <b-input type="date" v-model="task.dateScheduled"></b-input>
-    </b-field>
+    </b-field> -->
 
     <b-field label="Description">
       <b-input
@@ -43,8 +43,7 @@ export default {
     };
   },
   methods: {
-    getPropertyId() {
-        
+    getPropertyId() { 
       propertyService
         .getPropertyByRenterId(this.$store.state.user.userId)
         .then((response) => {
@@ -56,16 +55,14 @@ export default {
           }
           //this.$router.push("/");
         });
-        console.log(this.task.propertyId);
+        //console.log(this.task.propertyId);
     },
     addTask(){
-        this.getPropertyId();
-        this.getPropertyId();
         taskService.addTask(this.task)
         .then(response => {
         if (response.status === 200) {
           alert("You successfully submitted a request!")
-          //this.$router.push({name: 'home'})
+          this.$router.push('/myMaintenance')
         }
       }
       )
@@ -77,6 +74,9 @@ export default {
       })
     }
   },
+  created(){
+    this.getPropertyId();
+  }
 };
 </script>
 

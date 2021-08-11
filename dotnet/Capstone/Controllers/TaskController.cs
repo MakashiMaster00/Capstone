@@ -64,7 +64,7 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPost("/add")]
+        [HttpPost("add")]
         public ActionResult<int> AddTask(Task task)
         {
             int taskId = taskDao.AddTask(task);

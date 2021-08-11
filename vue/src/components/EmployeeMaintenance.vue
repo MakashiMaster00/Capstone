@@ -1,48 +1,48 @@
 <template>
-  <div id="landlord">
+  <div id="employee">
       <div id="pending">
         <h1 class="title">Pending</h1>
-          <div v-for="task in pendingTasks" v-bind:key="task.taskId">
+          <div class="info" v-for="task in pendingTasks" v-bind:key="task.taskId">
             <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
-            <div class="propID">
-              {{task.propertyId}}: 
-              {{task.dateEntered}}
-              {{task.isUrgent}}
-            </div>
             <div class="desc">
-              {{task.taskDescription}}
-            </div>
+              <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
+                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
+                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                </div>
+                <div class="desc">
+                  <a class="pointer">Notes:</a> {{task.taskDescription}}
+                </div>
              </router-link>
           </div>
          
       </div>
       <div id="scheduled">
         <h1 class="title">Scheduled</h1>
-        <div v-for="task in scheduledTasks" v-bind:key="task.taskId">
+        <div class="info" v-for="task in scheduledTasks" v-bind:key="task.taskId">
              <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
-            <div class="propID">
-              {{task.propertyId}}: 
-              {{task.dateEntered}}
-              {{task.isUrgent}}
-            </div>
             <div class="desc">
-              {{task.taskDescription}}
-            </div>
+              <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
+                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
+                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                </div>
+                <div class="desc">
+                  <a class="pointer">Notes:</a> {{task.taskDescription}}
+                </div>
              </router-link>
           </div>
       </div>
       <div id="completed">
         <h1 class="title">Completed</h1>
-        <div v-for="task in completedTasks" v-bind:key="task.taskId">
+        <div class="info" v-for="task in completedTasks" v-bind:key="task.taskId">
              <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
-            <div class="propID">
-              {{task.propertyId}}: 
-              {{task.dateEntered}}
-              {{task.isUrgent}}
-            </div>
             <div class="desc">
-              {{task.taskDescription}}
-            </div>
+              <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
+                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
+                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                </div>
+                <div class="desc">
+                  <a class="pointer">Notes:</a> {{task.taskDescription}}
+                </div>
              </router-link>
           </div>
       </div>
@@ -109,7 +109,7 @@ export default {
 </script>
 
 <style scoped>
-#landlord {
+#employee {
   padding-top: 50px;
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr; 
@@ -120,11 +120,11 @@ export default {
 }
 #pending {
   grid-area: pending;
-  border-right: solid 1px #031926;
+  border-right: solid 4px #031926;
 }
 #scheduled {
   grid-area: scheduled;
-  border-right: solid 1px #031926;
+  border-right: solid 4px #031926;
 }
 #completed {
   grid-area: completed;
@@ -135,13 +135,27 @@ export default {
   text-align: center;
   text-decoration: underline #031926;
 }
-.propID {
-  font-size: 1.5vw;
-  color: #468189;
-  display: inline;
-}
 .desc {
-  font-size: 1.2vw;
+  font-size: 1vw;
   color: #468189
+}
+.pointer {
+  font-size: 1.2vw;
+  color: #2f565c;
+  font-style: italic;
+}
+.info {
+  margin-left: 15px;
+  border-bottom: solid 1px #031926;
+  width: 75%;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.urgent {
+  font-size: 1.2vw;
+  color: #2f565c;
+  font-style: italic;
+  font-weight: bolder;
+  text-decoration: underline #031926;
 }
 </style>
