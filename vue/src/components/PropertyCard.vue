@@ -68,7 +68,7 @@
                     :icon-right="active ? 'menu-up' : 'menu-down'" />
             </template>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'editproperty' }">Edit Property</b-navbar-item>
-            <b-navbar-item class="text" tag="router-link" :to="{ name: 'deleteProperty' }">Delete Property</b-navbar-item>
+            <b-navbar-item class="text" v-on:click="deleteProperty">Delete Property</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'editimages' }">Edit/Remove Images</b-navbar-item>
           </b-dropdown>
         </div>
@@ -137,7 +137,26 @@ export default {
         }
         
       })
-    }
+    },
+    deleteProperty() {
+      if (confirm("Are you sure you want to delete this property?")) {
+        propertyService
+          .deleteProperty(this.$route.params.propertyId)
+          .then((response) => {
+            if (response.status === 200) {
+              alert("Property successfully deleted");
+              this.$router.push("/myProperties");
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              alert(
+                `Error deleting property. Response received was ${error.response.statusText}`
+              );
+            }
+          });
+      }
+    },
   },
   created() {
     this.retrieveProperty();

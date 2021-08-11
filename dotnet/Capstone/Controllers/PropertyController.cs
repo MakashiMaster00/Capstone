@@ -106,7 +106,7 @@ namespace Capstone.Controllers
 
             successStatus = propertyDao.DeleteProperty(id);
 
-            if (successStatus == 1)
+            if (successStatus != 0)
             {
                 return Ok();
             }

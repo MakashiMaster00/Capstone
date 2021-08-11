@@ -238,8 +238,10 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "DELETE FROM properties " +
-                        "WHERE property_id = @property_id;";
+                    string sql = "DELETE FROM applications WHERE property_id = @property_id;" +
+                        "DELETE FROM tasks WHERE property_id = @property_id;" +
+                        "DELETE FROM renters_properties WHERE property_id = @property_id;" +
+                        "DELETE FROM properties WHERE property_id = @property_id;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@property_id", id);
                     success = cmd.ExecuteNonQuery();

@@ -19,6 +19,8 @@ import EditTask from '@/views/EditTask.vue'
 import AddMaintenanceRequest from '@/views/AddMaintenanceRequest.vue'
 import PropertyApplications from '@/views/PropertyApplications.vue'
 import MyEmployeees from '@/views/MyEmployees.vue'
+import MyInfo from '@/views/MyInfo.vue'
+
 
 Vue.use(Router)
 
@@ -178,7 +180,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    
+    {
+      path: "/myInfo",
+      name: 'info',
+      component: MyInfo,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 })
 

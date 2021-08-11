@@ -18,10 +18,9 @@
           <b-navbar-item class="text" tag="router-link" :to="{ path: '/' }">
             Home
           </b-navbar-item>
-          <b-navbar-dropdown class="text" label="Info">
-            <b-navbar-item class="text" href="#"> About </b-navbar-item>
-            <b-navbar-item class="text" href="#"> Contact </b-navbar-item>
-          </b-navbar-dropdown>
+          <b-navbar-item class="text" tag="router-link" :to="{ name: 'info' }"> 
+            My Profile 
+          </b-navbar-item>
           <b-navbar-dropdown v-if="$store.state.user.role == 'landlord'" class="text" label="Landlord">
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'myproperties' }">My Properties</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'addproperty' }">Add A Property</b-navbar-item>

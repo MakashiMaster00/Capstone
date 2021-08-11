@@ -100,7 +100,7 @@ export default {
         taskService.updateTask(this.task)
         .then(response => {
             if (response.status === 200) {
-              alert("Property successfully updated");
+              alert("Task successfully updated");
               this.$router.push("/myMaintenance");
             }
           })
