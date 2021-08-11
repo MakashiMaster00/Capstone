@@ -2,7 +2,7 @@
   <div id="landlord">
       <div id="pending">
         <h1 class="title">Pending</h1>
-          <div class="info" v-for="app in pendingApps" v-bind:key="app.applicationId">
+          <div id="pend" class="info" v-for="app in pendingApps" v-bind:key="app.applicationId">
                 <div class="desc">
                 <p><a class="pointer">Property Id:</a> {{app.propertyId}}</p>
                 <p><a class="pointer">Name: </a> {{app.name}}</p>
@@ -11,7 +11,7 @@
                 <p><a class="pointer">Income: </a> {{app.income}}</p>
                 <p><a class="pointer">Requested Move-in Date: </a> {{app.moveInDate}}</p>
                 </div>
-                <b-button class="btn" v-on:click="approveApp(app)" type="is-primary">
+                <b-button class="btn" v-on:click="approveApp(app.applicationId, app.renterId, app.propertyId)" type="is-primary">
                 Approve
                 </b-button>
                 <b-button class="btn" v-on:click="rejectApp(app.applicationId)" type="is-primary">
@@ -59,7 +59,13 @@ export default {
         filteredApps: [],
         pendingApps: [],
         approvedApps: [],
-        rejectedApps: []
+        rejectedApps: [],
+        app: {
+          applicationId: 0,
+          renterId: 0,
+          propertyId: 0,
+          status: ""
+        }
       };
   },
 
@@ -90,14 +96,17 @@ export default {
           );
           console.log(this.pendingApps)
     },
-    approveApp(app){
+    approveApp(applicationId, renterId, propertyId){
         if (confirm("Are you sure you want to approve?")) {
-        this.app.status = 'Approved';
-        appService.approveApplication(app)
+      this.app.applicationId = applicationId;
+      this.app.renterId = renterId;
+      this.app.propertyId = propertyId;
+      this.app.status = 'Approved';
+        appService.approveApplication(this.app)
         .then(response => {
             if (response.status === 200) {
               alert("Application successfully approved");
-              this.$router.push("/myApplications");
+              this.retrieveApps();
             }
           })
           .catch(error => {
@@ -107,14 +116,13 @@ export default {
           });
       }
     },
-      rejectApp(appId){
+      rejectApp(applicationId){
         if (confirm("Are you sure you want to reject?")) {
-        this.app.status = 'Rejected';
-        appService.rejectApplication(appId)
+        appService.rejectApplication(applicationId)
         .then(response => {
             if (response.status === 200) {
               alert("Application successfully rejected");
-              this.$router.push("/myApplications");
+              this.retrieveApps();
             }
           })
           .catch(error => {
@@ -180,5 +188,10 @@ export default {
   padding-bottom: 5px;
   margin-bottom: 5px;
 }
+  #pend > .btn {
+    background-color: #9dbebb91;
+    color: #031926;
+    margin-right: 15px;
+  }
 
 </style>
