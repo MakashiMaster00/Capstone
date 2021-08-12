@@ -1,50 +1,79 @@
 <template>
   <div id="landlord">
-      <div id="pending">
-        <h1 class="title">Pending</h1>
-          <div id="pend" class="info" v-for="app in pendingApps" v-bind:key="app.applicationId">
-                <div class="desc">
-                <p><a class="pointer">Property Id:</a> {{app.propertyId}}</p>
-                <p><a class="pointer">Name: </a> {{app.name}}</p>
-                <p><a class="pointer">Email: </a> {{app.email}}</p>
-                <p><a class="pointer">Number of Tenants: </a> {{app.tenants}}</p>
-                <p><a class="pointer">Income: </a> {{app.income}}</p>
-                <p><a class="pointer">Requested Move-in Date: </a> {{app.moveInDate}}</p>
-                </div>
-                <b-button class="btn" v-on:click="approveApp(app.applicationId, app.renterId, app.propertyId)" type="is-primary">
-                Approve
-                </b-button>
-                <b-button class="btn" v-on:click="rejectApp(app.applicationId)" type="is-primary">
-                Reject
-                </b-button>
-          </div>
+    <div id="pending">
+      <h1 class="title">Pending</h1>
+      <div
+        id="pend"
+        class="info"
+        v-for="app in pendingApps"
+        v-bind:key="app.applicationId"
+      >
+        <div class="desc">
+          <p><a class="pointer">Property Id:</a> {{ app.propertyId }}</p>
+          <p><a class="pointer">Name: </a> {{ app.name }}</p>
+          <p><a class="pointer">Email: </a> {{ app.email }}</p>
+          <p><a class="pointer">Number of Tenants: </a> {{ app.tenants }}</p>
+          <p><a class="pointer">Income: </a> {{ app.income }}</p>
+          <p>
+            <a class="pointer">Requested Move-in Date: </a> {{ app.moveInDate }}
+          </p>
+        </div>
+        <b-button
+          class="btn"
+          v-on:click="
+            approveApp(app.applicationId, app.renterId, app.propertyId)
+          "
+          type="is-primary"
+        >
+          Approve
+        </b-button>
+        <b-button
+          class="btn"
+          v-on:click="rejectApp(app.applicationId)"
+          type="is-primary"
+        >
+          Reject
+        </b-button>
       </div>
-      <div id="approved">
-        <h1 class="title">Approved</h1>
-        <div class="info" v-for="app in approvedApps" v-bind:key="app.applicationId">
-              <div class="desc">
-                <p><a class="pointer">Property Id:</a> {{app.propertyId}}</p>
-                <p><a class="pointer">Name: </a> {{app.name}}</p>
-                <p><a class="pointer">Email: </a> {{app.email}}</p>
-                <p><a class="pointer">Number of Tenants: </a> {{app.tenants}}</p>
-                <p><a class="pointer">Income: </a> {{app.income}}</p>
-                <p><a class="pointer">Requested Move-in Date: </a> {{app.moveInDate}}</p>
-                </div>
-          </div>
+    </div>
+    <div id="approved">
+      <h1 class="title">Approved</h1>
+      <div
+        class="info"
+        v-for="app in approvedApps"
+        v-bind:key="app.applicationId"
+      >
+        <div class="desc">
+          <p><a class="pointer">Property Id:</a> {{ app.propertyId }}</p>
+          <p><a class="pointer">Name: </a> {{ app.name }}</p>
+          <p><a class="pointer">Email: </a> {{ app.email }}</p>
+          <p><a class="pointer">Number of Tenants: </a> {{ app.tenants }}</p>
+          <p><a class="pointer">Income: </a> {{ app.income }}</p>
+          <p>
+            <a class="pointer">Requested Move-in Date: </a> {{ app.moveInDate }}
+          </p>
+        </div>
       </div>
-      <div id="rejected">
-        <h1 class="title">Rejected</h1>
-        <div class="info" v-for="app in rejectedApps" v-bind:key="app.applicationId">
-                <div class="desc">
-                <p><a class="pointer">Property Id:</a> {{app.propertyId}}</p>
-                <p><a class="pointer">Name: </a> {{app.name}}</p>
-                <p><a class="pointer">Email: </a> {{app.email}}</p>
-                <p><a class="pointer">Number of Tenants: </a> {{app.tenants}}</p>
-                <p><a class="pointer">Income: </a> {{app.income}}</p>
-                <p><a class="pointer">Requested Move-in Date: </a> {{app.moveInDate}}</p>
-                </div>
-          </div>
+    </div>
+    <div id="rejected">
+      <h1 class="title">Rejected</h1>
+      <div
+        class="info"
+        v-for="app in rejectedApps"
+        v-bind:key="app.applicationId"
+      >
+        <div class="desc">
+          <p><a class="pointer">Property Id:</a> {{ app.propertyId }}</p>
+          <p><a class="pointer">Name: </a> {{ app.name }}</p>
+          <p><a class="pointer">Email: </a> {{ app.email }}</p>
+          <p><a class="pointer">Number of Tenants: </a> {{ app.tenants }}</p>
+          <p><a class="pointer">Income: </a> {{ app.income }}</p>
+          <p>
+            <a class="pointer">Requested Move-in Date: </a> {{ app.moveInDate }}
+          </p>
+        </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -79,7 +108,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert("Applications not found");
+            this.$buefy.dialog.alert("Applications not found");
             this.$router.push("/");
           }
         })
@@ -97,40 +126,49 @@ export default {
           console.log(this.pendingApps)
     },
     approveApp(applicationId, renterId, propertyId){
-        if (confirm("Are you sure you want to approve?")) {
-      this.app.applicationId = applicationId;
-      this.app.renterId = renterId;
-      this.app.propertyId = propertyId;
-      this.app.status = 'Approved';
-        appService.approveApplication(this.app)
+        this.$buefy.dialog.confirm({
+          message: "Are you sure you want to approve?",
+          onConfirm: () => 
+          {this.app.applicationId = applicationId;
+          this.app.renterId = renterId;
+          this.app.propertyId = propertyId;
+          this.app.status = 'Approved'
+          appService.approveApplication(this.app)
         .then(response => {
             if (response.status === 200) {
-              alert("Application successfully approved");
+              this.$buefy.dialog.alert("Application successfully approved");
               this.retrieveApps();
             }
           })
           .catch(error => {
             if (error.response) {
-              alert(`Error approving application. Response received was ${error.response.statusText}`)
+              this.$buefy.dialog.alert(`Error approving application. Response received was ${error.response.statusText}`)
             }
-          });
-      }
+          });}
+        }
+          )
+      
+      
     },
       rejectApp(applicationId){
-        if (confirm("Are you sure you want to reject?")) {
-        appService.rejectApplication(applicationId)
+        this.$buefy.dialog.confirm({
+          message: "Are you sure you want to reject?",
+          onConfirm: () => 
+          {appService.rejectApplication(applicationId)
         .then(response => {
             if (response.status === 200) {
-              alert("Application successfully rejected");
+              this.$buefy.dialog.alert("Application successfully rejected");
               this.retrieveApps();
             }
           })
           .catch(error => {
             if (error.response) {
-              alert(`Error rejecting application. Response received was ${error.response.statusText}`)
+              this.$buefy.dialog.alert(`Error rejecting application. Response received was ${error.response.statusText}`)
             }
-          });
-      }
+          });}
+        })
+        
+      
     }
   },
 //   computed: {
@@ -148,12 +186,11 @@ export default {
 <style scoped>
 #landlord {
   padding-top: 50px;
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr; 
-  grid-template-rows: 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "pending scheduled completed";
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "pending scheduled completed";
 }
 #pending {
   grid-area: pending;
@@ -174,7 +211,7 @@ export default {
 }
 .desc {
   font-size: 1vw;
-  color: #468189
+  color: #468189;
 }
 .pointer {
   font-size: 1.2vw;
@@ -188,10 +225,9 @@ export default {
   padding-bottom: 5px;
   margin-bottom: 5px;
 }
-  #pend > .btn {
-    background-color: #9dbebb91;
-    color: #031926;
-    margin-right: 15px;
-  }
-
+#pend > .btn {
+  background-color: #9dbebb91;
+  color: #031926;
+  margin-right: 15px;
+}
 </style>

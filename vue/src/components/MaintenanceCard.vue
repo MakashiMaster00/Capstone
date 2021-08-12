@@ -46,7 +46,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert(
+            this.$buefy.dialog.alert(
               "The task is not available. It may have been deleted or you have entered an invalid Id."
             );
             this.$router.push("/myMaintenance");
@@ -67,21 +67,25 @@ export default {
     },
     updateTask(){
       console.log(this.task)  
-      if (confirm("Are you sure you want to update?")) {
-        this.task.taskStatus = 'Completed';
+      this.$buefy.dialog.confirm({
+        message: "Are you sure you want to update?",
+        onConfirm: () =>
+        {this.task.taskStatus = 'Completed';
         taskService.updateTaskStatus(this.task)
         .then(response => {
             if (response.status === 200) {
-              alert("Property successfully updated");
+              this.$buefy.dialog.alert("Property successfully updated");
               this.$router.push("/myMaintenance");
             }
           })
           .catch(error => {
             if (error.response) {
-              alert(`Error updating task. Response received was ${error.response.statusText}`)
+              this.$buefy.dialog.alert(`Error updating task. Response received was ${error.response.statusText}`)
             }
-          });
-      }
+          });}
+      })
+        
+      
       
     }
    

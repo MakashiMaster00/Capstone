@@ -61,14 +61,14 @@ export default {
         taskService.addTask(this.task)
         .then(response => {
         if (response.status === 200) {
-          alert("You successfully submitted a request!")
+          this.$buefy.dialog.alert("You successfully submitted a request!")
           this.$router.push('/myMaintenance')
         }
       }
       )
       .catch(error => {
         if (error.response) {
-          alert("There was an issue submitting your request")
+          this.$buefy.dialog.alert("There was an issue submitting your request")
         }
         
       })

@@ -72,7 +72,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert(
+            this.$buefy.dialog.alert(
               "The task is not available. It may have been deleted or you have entered an invalid Id."
             );
             this.$router.push({ name: 'landlord-task', params: {taskId: this.task.taskId}});
@@ -88,7 +88,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert("Employees not found");
+            this.$buefy.dialog.alert("Employees not found");
           }
           this.$router.push("/");
         });
@@ -100,13 +100,13 @@ export default {
         taskService.updateTask(this.task)
         .then(response => {
             if (response.status === 200) {
-              alert("Task successfully updated");
+              this.$buefy.dialog.alert("Task successfully updated");
               this.$router.push("/myMaintenance");
             }
           })
           .catch(error => {
             if (error.response) {
-              alert(`Error updating task. Response received was ${error.response.statusText}`)
+              this.$buefy.dialog.alert(`Error updating task. Response received was ${error.response.statusText}`)
             }
           });
       }
