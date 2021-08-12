@@ -9,7 +9,7 @@
         v-bind:key="app.applicationId"
       >
         <div class="desc">
-          <p><a class="pointer">Property Id:</a> {{ app.propertyId }}</p>
+          <p><a class="pointer">Address:</a> {{app.addressLineOne}} {{app.addressLineTwo}} {{app.city}}, {{app.state}} {{app.zipCode}}</p>
           <p><a class="pointer">Name: </a> {{ app.name }}</p>
           <p><a class="pointer">Email: </a> {{ app.email }}</p>
           <p><a class="pointer">Number of Tenants: </a> {{ app.tenants }}</p>
@@ -44,7 +44,7 @@
         v-bind:key="app.applicationId"
       >
         <div class="desc">
-          <p><a class="pointer">Property Id:</a> {{ app.propertyId }}</p>
+          <p><a class="pointer">Address:</a> {{app.addressLineOne}} {{app.addressLineTwo}} {{app.city}}, {{app.state}} {{app.zipCode}}</p>
           <p><a class="pointer">Name: </a> {{ app.name }}</p>
           <p><a class="pointer">Email: </a> {{ app.email }}</p>
           <p><a class="pointer">Number of Tenants: </a> {{ app.tenants }}</p>
@@ -63,7 +63,7 @@
         v-bind:key="app.applicationId"
       >
         <div class="desc">
-          <p><a class="pointer">Property Id:</a> {{ app.propertyId }}</p>
+          <p><a class="pointer">Address:</a> {{app.addressLineOne}} {{app.addressLineTwo}} {{app.city}}, {{app.state}} {{app.zipCode}}</p>
           <p><a class="pointer">Name: </a> {{ app.name }}</p>
           <p><a class="pointer">Email: </a> {{ app.email }}</p>
           <p><a class="pointer">Number of Tenants: </a> {{ app.tenants }}</p>

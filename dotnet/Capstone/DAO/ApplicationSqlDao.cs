@@ -17,21 +17,32 @@ namespace Capstone.DAO
 
         public List<Application> GetApplications(int landlordId)
         {
-            List<Application> app = new List<Application>();
+            List<Application> apps = new List<Application>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "SELECT application_id, renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status " +
-                                 "FROM applications " +
-                                 "WHERE landlord_id = @landlordId";
+                    string sql = "SELECT a.application_id, a.renter_id, a.landlord_id, a.property_id, a.name, a.email, a.tenants, a.move_in_date, a.income, a.status, " +
+                                 "p.address_line_one, p.address_line_two, p.city, p.state_abbreviation, p.zip_code " +
+                                 "FROM applications a " +
+                                 "JOIN properties p ON a.property_id = p.property_id " +
+                                 "WHERE a.landlord_id = @landlordId";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@landlordId", landlordId);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        app.Add(GetAppFromReader(reader));
+                        Application app = GetAppFromReader(reader);
+                        app.AddressLineOne = Convert.ToString(reader["address_line_one"]);
+                        if (!reader.IsDBNull(6))
+                        {
+                            app.AddressLineTwo = Convert.ToString(reader["address_line_two"]);
+                        }
+                        app.City = Convert.ToString(reader["city"]);
+                        app.State = Convert.ToString(reader["state_abbreviation"]);
+                        app.ZipCode = Convert.ToString(reader["zip_code"]);
+                        apps.Add(app);
                     }
                 }
             }
@@ -40,7 +51,7 @@ namespace Capstone.DAO
 
                 throw;
             }
-            return app;
+            return apps;
         }
 
         public int AddApplication(Application app)
