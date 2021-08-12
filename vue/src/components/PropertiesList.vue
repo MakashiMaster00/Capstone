@@ -124,7 +124,7 @@
             <div class="displaygrid">
               <img class="thumbnail" v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
               <div class="information">
-                <h1 id="address">{{ prop.addressLineOne }} {{ prop.addressLineTwo }}, {{ prop.city }}, {{ prop.state }} {{ prop.zipCode }}</h1>
+                <h1 id="address">{{ prop.addressLineOne }} {{ prop.addressLineTwo }} {{ prop.city }}, {{ prop.state }} {{ prop.zipCode }}</h1>
                 <div id="description">
                   {{ prop.description }}
                 </div>
@@ -347,5 +347,9 @@ export default {
 ::placeholder {
   color: black IM !important;
   opacity: 2 IM !important;
+}
+.results {
+  grid-area: results;
+  padding-left: 70px;
 }
 </style>

@@ -24,13 +24,23 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     string sql = "SELECT t.task_id, t.employee_id, t.date_entered, t.date_scheduled, t.is_urgent, " +
+                        "p.address_line_one, p.address_line_two, p.city, p.state_abbreviation, p.zip_code, " +
                         "t.task_description, t.property_id, t.task_status, p.landlord_id FROM tasks t " +
                         "JOIN properties p ON t.property_id = p.property_id;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        tasks.Add(GetTaskFromReader(reader));
+                        Task task = GetTaskFromReader(reader);
+                        task.AddressLineOne = Convert.ToString(reader["address_line_one"]);
+                        if(!reader.IsDBNull(6))
+                        {
+                            task.AddressLineTwo = Convert.ToString(reader["address_line_two"]);
+                        }
+                        task.City = Convert.ToString(reader["city"]);
+                        task.State = Convert.ToString(reader["state_abbreviation"]);
+                        task.ZipCode = Convert.ToString(reader["zip_code"]);
+                        tasks.Add(task);
                     }
                 }
 
@@ -50,7 +60,7 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "SELECT t.task_id, t.employee_id, t.date_entered, t.date_scheduled, t.is_urgent, t.task_description, t.property_id, t.task_status, p.landlord_id " +
+                    string sql = "SELECT t.task_id, t.employee_id, t.date_entered, t.date_scheduled, t.is_urgent, t.task_description, t.property_id, t.task_status, p.landlord_id, p.address_line_one " +
                                  "FROM tasks t " +
                                  "JOIN renters_properties r ON r.property_id = t.property_id " +
                                  "JOIN properties p ON p.property_id = t.property_id " +
@@ -61,7 +71,9 @@ namespace Capstone.DAO
 
                     while (reader.Read())
                     {
-                        tasks.Add(GetTaskFromReader(reader));
+                        Task task = GetTaskFromReader(reader);
+                        task.AddressLineOne = Convert.ToString(reader["address_line_one"]);
+                        tasks.Add(task);
                     }
 
                 }
@@ -215,7 +227,7 @@ namespace Capstone.DAO
                 TaskDescription = Convert.ToString(reader["task_description"]),
                 DateEntered = Convert.ToDateTime(reader["date_entered"]).ToString("yyyy-MM-dd"),
                 TaskStatus = Convert.ToString(reader["task_status"]),
-                LandlordId = Convert.ToInt32(reader["landlord_id"])
+                LandlordId = Convert.ToInt32(reader["landlord_id"]),
             };
             if (!reader.IsDBNull(1))
             {

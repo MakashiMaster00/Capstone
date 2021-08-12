@@ -15,7 +15,7 @@
       <h2 id="address" class="address">
         {{ property.addressLineOne }}
         {{ property.addressLineTwo }}
-        {{ property.city }}
+        {{ property.city }},
         {{ property.state }}
         {{ property.zipCode }}
       </h2>
@@ -44,14 +44,14 @@
           <b-field class="application" label="Name">
             <b-input v-model="application.name"></b-input>
           </b-field>
-          <b-field class="application" label="Email Adress">
+          <b-field class="application" label="Email Address">
             <b-input v-model="application.email"></b-input>
           </b-field>
           <b-field class="application" label="Number of Tenants">
             <b-input v-model.number="application.tenants"></b-input>
           </b-field>
           <b-field class="application" label="Requested Move in Date">
-            <b-input v-model="application.moveInDate"></b-input>
+            <b-input type="date" v-model="application.moveInDate"></b-input>
           </b-field>
           <b-field class="application" label="Monthly Income">
             <b-input v-model.number="application.income"></b-input>
@@ -74,6 +74,16 @@
             <b-navbar-item class="text" v-on:click="deleteProperty">Delete Property</b-navbar-item>
             <b-navbar-item class="text" tag="router-link" :to="{ name: 'editimages' }">Edit/Remove Images</b-navbar-item>
           </b-dropdown>
+        </div>
+        <div v-if="$store.state.user.role == undefined" id="login">
+          <div>
+              <a id="btnsignup" v-if="$store.state.token == ''" class="button">
+                <router-link class="text" :to="{ name: 'register' }"> Sign up </router-link>
+              </a>
+              <a  id="btnlogin" v-if="$store.state.token == ''" class="button">
+                <router-link class="text" :to="{ name: 'login' }">Login</router-link>
+              </a>
+          </div>
         </div>
       </div>
       <div class="contact">
@@ -111,7 +121,7 @@ export default {
       propertyService
         .getProperty(this.$route.params.propertyId)
         .then((response) => {
-          
+          console.log(this.$store.state.user.userId)
           this.$store.commit("SET_PROPERTY", response.data);
         })
         .catch((error) => {
@@ -283,5 +293,17 @@ export default {
   color: #031926;
   max-width: 50%;
   margin-bottom: 10px;
+}
+#btnsignup {
+  background-color: #9dbebb91;
+  color: #031926;
+  margin-right: 15px;
+  margin-top: 10px;
+}
+#btnlogin {
+  background-color: #9dbebb91;
+  color: #031926;
+  margin-right: 15px;
+  margin-top: 10px;
 }
 </style>

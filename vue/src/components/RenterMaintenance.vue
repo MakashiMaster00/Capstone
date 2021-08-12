@@ -5,8 +5,8 @@
           <div class="info" v-for="task in pendingTasks" v-bind:key="task.taskId">
             <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
             <div class="desc">
-                <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
-                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
+                <p v-if="task.isUrgent"><a class="urgent">Urgent</a></p>
+                <p><a class="pointer">Address:</a> {{task.addressLineOne}}</p>
                 <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
                 </div>
                 <div class="desc">
@@ -20,9 +20,9 @@
         <div class="info" v-for="task in scheduledTasks" v-bind:key="task.taskId">
              <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
             <div class="desc">
-                <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
-                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                <p v-if="task.isUrgent"><a class="urgent">Urgent</a></p>
+                <p><a class="pointer">Address:</a> {{task.addressLineOne}}</p>
+                <p><a class="pointer">Date Scheduled:</a> {{task.dateScheduled}}</p>
                 </div>
                 <div class="desc">
                   <a class="pointer">Notes:</a> {{task.taskDescription}}
@@ -35,9 +35,8 @@
         <div class="info" v-for="task in completedTasks" v-bind:key="task.taskId">
              <router-link v-bind:to="{ name: 'landlord-task', params: {taskId: task.taskId}}">
             <div class="desc">
-                <p v-if="task.isUrgent"><a class="urgent">Urgent!</a></p>
-                <p><a class="pointer">Property Id:</a> {{task.propertyId}}</p>
-                <p><a class="pointer">Date Entered:</a> {{task.dateEntered}}</p>
+                <p v-if="task.isUrgent"><a class="urgent">Urgent</a></p>
+                <p><a class="pointer">Address:</a> {{task.addressLineOne}}</p>
                 </div>
                 <div class="desc">
                   <a class="pointer">Notes:</a> {{task.taskDescription}}
@@ -50,7 +49,6 @@
 
 <script>
 import taskService from "@/services/TaskService.js";
-
 
 export default {
     name: "maintance-landlord",
@@ -160,6 +158,5 @@ export default {
   color: #2f565c;
   font-style: italic;
   font-weight: bolder;
-  text-decoration: underline #031926;
 }
 </style>

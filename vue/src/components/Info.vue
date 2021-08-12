@@ -5,15 +5,37 @@
     <p><a class="pointer">My Id: </a> {{this.$store.state.user.userId}}</p>
     <p><a class="pointer">My Username: </a> {{this.$store.state.user.username}}</p>
     <p><a class="pointer">My Role: </a> {{this.$store.state.user.role}}</p>
+    <p v-if="$store.state.user.role == 'renter'" ><a class="pointer">My Property: </a> {{this.prop}}</p>
     </div>
   </div>
 </template>
 
 <script>
+import propertyService from "@/services/PropertyService.js";
+
 export default {
-  methods: {},
+ data(){
+   return{
+     prop: ''
+   }
+ },
+ methods: {
+    retrieveProperty() {
+      propertyService
+        .getPropertyByRenterId(this.$store.state.user.userId)
+        .then((response) => {
+          this.prop = response.data.addressLineOne;
+          console.log(this.prop);
+        })
+        .catch((error) => {
+          if (error) {
+            this.prop = 'No Property'
+          }
+        });
+    },
+  },
   created() {
-    console.log(this.$store.state.user);
+    this.retrieveProperty();
   },
 };
 </script>
