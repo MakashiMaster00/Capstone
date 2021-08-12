@@ -115,10 +115,10 @@ INSERT INTO users (username, password_hash, salt, user_role) VALUES ('renter2','
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('renter3','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','renter');
 
 --populate default data for properties
-INSERT INTO properties (landlord_id, description, address_line_one, address_line_two, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan vitae libero non congue. Donec non auctor urna. Cras gravida sed nisl semper dapibus. Quisque interdum sapien mi, et mattis velit semper eget. Pellentesque id tempus libero. Ut orci tortor, placerat congue ante at, auctor varius risus. Integer consectetur in lectus a pulvinar.', '1 test address', 'Apt E', 'OH', 'city1', '12345', 700, '08/02/2021', 1, 3, 2.5);
-INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan vitae libero non congue. Donec non auctor urna. Cras gravida sed nisl semper dapibus. Quisque interdum sapien mi, et mattis velit semper eget. Pellentesque id tempus libero. Ut orci tortor, placerat congue ante at, auctor varius risus. Integer consectetur in lectus a pulvinar.', '2 test address', 'OH', 'city2', '12345', 900, '08/10/2022', 0, 2, 1);
-INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '3 test address', 'IN', 'city3', '67890', 1000, '09/19/2021', 0, 2, 2);
-INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan vitae libero non congue. Donec non auctor urna. Cras gravida sed nisl semper dapibus.', '4 test address', 'KY', 'city4', '24680', 2000, '10/02/2021', 1, 5, 3.5);
+INSERT INTO properties (landlord_id, description, address_line_one, address_line_two, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'Located along the city eastern border, the RED is an innovative, upscale community at the crossroads of Oakley, Hyde Park, and Madisonville. With 14 unique styles of studios, one, and two-bedroom apartment homes, and secured parking, the RED is sure to please downtown commuters and Cincinnati newcomers.', '5110 Herringbone Dr', 'Apt E', 'OH', 'Cincinnati', '45227', 700, '08/02/2021', 1, 3, 2.5);
+INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (1, 'Modern. Spacious. Open concept. Granite. Stainless. Pool. Fitness. Theater. Yes, it is all here. Heritage At Oakley Square in Cincinnati, OH offers all-new 1, 2, and 3 bedroom apartments.', '4382 Marburg Ave', 'OH', 'Cincinnati', '45209', 900, '08/10/2022', 0, 2, 1);
+INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (2, 'Welcome to Academy on Fourth, a residential community featuring one and two-bedroom apartments in Newport, KY. Spacious layouts and amenities welcome you home, along with exceptional service and an ideal location within walking distance to shopping, dining and entertainment options.', '101 E 4th St', 'KY', 'Newport', '41071', 1000, '09/19/2021', 0, 2, 2);
+INSERT INTO properties (landlord_id, description, address_line_one, state_abbreviation, city, zip_code, price, date_available, available, beds, baths) VALUES (3, 'Nestled in Northern Kentucky in the premier development Manhattan Harbour, The Gateway Flats Boutique Apartments offers spacious lofts with quartz counter tops, energy-efficient stainless steel appliances, barn-style doors and laminate flooring throughout.', '284 Manhattan Blvd', 'KY', 'Dayton', '41074', 2000, '10/02/2021', 1, 5, 3.5);
 
 --populate default data for images
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('1', 'https://i.imgur.com/HiNohRo.jpeg', 1);
@@ -130,9 +130,9 @@ INSERT INTO images (property_id, image_link, thumbnail) VALUES ('3', 'https://i.
 INSERT INTO images (property_id, image_link, thumbnail) VALUES ('4', 'https://i.imgur.com/HiNohRo.jpeg', 1);
 
 --populate default data for tasks
-INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 1, 'test', 'Pending')
-INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (6, 2, 0, 'test', '08/9/2021', 'Scheduled')
-INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (7, 2, 0, 'test', '08/4/2021', 'Completed')
+INSERT INTO tasks (property_id, is_urgent, task_description, task_status) VALUES (1, 1, 'Pipes leaking', 'Pending')
+INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (6, 2, 0, 'Infested with Bats', '08/15/2021', 'Scheduled')
+INSERT INTO tasks (employee_id, property_id, is_urgent, task_description, date_scheduled, task_status) VALUES (7, 2, 0, 'Random guy living in the closet', '08/4/2021', 'Completed')
 
 --populate default data for employees_landlords
 INSERT INTO employees_landlords (employee_id, landlord_id) VALUES (6, 1);
@@ -145,7 +145,7 @@ INSERT INTO renters_properties (renter_id, property_id) VALUES (9, 2);
 INSERT INTO renters_properties (renter_id, property_id) VALUES (10, 3);
 
 --populate default data for applications
-INSERT INTO applications (renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status) VALUES (4, 1, 1, 'Amber', 'test@email.com', 2, '08/23/2021', 60000, 'Pending')
-INSERT INTO applications (renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status) VALUES (4, 1, 2, 'Amber', 'test@email.com', 2, '08/23/2021', 60000, 'Pending')
+INSERT INTO applications (renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status) VALUES (4, 1, 1, 'Jane Doe', 'test@email.com', 2, '08/23/2021', 60000, 'Pending')
+INSERT INTO applications (renter_id, landlord_id, property_id, name, email, tenants, move_in_date, income, status) VALUES (4, 1, 2, 'John Doe', 'test@email.com', 2, '08/23/2021', 60000, 'Pending')
 
 GO

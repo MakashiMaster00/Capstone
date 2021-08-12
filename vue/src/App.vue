@@ -18,7 +18,7 @@
           <b-navbar-item class="text" tag="router-link" :to="{ path: '/' }">
             Home
           </b-navbar-item>
-          <b-navbar-item class="text" tag="router-link" :to="{ name: 'info' }"> 
+          <b-navbar-item v-if="$store.state.token != ''" class="text" tag="router-link" :to="{ name: 'info' }"> 
             My Profile 
           </b-navbar-item>
           <b-navbar-dropdown v-if="$store.state.user.role == 'landlord'" class="text" label="Landlord">

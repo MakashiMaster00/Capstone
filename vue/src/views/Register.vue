@@ -66,7 +66,7 @@ export default {
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
-      roles: ['Renter', 'Landlord', 'Employee']
+      roles: ['renter', 'landlord', 'employee']
     };
   },
   methods: {

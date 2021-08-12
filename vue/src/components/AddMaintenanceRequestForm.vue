@@ -51,7 +51,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert("Property not found");
+            this.$buefy.dialog.alert("Property not found");
           }
           //this.$router.push("/");
         });

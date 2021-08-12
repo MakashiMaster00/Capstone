@@ -10,7 +10,7 @@
         <div class="props">
           <img class="img" v-bind:src="prop.thumbnail" alt="Property Thumbnail Image" />
           <div class="info">
-            <h1 id="address">{{ prop.addressLineOne }} {{ prop.addressLineTwo }}, {{ prop.city }}, {{ prop.state }} {{ prop.zipCode }}</h1>
+            <h1 id="address">{{ prop.addressLineOne }} {{ prop.addressLineTwo }} {{ prop.city }}, {{ prop.state }} {{ prop.zipCode }}</h1>
             <div id="description">
               {{ prop.description }}
             </div>
