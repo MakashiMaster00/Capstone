@@ -126,7 +126,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert(
+            this.$buefy.dialog.alert(
               "The property is not available. It may have been deleted or you have entered an invalid Id."
             );
             this.$router.push("/");
@@ -139,36 +139,40 @@ export default {
       appService.addApplication(this.application)
       .then(response => {
         if (response.status === 200) {
-          alert("You successfully applied!")
+          this.$buefy.dialog.alert("You successfully applied!")
           this.$router.push({name: 'home'})
         }
       }
       )
       .catch(error => {
         if (error.response) {
-          alert("There was an issue with your application.")
+          this.$buefy.dialog.alert("There was an issue with your application.")
         }
         
       })
     },
     deleteProperty() {
-      if (confirm("Are you sure you want to delete this property?")) {
-        propertyService
+      this.$buefy.dialog.confirm({
+        message: "Are you sure you want to delete this property?",
+        onConfirm: () =>
+        { propertyService
           .deleteProperty(this.$route.params.propertyId)
           .then((response) => {
             if (response.status === 200) {
-              alert("Property successfully deleted");
+              this.$buefy.dialog.alert("Property successfully deleted");
               this.$router.push("/myProperties");
             }
           })
           .catch((error) => {
             if (error.response) {
-              alert(
+              this.$buefy.dialog.alert(
                 `Error deleting property. Response received was ${error.response.statusText}`
               );
             }
-          });
-      }
+          });}
+      }) 
+       
+      
     },
   },
   created() {

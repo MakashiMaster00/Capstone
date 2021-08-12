@@ -60,19 +60,19 @@ export default {
       this.image.link = link;
       this.image.thumbnail = thumbnail;
       if (thumbnail) {
-        return alert("This is already set as your thumbnail.")
+        return this.$buefy.dialog.alert("This is already set as your thumbnail.")
       }
       imageService.setThumbnail(propertyId, imageId, this.image)
       .then(response => {
         if (response.status === 200) {
-          alert("You successfully updated your thumbnail!");
+          this.$buefy.dialog.alert("You successfully updated your thumbnail!");
           this.retrieveImages();
         }
       }
       )
       .catch(error => {
         if (error.response) {
-          alert("There was an issue updating your thumbnail");
+          this.$buefy.dialog.alert("There was an issue updating your thumbnail");
         }
         
       })
@@ -80,34 +80,37 @@ export default {
     },
     deleteImage(imageId, propertyId, thumbnail){
       if (thumbnail) {
-        return alert("You must set another thumbnail before deleting this image")
+        return this.$buefy.dialog.alert("You must set another thumbnail before deleting this image")
       }
-      if (confirm("Are you sure you want to delete this image?")) {
-        imageService.deleteImage(propertyId, imageId)
+      this.$buefy.dialog.confirm({
+        message: 'Are you sure you want to delete this image?',
+        onConfirm: () => imageService.deleteImage(propertyId, imageId)
           .then((response) => {
             if (response.status === 200) {
-              alert("Image successfully deleted");
+              this.$buefy.dialog.alert("Image successfully deleted");
               this.retrieveImages();
             }
           })
           .catch((error) => {
             if (error.response) {
-              alert(
+              this.$buefy.dialog.alert(
                 `Error deleting Image. Response received was ${error.response.statusText}`
               );
             }
-          });
-      }
+          })
+      })
+        
+      
     },
     addImage(){
       this.newImage.propertyId = Number(this.$route.params.propertyId);
       if (this.newImage.link == "") {
-        return alert("Enter a link for an image")
+        return this.$buefy.dialog.alert("Enter a link for an image")
       }
       imageService.addImage(this.$route.params.propertyId, this.newImage)
       .then(response => {
         if (response.status === 200) {
-          alert("You successfully added an image!")
+          this.$buefy.dialog.alert("You successfully added an image!")
           this.retrieveImages();
           this.newImage.link = "";
         }
@@ -115,7 +118,7 @@ export default {
       )
       .catch(error => {
         if (error.response) {
-          alert("There was an issue adding your image")
+          this.$buefy.dialog.alert("There was an issue adding your image")
         }
         
       })

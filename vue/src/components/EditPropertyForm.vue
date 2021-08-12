@@ -145,7 +145,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert(
+            this.$buefy.dialog.alert(
               "The property is not available. It may have been deleted or you have entered an invalid Id."
             );
             this.$router.push({name: 'landlordproperty'});
@@ -154,20 +154,24 @@ export default {
         
     },
     updateProperty(){
-      if (confirm("Are you sure you want to update?")) {
-        propertyService.updateProperty(this.$route.params.propertyId, this.property)
+     this.$buefy.dialog.confirm({
+       message: 'Are you sure you want to update?',
+       onConfirm: () => propertyService.updateProperty(this.$route.params.propertyId, this.property)
         .then(response => {
             if (response.status === 200) {
-              alert("Property successfully updated");
+              this.$buefy.dialog.alert("Property successfully updated");
               this.$router.push("/myProperties");
             }
           })
           .catch(error => {
             if (error.response) {
-              alert(`Error updating property. Response received was ${error.response.statusText}`)
+              this.$buefy.dialog.alert(`Error updating property. Response received was ${error.response.statusText}`)
             }
-          });
-      }
+          })
+     }
+       )
+        
+      
       
     }
   },

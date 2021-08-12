@@ -73,7 +73,7 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            alert("Tasks not found");
+            this.$buefy.dialog.alert("Tasks not found");
           }
           this.$router.push("/");
         })

@@ -156,14 +156,14 @@ export default {
       propertyService.addProperty(this.property)
       .then(response => {
         if (response.status === 200) {
-          alert("You successfully added a property!")
+          this.$buefy.dialog.alert("You successfully added a property!")
           this.$router.push({name: 'home'})
         }
       }
       )
       .catch(error => {
         if (error.response) {
-          alert("There was an issue adding your property")
+          this.$buefy.dialog.alert("There was an issue adding your property")
         }
         
       })

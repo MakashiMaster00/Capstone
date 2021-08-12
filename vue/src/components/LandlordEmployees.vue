@@ -54,44 +54,52 @@ export default {
         });
     },
     removeEmployee(employeeId) {
-      if (confirm("Are you sure you want to delete this employee?")) {
-        employeeService
+      this.$buefy.dialog.confirm({
+        message: "Are you sure you want to delete this employee?",
+        onConfirm: () =>
+        {employeeService
           .deleteEmployee(this.$store.state.user.userId, employeeId)
 
           .then((response) => {
             if (response.status === 200) {
-              alert("Employee successfully deleted");
+              this.$buefy.dialog.alert("Employee successfully deleted");
               this.retrieveEmployees();
             }
           })
           .catch((error) => {
             if (error.response) {
-              alert(
+              this.$buefy.dialog.alert(
                 `Error deleting Employee. Response received was ${error.response.statusText}`
               );
             }
-          });
-      }
+          });}
+      })
+        
+      
     },
     addEmployee() {
-      if (confirm("Are you sure you want to add this employee?")) {
-        employeeService
+      this.$buefy.dialog.confirm({
+        message: "Are you sure you want to add this employee?",
+        onConfirm: () => 
+        { employeeService
           .addEmployee(this.$store.state.user.userId, this.employee)
 
           .then((response) => {
             if (response.status === 200) {
-              alert("Employee successfully added");
+              this.$buefy.dialog.alert("Employee successfully added");
               this.retrieveEmployees();
             }
           })
           .catch((error) => {
             if (error.response) {
-              alert(
+              this.$buefy.dialog.alert(
                 `Error adding Employee. Response received was ${error.response.statusText}`
               );
             }
-          });
-      }
+          });}
+      })
+       
+      
     },
   },
 
